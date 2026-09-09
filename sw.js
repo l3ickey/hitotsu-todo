@@ -1,6 +1,6 @@
 'use strict';
 // Change the version whenever any shipped asset changes.
-const CACHE='hitotsu-v1:'+self.registration.scope+':1.0.8';
+const CACHE='hitotsu-v1:'+self.registration.scope+':1.0.9';
 const PREFIX='hitotsu-v1:'+self.registration.scope+':';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{

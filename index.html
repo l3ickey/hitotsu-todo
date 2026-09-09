@@ -111,7 +111,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.8</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.9</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -126,7 +126,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
   <dialog id="data-dialog" aria-labelledby="data-title"><div class="dialog-head"><h2 id="data-title">データの持ち運び</h2><button class="icon-button" data-close="data-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p>未完了・待ち・完了済み、子タスクと履歴をまとめて保存します。別の端末でも、このファイルを読み込めます。</p><div class="data-option"><h3>書き出す</h3><p>移動前やバックアップ時に、最新のデータを保存してください。</p><button class="primary" id="export-button">JSONを書き出す</button><p id="export-status" class="muted"></p></div><div class="data-option"><h3>読み込む</h3><p>内容を確認してから、現在の一覧を置き換えます。端末間での自動統合は行いません。</p><label class="file-label">JSONファイルを選択<input id="import-file" type="file" accept=".json,application/json"></label><div id="import-preview"></div></div><p class="muted">ブラウザのデータ消去では、タスクも消えることがあります。書き出したファイルは、アプリとは別の場所に保管してください。</p></div></dialog>
-  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-head"><h2 id="help-title">使い方と優先順位</h2><button class="icon-button" data-close="help-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><ol class="help-rules"><li><strong>相手につなぐ</strong>あなたが渡すまで、相手の作業が進まない。</li><li><strong>10分で片づける</strong>10分以内に終わる。</li><li><strong>分けて進める</strong>3営業日以上かかる。子タスクに分解して進める。</li><li><strong>締切から進める</strong>上のどれにも当てはまらない。</li></ol><p>最初にYesと答えた条件で優先度が決まります。同じ優先度では締切が近い順、登録が古い順に並びます。締切なしは各優先度の最後です。</p><p>タスク名や「メモあり」をタップすると編集できます。変更後は「変更を保存」を押してください。同じ画面で状態変更・子タスク追加・複製・履歴の確認もできます。</p><p>「今やる」に1件固定できます。「待ち」は自分が作業できる一覧から分かれます。期限超過と今日締切は別枠にも表示します。</p><p>子タスクはどの優先度でも追加できます。上下ボタン、またはドラッグで並べ替えてください。親の締切・状態は子にも影響するため、親が「待ち」の間は子も「待ち」一覧に表示します。</p><p>子がすべて完了すると親を完了できます。子を再開すると、完了した親も再開します。出戻りは「再開」、繰り返し作業は「複製」を使います。複製では締切と完了状態をリセットします。</p><p>iPhoneではHTTPSのサイトをSafariで開き、共有メニューから「ホーム画面に追加」。ホーム画面から起動して「オフライン利用の準備完了」を確認してください。PCでファイルを直接開く版は、そのままネット接続なしで動きます。</p></div></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-head"><h2 id="help-title">使い方と優先順位</h2><button class="icon-button" data-close="help-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><ol class="help-rules"><li><strong>相手につなぐ</strong>あなたが渡すまで、相手の作業が進まない。</li><li><strong>10分で片づける</strong>10分以内に終わる。</li><li><strong>分けて進める</strong>3営業日以上かかる。子タスクに分解して進める。</li><li><strong>締切から進める</strong>上のどれにも当てはまらない。</li></ol><p>最初にYesと答えた条件で優先度が決まります。同じ優先度では締切が近い順、登録が古い順に並びます。締切なしは各優先度の最後です。</p><p>タスク名や「メモあり」をタップすると編集できます。変更は自動保存されます。同じ画面で状態変更・子タスク追加・複製・履歴の確認もできます。</p><p>「今やる」に1件固定できます。「待ち」は自分が作業できる一覧から分かれます。期限超過と今日締切は別枠にも表示します。</p><p>子タスクはどの優先度でも追加できます。上下ボタン、またはドラッグで並べ替えてください。親の締切・状態は子にも影響するため、親が「待ち」の間は子も「待ち」一覧に表示します。</p><p>子がすべて完了すると親を完了できます。子を再開すると、完了した親も再開します。出戻りは「再開」、繰り返し作業は「複製」を使います。複製では締切と完了状態をリセットします。</p><p>iPhoneではHTTPSのサイトをSafariで開き、共有メニューから「ホーム画面に追加」。ホーム画面から起動して「オフライン利用の準備完了」を確認してください。PCでファイルを直接開く版は、そのままネット接続なしで動きます。</p></div></dialog>
   <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-head"><h2 id="confirm-title">確認</h2></div><div class="dialog-body"><p id="confirm-text"></p></div><div class="dialog-foot"><button id="confirm-no">キャンセル</button><button class="primary" id="confirm-yes">実行する</button></div></dialog>
   <div id="toast" role="status" aria-live="polite"></div>
   <script>document.querySelector('#data-dialog .dialog-body').insertAdjacentHTML('beforeend','<p id="data-offline-status" class="muted"></p><button type="button" id="mobile-help">使い方と優先順位</button>');document.querySelector('#mobile-help').onclick=function(){document.querySelector('#data-dialog').close();document.querySelector('#help-dialog').showModal();};</script>
@@ -325,13 +325,13 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   function editorExtras(){
     const t=task(draft.id),kids=C.children(state,t.id),blocked=kids.some(k=>k.status!=='done');
     const actions={created:'登録',edited:'編集',completed:'完了',reopened:'再開',status:'状態変更',duplicated:'複製',reordered:'並べ替え'};
-    return '<label class="field">状態<select id="edit-status">'+C.statuses.map(value=>'<option value="'+value+'" '+(draft.status===value?'selected':'')+' '+(value==='done'&&blocked?'disabled':'')+'>'+stateNames[value]+'</option>').join('')+'</select></label>'+(blocked?'<p class="muted">親を完了にするには、先に子タスクをすべて完了してください。</p>':'')+'<div class="editor-actions">'+(!t.parentId?'<button type="button" data-action="add-child" data-id="'+t.id+'">＋ 子タスクを追加</button>':'')+'<button type="button" data-action="duplicate" data-id="'+t.id+'">複製して新規作成</button>'+(available(t)?'<button type="button" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定を解除':'今やるに固定')+'</button>':'')+'</div><p class="muted">上の操作ボタンを押すと、入力中の変更も保存します。</p><p class="detail-dates">登録：'+esc(new Date(t.createdAt).toLocaleString('ja-JP'))+'</p><details><summary>操作履歴（'+t.history.length+'件）</summary><ol class="history">'+t.history.slice().reverse().map(h=>'<li>'+esc(new Date(h.at).toLocaleString('ja-JP'))+' · '+esc(actions[h.action]||h.action)+(h.detail?' — '+esc(stateNames[h.detail]||h.detail):'')+'</li>').join('')+'</ol></details>';
+    return '<label class="field">状態<select id="edit-status">'+C.statuses.map(value=>'<option value="'+value+'" '+(draft.status===value?'selected':'')+' '+(value==='done'&&blocked?'disabled':'')+'>'+stateNames[value]+'</option>').join('')+'</select></label>'+(blocked?'<p class="muted">親を完了にするには、先に子タスクをすべて完了してください。</p>':'')+'<div class="editor-actions">'+(!t.parentId?'<button type="button" data-action="add-child" data-id="'+t.id+'">＋ 子タスクを追加</button>':'')+'<button type="button" data-action="duplicate" data-id="'+t.id+'">複製して新規作成</button>'+'</div><p class="muted">変更は自動保存されます。</p><p class="detail-dates">登録：'+esc(new Date(t.createdAt).toLocaleString('ja-JP'))+'</p><details><summary>操作履歴（'+t.history.length+'件）</summary><ol class="history">'+t.history.slice().reverse().map(h=>'<li>'+esc(new Date(h.at).toLocaleString('ja-JP'))+' · '+esc(actions[h.action]||h.action)+(h.detail?' — '+esc(stateNames[h.detail]||h.detail):'')+'</li>').join('')+'</ol></details>';
   }
   function captureEdit(){
     draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;draft.due=$('#edit-due').value||null;draft.status=$('#edit-status').value;
   }
   function renderEditor(){
-    const step=draft.step;$('#editor-back').hidden=step===0;$('#editor-next').hidden=step>=1&&step<=3;$('#editor-next').textContent=step===4||draft.editing?'変更を保存':'次へ';if(!draft.editing&&step===4)$('#editor-next').textContent='保存する';
+    const step=draft.step;$('#editor-back').hidden=step===0;$('#editor-next').hidden=draft.editing||step>=1&&step<=3;$('#editor-next').textContent=step===4||draft.editing?'変更を保存':'次へ';if(!draft.editing&&step===4)$('#editor-next').textContent='保存する';
     const bar='<div class="steps" aria-label="登録ステップ '+(step+1)+'"><span class="filled"></span><span class="'+(step>0?'filled':'')+'"></span><span class="'+(step===4?'filled':'')+'"></span></div>';
     if(step===0){$('#editor-body').innerHTML=(draft.editing?'':bar)+(draft.parentId?'<p class="muted">親タスク：'+esc(task(draft.parentId)?.title)+'</p>':'')+'<label class="field">タスク名<input id="todo-title-input" name="todo-title" type="text" required maxlength="200" placeholder="例：確認用の資料を仕上げる" value="'+esc(draft.title)+'" autocomplete="off"></label><label class="field">メモ <small>任意。作業の内容や、次にすることなど。</small><textarea id="task-note" name="todo-note" autocomplete="off" maxlength="20000" placeholder="補足を書いておく">'+esc(draft.note)+'</textarea></label>'+(draft.editing?'<label class="field">締切日<input id="edit-due" type="date" min="0001-01-01" max="9999-12-31" value="'+esc(draft.due)+'"></label>'+(!draft.parentId?'<p class="muted">現在の優先度：'+C.priority(draft.answers)+' · '+names[C.priority(draft.answers)]+'</p><button type="button" data-reassess>優先度の質問に答え直す</button>':''):'');if(draft.editing)$('#editor-body').innerHTML+=editorExtras();setTimeout(()=>$('#todo-title-input')?.focus(),0);}
     else if(step<=3){const r=C.rules[step-1];$('#editor-body').innerHTML=bar+'<p class="question-label">質問 '+step+' / 3</p><h3 class="question-title">'+r.title+'</h3><p class="muted">'+r.help+'</p><div class="answer-buttons"><button type="button" data-answer="yes">Yes · はい</button><button type="button" data-answer="no">No · いいえ</button></div>';setTimeout(()=>document.querySelector('[data-answer]')?.focus(),0);}
@@ -345,25 +345,42 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       setTimeout(()=>$('#task-due')?.focus(),0);
     }
   }
-  function saveDraft(){
+  function saveDraft(close=true){
     if(!draft.title.trim()||draft.title.length>200||draft.note.length>20000){$('#editor-error').textContent='タスク名とメモの文字数を確認してください。';return;}
     if(!C.validDate(draft.due||null)){ $('#editor-error').textContent='締切日を確認してください。';return; }
+    $('#editor-error').textContent='';
+    if(draft.id){const t=task(draft.id);if(t.title===draft.title&&t.note===draft.note&&t.due===(draft.due||null)&&(!draft.status||t.status===draft.status)&&(t.parentId||JSON.stringify(t.answers)===JSON.stringify(draft.answers))){if(close)$('#editor').close();return true;}}
     const ok=mutate(()=>{
       if(draft.id){const t=task(draft.id);const changed=!t.parentId&&JSON.stringify(t.answers)!==JSON.stringify(draft.answers);t.title=draft.title;t.note=draft.note;t.due=draft.due||null;if(!t.parentId)t.answers={...draft.answers};if(draft.status&&draft.status!==t.status)C.setStatus(state,t.id,draft.status);C.event(t,'edited',changed?'内容・優先度を更新':'タスク名・メモ・締切を更新');}
       else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));if(parent)expandedParents.delete(parent.id);}
-    },draft.editing?'タスクを更新しました':'タスクを登録しました');if(ok)$('#editor').close();return ok;
+    },draft.editing?(close?'タスクを更新しました':null):'タスクを登録しました');if(ok&&close)$('#editor').close();return ok;
   }
-  $('#editor-form').addEventListener('submit',e=>{e.preventDefault();if(draft.step===0){draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}if(draft.editing){captureEdit();saveDraft();return;}draft.step=draft.parentId?4:1;renderEditor();}else if(draft.step===4){draft.due=$('#task-due').value||null;saveDraft();}
+  let editSaveTimer=null;
+  function flushEdit(){
+    clearTimeout(editSaveTimer);
+    if(!draft?.editing||draft.step!==0)return true;
+    captureEdit();return saveDraft(false);
+  }
+  $('#editor-body').addEventListener('input',e=>{
+    clearTimeout(editSaveTimer);
+    if(!draft?.editing||draft.step!==0||e.isComposing)return;
+    clearTimeout(editSaveTimer);editSaveTimer=setTimeout(flushEdit,400);
+  });
+  $('#editor-body').addEventListener('compositionend',()=>{if(draft?.editing&&draft.step===0){clearTimeout(editSaveTimer);editSaveTimer=setTimeout(flushEdit,400);}});
+  $('#editor-body').addEventListener('change',()=>{if(draft?.editing&&draft.step===0)flushEdit();});
+  $('#editor').addEventListener('cancel',e=>{if(!flushEdit())e.preventDefault();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&$('#editor').open)flushEdit();});
+  $('#editor-form').addEventListener('submit',e=>{e.preventDefault();if(draft.step===0){draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}if(draft.editing){captureEdit();saveDraft(false);return;}draft.step=draft.parentId?4:1;renderEditor();}else if(draft.step===4){draft.due=$('#task-due').value||null;saveDraft();}
   });
   $('#editor-back').addEventListener('click',()=>{if(draft.step===4){draft.due=$('#task-due').value;draft.step=draft.parentId?0:Math.min(C.priority(draft.answers),3);}else draft.step--;renderEditor();});
-  $('#editor-body').addEventListener('click',e=>{if(e.target.closest('[data-reassess]')){captureEdit();if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}draft.step=1;renderEditor();return;}const b=e.target.closest('[data-answer]');if(!b)return;const i=draft.step-1;draft.answers[C.rules[i].key]=b.dataset.answer==='yes';for(let n=i+1;n<3;n++)draft.answers[C.rules[n].key]=null;draft.step=b.dataset.answer==='yes'||i===2?4:draft.step+1;renderEditor();});
+  $('#editor-body').addEventListener('click',e=>{if(e.target.closest('[data-reassess]')){captureEdit();if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}if(!flushEdit())return;draft.step=1;renderEditor();return;}const b=e.target.closest('[data-answer]');if(!b)return;const i=draft.step-1;draft.answers[C.rules[i].key]=b.dataset.answer==='yes';for(let n=i+1;n<3;n++)draft.answers[C.rules[n].key]=null;draft.step=b.dataset.answer==='yes'||i===2?4:draft.step+1;if(draft.editing&&draft.step===4){if(saveDraft(false))draft.step=0;}renderEditor();});
   function ask(text,label='実行する'){return new Promise(resolve=>{$('#confirm-text').textContent=text;$('#confirm-yes').textContent=label;const d=$('#confirm-dialog');function finish(answer){d.close();$('#confirm-yes').onclick=null;$('#confirm-no').onclick=null;d.oncancel=null;resolve(answer);}$('#confirm-yes').onclick=()=>finish(true);$('#confirm-no').onclick=()=>finish(false);d.oncancel=e=>{e.preventDefault();finish(false);};d.showModal();});}
   document.addEventListener('click',async e=>{
-    const close=e.target.closest('[data-close]');if(close){$('#'+close.dataset.close).close();return;}
+    const close=e.target.closest('[data-close]');if(close){if(close.dataset.close==='editor'&&!flushEdit())return;$('#'+close.dataset.close).close();return;}
     const nav=e.target.closest('[data-view]');if(nav){view=nav.dataset.view;render();return;}
     const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id,t=task(id);
-    const fromEditor=$('#editor').open&&!!b.closest('#editor')&&['add-child','duplicate','pin'].includes(b.dataset.action);
-    if(fromEditor){captureEdit();if(!saveDraft())return;}
+    const fromEditor=$('#editor').open&&!!b.closest('#editor')&&['add-child','duplicate'].includes(b.dataset.action);
+    if(fromEditor){if(!flushEdit())return;$('#editor').close();}
     switch(b.dataset.action){
       case 'add':openEditor();break;
       
