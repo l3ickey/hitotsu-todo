@@ -47,6 +47,30 @@
   max-width:100%;
   min-width:0;
 }
+.task-tree{border-top:1px solid var(--line)}
+.task-tree>summary{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;list-style:none;padding:13px 18px;min-height:48px;cursor:pointer;font-size:.9rem;font-weight:600;color:#35557e;background:#f7f9fc}
+.task-tree>summary::-webkit-details-marker{display:none}
+.task-tree>summary:hover{background:#edf3fb}
+.task-tree>summary:focus-visible{outline:3px solid #6798ff;outline-offset:-3px}
+.tree-chevron{font-size:1.4rem;line-height:1;transition:transform .15s}
+.task-tree[open]>summary .tree-chevron{transform:rotate(90deg)}
+.tree-progress{margin-left:auto;color:var(--muted);font-size:.8rem;font-weight:400}
+.tree-match{font-size:.8rem;color:var(--blue)}
+.task-tree .children{padding:14px 18px 12px 30px;background:#f7f9fc}
+.tree-label{font-size:.8rem;color:#557092;margin-bottom:12px}
+.tree-branches{border-left:2px solid #b4c9e5;padding-left:17px;margin-left:5px}
+.tree-branches .child-row{position:relative;border:1px solid #dbe5f1;border-radius:9px;background:#fff;padding:12px;margin-bottom:10px}
+.tree-branches .child-row::before{content:"";position:absolute;top:24px;left:-19px;width:17px;border-top:2px solid #b4c9e5}
+.tree-branches .child-row:last-child{margin-bottom:0}
+.tree-branches .child-row.drag-over{background:#edf3ff}
+.task-tree .child-add{margin-top:10px}
+@media(max-width:720px){
+  .task-tree>summary{padding:13px 12px;font-size:.875rem;gap:8px}
+  .task-tree .children{padding:12px}
+  .tree-branches{padding-left:12px;margin-left:2px}
+  .tree-branches .child-row{padding:12px 10px;column-gap:8px}
+  .tree-branches .child-row::before{left:-14px;width:12px}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -59,7 +83,7 @@
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.2</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.3</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -190,6 +214,7 @@
   const KEY='hitotsu-todo-v1';
   const names=['','相手につなぐ','10分で片づける','分けて進める','締切から進める'];
   const stateNames={todo:'未着手',doing:'作業中',waiting:'待ち',done:'完了済み'};
+  const expandedParents=new Set();
   let state=C.empty(),view='active',query='',persisted=null,storageBroken=false,conflict=false,detailId=null,draft=null,importState=null,registration=null,toastTimer;
   function toast(message) { $('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),4500); }
   function warning(message) {$('#storage-warning').textContent=message;$('#storage-warning').hidden=false;}
@@ -228,8 +253,14 @@
   function check(t){return '<button class="check '+(t.status==='done'?'checked':'')+'" data-action="toggle" data-id="'+t.id+'" aria-label="'+esc(t.title)+(t.status==='done'?'を再開':'を完了')+'">'+(t.status==='done'?'✓':'')+'</button>';}
   function meta(t){return '<div class="task-meta"><span class="'+(t.due && t.due<=C.today() && t.status!=='done'?'overdue':'')+'">'+dueText(t.due)+'</span>'+badge(t)+(t.note?'<span>メモあり</span>':'')+'</div>';}
   function renderChild(t,list,index){return '<div class="child-row" data-child="'+t.id+'"><span class="drag-handle" draggable="true" data-drag="'+t.id+'" aria-hidden="true" title="ドラッグして並べ替え">⠿</span>'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+'</div><div class="child-move"><button data-action="up" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を上へ" '+(index===0?'disabled':'')+'>↑</button><button data-action="down" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を下へ" '+(index===list.length-1?'disabled':'')+'>↓</button></div></div>';}
-  function renderCard(t){const kids=C.children(state,t.id),complete=kids.filter(k=>k.status==='done').length;
-    return '<article class="task-card"><div class="task-row">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+(kids.length?'<div class="task-meta"><span>'+complete+' / '+kids.length+' ステップ完了</span></div><div class="progress-track" aria-hidden="true"><span style="width:'+complete/kids.length*100+'%"></span></div>':'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+(kids.length || t.status!=='done'?'<div class="children">'+kids.map((k,i)=>renderChild(k,kids,i)).join('')+(t.status!=='done'?'<button class="child-add" data-action="add-child" data-id="'+t.id+'">＋ '+(kids.length?'ステップを追加':C.priority(t.answers)===3?'小さなステップに分ける':'子タスクを追加')+'</button>':'')+'</div>':'')+'</article>';
+  function renderCard(t){
+    const kids=C.children(state,t.id),complete=kids.filter(k=>k.status==='done').length;
+    const add=t.status!=='done'?'<button class="child-add" data-action="add-child" data-id="'+t.id+'">＋ '+(kids.length?'ステップを追加':C.priority(t.answers)===3?'小さなステップに分ける':'子タスクを追加')+'</button>':'';
+    const childMatch=query?kids.filter(matches).length:0;
+    const subtree=kids.length
+      ? '<details class="task-tree" data-parent="'+t.id+'"'+(expandedParents.has(t.id)?' open':'')+'><summary><span class="tree-chevron" aria-hidden="true">›</span><span>ステップ '+kids.length+'件</span><span class="tree-progress">'+complete+'/'+kids.length+' 完了</span>'+(childMatch?'<span class="tree-match">検索一致 '+childMatch+'件</span>':'')+'</summary><div class="children"><div class="tree-label">このタスクの子タスク</div><div class="tree-branches">'+kids.map((k,i)=>renderChild(k,kids,i)).join('')+'</div>'+add+'</div></details>'
+      : add?'<div class="children empty-children">'+add+'</div>':'';
+    return '<article class="task-card"><div class="task-row">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+(kids.length?'<div class="progress-track" aria-hidden="true"><span style="width:'+complete/kids.length*100+'%"></span></div>':'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+subtree+'</article>';
   }
   function render(){
     const roots=state.tasks.filter(t=>!t.parentId), active=roots.filter(available).sort(C.compare), waits=roots.filter(t=>waiting(t)&&t.status!=='done'),done=roots.filter(t=>t.status==='done');
@@ -283,7 +314,7 @@
   $('#editor-form').addEventListener('submit',e=>{e.preventDefault();if(draft.step===0){draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}draft.step=draft.parentId?4:1;renderEditor();}else if(draft.step===4){draft.due=$('#task-due').value||null;if(!C.validDate(draft.due)){ $('#editor-error').textContent='締切日を確認してください。';return; }
     const ok=mutate(()=>{
       if(draft.id){const t=task(draft.id);t.title=draft.title;t.note=draft.note;t.due=draft.due;if(!t.parentId)t.answers={...draft.answers};C.event(t,'edited','内容・優先度を更新');}
-      else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));}
+      else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));if(parent)expandedParents.delete(parent.id);}
     },draft.editing?'タスクを更新しました':'タスクを登録しました');if(ok)$('#editor').close();}
   });
   $('#editor-back').addEventListener('click',()=>{if(draft.step===4){draft.due=$('#task-due').value;draft.step=draft.parentId?0:Math.min(C.priority(draft.answers),3);}else draft.step--;renderEditor();});
@@ -310,6 +341,11 @@
     }
   });
   let dragId=null;
+  $('#task-list').addEventListener('toggle',e=>{
+    const tree=e.target;
+    if(!tree.matches?.('details.task-tree')||!tree.isConnected)return;
+    if(tree.open)expandedParents.add(tree.dataset.parent);else expandedParents.delete(tree.dataset.parent);
+  },true);
   $('#task-list').addEventListener('dragstart',e=>{const h=e.target.closest('[data-drag]');if(!h){e.preventDefault();return;}dragId=h.dataset.drag;e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';});
   $('#task-list').addEventListener('dragover',e=>{const row=e.target.closest('[data-child]');if(row&&task(dragId)?.parentId===task(row.dataset.child)?.parentId){e.preventDefault();row.classList.add('drag-over');}});
   $('#task-list').addEventListener('dragleave',e=>e.target.closest('[data-child]')?.classList.remove('drag-over'));
