@@ -150,7 +150,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.2.0</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.2.1</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -160,7 +160,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><span class="app-version" aria-label="アプリのバージョン">v1.2.0</span></footer>
+      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><span class="app-version" aria-label="アプリのバージョン">v1.2.1</span></footer>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
@@ -322,6 +322,21 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     return next;
   }
   function seed(state,device){return Object.entries(groups(state)).map(([key,value])=>append([],key,value,device));}
+  // Only rewrite records that have never been offered to the server. Preserve
+  // published IDs, uncertain writes, branches and other devices' causal history.
+  function compactUnsent(events,protectedIds,device){
+    const records=new Map(combine(events).map(e=>[e.id,e])),protectedSet=new Set(protectedIds),children=new Map();
+    for(const e of records.values())for(const p of e.parents)children.set(p,(children.get(p)||0)+1);
+    for(const e of records.values()){
+      if(e.device!==device||protectedSet.has(e.id))continue;
+      while(e.parents.length===1){
+        const parent=records.get(e.parents[0]);
+        if(!parent||parent.device!==device||protectedSet.has(parent.id)||children.get(parent.id)!==1)break;
+        e.parents=[...parent.parents];records.delete(parent.id);
+      }
+    }
+    return combine([...records.values()]);
+  }
   function materialize(events,current){
     const byKey=heads(events),existing=groups(current),tasks=[];
     for(const [key,list] of Object.entries(byKey)){
@@ -346,24 +361,25 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     const known=new Set(remote.events.map(e=>e.id));
     const pending=merged.filter(e=>!known.has(e.id));
     // Persist fetched branches before publishing or applying them to the task list.
-    await onPersist(merged,[...known]);
-    if(pending.length){await adapter.write(pending);for(const e of pending)known.add(e.id);await onPersist(merged,[...known]);}
+    await onPersist(merged,[...known],remote.cursor);
+    if(pending.length){await adapter.write(pending);for(const e of pending)known.add(e.id);await onPersist(merged,[...known],remote.cursor);}
     return {events:merged,sent:[...known]};
   }
-  return {clone,equal,groups,combine,heads,conflicts,append,capture,seed,materialize,resolve,exchange};
+  return {clone,equal,groups,combine,heads,conflicts,append,capture,seed,compactUnsent,materialize,resolve,exchange};
 });
 </script><script>window.HITOTSU_FIREBASE_CONFIG={"apiKey":"AIzaSyBPOUo38MkIVpqQgFrH1lZoGNf8Y99hIHE","authDomain":"elevated-agent-508111-q6.firebaseapp.com","projectId":"elevated-agent-508111-q6","appId":"1:300409279635:web:97fdb9a8da42ba84eca966"};</script><script>(function(){
   'use strict';
   const C=TodoCore,S=TodoSync,$=s=>document.querySelector(s),K='hitotsu-firebase-sync-v1';
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let host,store,stored,broken=false,busy=false,token=false,runtime=null,runtimeReady=null,session=null,generation=0,authBusy=false,authAttempt=0,loginTimer,retryAt=0,failures=0,timer,activeConflict=null;
-  function fresh(){return {version:1,device:C.uid(),account:null,projectId:null,consent:false,enabled:false,events:[],sent:[],lastSync:null};}
+  function fresh(){return {version:2,device:C.uid(),account:null,projectId:null,consent:false,enabled:false,events:[],sent:[],sealed:[],cursor:null,lastSync:null};}
   function persist(){
     if(broken)throw Error('同期記録を保存できません。JSONを書き出してください。');
     if(localStorage.getItem(K)!==stored){broken=true;throw Error('別の画面で同期設定が変わりました。再読み込みしてください。');}
     const json=JSON.stringify(store);localStorage.setItem(K,json);stored=json;
   }
   function status(text){$('#drive-status').textContent=text;$('#drive-summary').textContent=text;}
+  function compact(events){return S.compactUnsent(events,[...store.sent,...store.sealed],store.device);}
   function pending(){const sent=new Set(store.sent);return store.events.filter(e=>!sent.has(e.id)).length;}
   function update(){
     const count=S.conflicts(store.events).length;
@@ -419,7 +435,8 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         store.account={id:user.uid,email:user.email};store.projectId=window.HITOTSU_FIREBASE_CONFIG.projectId;store.events=S.seed(host.get(),store.device);store.sent=[];store.observed=host.get();
       }
       persist();token=true;const epoch=generation;
-      session=runtime.session(user.uid,()=>{if(epoch!==generation)return;retryAt=0;schedule();});
+      const confirmed=new Set(store.sent);
+      session=runtime.session(user.uid,()=>{if(epoch!==generation)return;retryAt=0;schedule();},{events:store.events.filter(e=>confirmed.has(e.id)),cursor:store.cursor});
       retryAt=0;failures=0;update();await run();
     }catch(err){if(authEpoch!==generation)return;closeSession();error(err);}
   }
@@ -428,10 +445,13 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     if(busy||broken||!store.enabled||!token||!navigator.onLine||document.hidden||Date.now()<retryAt||host.blocked()||host.editing())return;
     busy=true;const epoch=generation,adapter=session;update();
     try{
-      await S.exchange(adapter,S.clone(store.events),store.sent,async(events,sent)=>{
+      // Seal before awaiting the network: an edit during this run must not rewrite its snapshot.
+      const confirmed=new Set(store.sent);
+      store.sealed=[...new Set([...store.sealed,...store.events.filter(e=>!confirmed.has(e.id)).map(e=>e.id)])];persist();
+      await S.exchange(adapter,S.clone(store.events),store.sent,async(events,sent,cursor)=>{
         if(epoch!==generation||!store.enabled||!token||broken)throw Error('同期を停止しました。再接続すると再開します。');
         // Edits made while the network request was running stay in the journal.
-        store.events=S.combine(store.events,events);store.sent=[...new Set([...store.sent,...sent])];persist();
+        store.events=S.combine(store.events,events);const known=new Set([...store.sent,...sent]);store.sent=[...known];store.sealed=store.sealed.filter(id=>!known.has(id));if(cursor)store.cursor=cursor;persist();
       });
       if(epoch!==generation)throw Error('同期を停止しました。');
       if(host.blocked())throw Error('端末内の保存状態を確認してください。');
@@ -455,22 +475,18 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   }
   window.HitotsuFirebase={
     init(api){
-      host=api;try{stored=localStorage.getItem(K);store=stored?JSON.parse(stored):fresh();if(store.version!==1||!Array.isArray(store.sent))throw Error('未対応の同期設定です。');store.events=S.combine(store.events);if(store.account){store.events=S.capture(store.events,store.observed||host.get(),host.get(),store.device);store.observed=host.get();persist();}}catch(err){store=fresh();broken=true;}
-      document.body.insertAdjacentHTML('beforeend','<dialog id="drive-dialog" aria-labelledby="drive-title"><div class="dialog-head"><h2 id="drive-title">Firebase同期</h2><button class="icon-button" data-close="drive-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p id="drive-account"></p><p id="drive-summary" role="status"></p><p id="drive-last" class="muted"></p><p>タスク・子タスク・履歴・削除の記録を運営者が管理するFirebaseへ保存します。運営者は内容にアクセスできます。固定するタスクは端末ごとです。</p><p>ログインは再起動後も復元します。オフラインの編集は端末に残り、アプリを開いてオンラインに戻ると同期します。利用できるのは管理者が許可したGoogleアカウントのみです。</p><div class="editor-actions"><button id="drive-connect" class="primary">Googleでログインして同期</button><button id="drive-stop">同期を停止・ログアウト</button><button id="drive-resolve" hidden>変更の衝突を確認</button></div><p id="drive-error" class="error" role="alert"></p><section id="firebase-migration"><h3>初回の移行</h3><p>各端末の旧Drive同期を停止し、最新データをJSONで退避してください。Driveにしかない変更は旧版で同期してからJSONで取り込んでください。Driveからの自動取り込み・削除は行いません。</p><p>現在この端末にあるタスクを同期します。同じタスクに違いがある場合は競合画面で選びます。過去に削除済みのタスクの旧Drive記録は移しません。</p><p>Firebase Authenticationは米国で処理されます。<a href="./privacy.html" target="_blank" rel="noopener">保存先・履歴・削除方法を確認</a></p><label><input type="checkbox" id="firebase-consent"> 説明を確認し、この端末のデータをFirebaseへ保存することに同意します</label></section></div></dialog><dialog id="sync-conflict" aria-labelledby="sync-conflict-title"><div class="dialog-head"><h2 id="sync-conflict-title">変更が衝突しています</h2><button class="icon-button" data-close="sync-conflict" aria-label="閉じる">×</button></div><div class="dialog-body"><p>残す内容を選んでください。親子の整合性を保つため、この親タスクと子タスク一式を比較しています。他のタスクは変更しません。</p><div id="sync-choices"></div><p id="sync-choice-error" class="error" role="alert"></p></div><div class="dialog-foot"><button data-close="sync-conflict">あとで選ぶ</button><button id="sync-choose" class="primary" disabled>選んだ内容を残す</button></div></dialog>');
+      host=api;try{stored=localStorage.getItem(K);store=stored?JSON.parse(stored):fresh();if(![1,2].includes(store.version)||!Array.isArray(store.sent))throw Error('未対応の同期設定です。');store.events=S.combine(store.events);if(store.version===1){store.version=2;store.sealed=store.events.map(e=>e.id);store.cursor=null;}if(!Array.isArray(store.sealed))throw Error('同期記録が不正です。');if(store.account){store.events=compact(S.capture(store.events,store.observed||host.get(),host.get(),store.device));store.observed=host.get();persist();}}catch(err){store=fresh();broken=true;}
+      document.body.insertAdjacentHTML('beforeend','<dialog id="drive-dialog" aria-labelledby="drive-title"><div class="dialog-head"><h2 id="drive-title">Firebase同期</h2><button class="icon-button" data-close="drive-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p id="drive-account"></p><p id="drive-summary" role="status"></p><p id="drive-last" class="muted"></p><p>タスク・子タスク・履歴・削除の記録を運営者が管理するFirebaseへ保存します。運営者は内容にアクセスできます。固定するタスクは端末ごとです。</p><p>ログインは再起動後も復元します。オフラインの編集は端末に残り、アプリを開いてオンラインに戻ると同期します。利用できるのは管理者が許可したGoogleアカウントのみです。</p><div class="editor-actions"><button id="drive-connect" class="primary">Googleでログインして同期</button><button id="drive-stop">同期を停止・ログアウト</button><button id="drive-resolve" hidden>変更の衝突を確認</button></div><p id="drive-error" class="error" role="alert"></p><section id="firebase-consent-section"><h3>同期データの保存</h3><p>Firebase Authenticationは米国で処理されます。<a href="./privacy.html" target="_blank" rel="noopener">保存先・履歴・削除方法を確認</a></p><label><input type="checkbox" id="firebase-consent"> 説明を確認し、この端末のデータをFirebaseへ保存することに同意します</label></section></div></dialog><dialog id="sync-conflict" aria-labelledby="sync-conflict-title"><div class="dialog-head"><h2 id="sync-conflict-title">変更が衝突しています</h2><button class="icon-button" data-close="sync-conflict" aria-label="閉じる">×</button></div><div class="dialog-body"><p>残す内容を選んでください。親子の整合性を保つため、この親タスクと子タスク一式を比較しています。他のタスクは変更しません。</p><div id="sync-choices"></div><p id="sync-choice-error" class="error" role="alert"></p></div><div class="dialog-foot"><button data-close="sync-conflict">あとで選ぶ</button><button id="sync-choose" class="primary" disabled>選んだ内容を残す</button></div></dialog>');
       $('#data-dialog .dialog-body').insertAdjacentHTML('afterbegin','<div class="data-option"><h3>端末間で自動同期</h3><button id="drive-open">Firebase同期</button></div>');
       $('.main-footer').insertAdjacentHTML('afterbegin','<button id="drive-status" class="sync-status">Firebase同期：オフ</button>');
       const open=()=>{update();$('#drive-dialog').showModal();loadFirebase().catch(error);};$('#drive-open').onclick=open;$('#drive-status').onclick=open;
-      $('#firebase-migration').hidden=!!store.consent;
+      $('#firebase-consent-section').hidden=!!store.consent;
       $('#drive-connect').onclick=()=>{
         try{
           if(broken||host.blocked())throw Error('端末内の保存状態を確認してから接続してください。');
           if(!navigator.onLine)throw Error('オンラインで接続してください。');
-          if(!store.consent&&!$('#firebase-consent').checked)throw Error('移行の説明を確認して同意にチェックしてください。');
+          if(!store.consent&&!$('#firebase-consent').checked)throw Error('保存先の説明を確認して同意にチェックしてください。');
           if(!runtime){loadFirebase().then(()=>{$('#drive-error').textContent='準備できました。もう一度接続ボタンを押してください。';}).catch(error);return;}
-          if(!store.account){
-            const legacy=localStorage.getItem('hitotsu-drive-sync-v1');
-            if(legacy&&S.conflicts(S.combine(JSON.parse(legacy).events)).length)throw Error('旧Drive同期の競合が残っています。旧版で解決し、JSONを退避してから移行してください。');
-          }
           store.consent=true;store.enabled=true;persist();authBusy=true;const attempt=++authAttempt;$('#drive-error').textContent='';update();
           loginTimer=setTimeout(()=>{
             if(attempt!==authAttempt)return;
@@ -495,7 +511,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       window.addEventListener('storage',e=>{if(e.key===K||e.key===null){broken=true;closeSession();update();}});
       setInterval(()=>{run();update();},30000);update();if(store.enabled&&store.consent)loadFirebase().catch(error);
     },
-    record(before,after){if(!store?.account||broken)return;try{store.events=S.capture(store.events,before,after,store.device);store.observed=S.clone(after);persist();schedule();}catch(err){broken=true;error(err);}},
+    record(before,after){if(!store?.account||broken)return;try{store.events=compact(S.capture(store.events,before,after,store.device));store.observed=S.clone(after);persist();schedule();}catch(err){broken=true;error(err);}},
     blocked(){return store&&S.conflicts(store.events).length?'先にFirebase同期の変更の衝突を解決してください。':null;}
   };
 })();
