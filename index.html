@@ -13,6 +13,33 @@
 @media(min-width:1450px){main{padding-top:54px}.page-head{margin-bottom:40px}}
 @media(max-width:1000px){.shell{grid-template-columns:190px minmax(0,1fr)}.sidebar{padding:28px 16px}main{padding:30px 25px}.brand{font-size:1.05rem}.task-row{padding:15px}.children{padding-left:49px}.focus-card{padding:22px;gap:15px}}
 @media(max-width:720px){.shell{display:block}.sidebar{position:static;height:auto;padding:18px 18px 0}.brand{font-size:1.1rem}.brand small{display:none}.brand-mark{width:31px;height:31px;font-size:1.1rem}nav{display:flex;gap:6px;margin-top:20px;padding-bottom:12px}.nav-button{flex:1;font-size:.85rem;padding:10px;gap:5px}.sidebar-bottom{position:absolute;top:15px;right:14px;padding:0}.sidebar-bottom .side-action{display:inline-block;font-size:.8rem;padding:8px}.sidebar-bottom #help-button{display:none}.sidebar-bottom p,.sidebar-bottom .version{display:none}main{padding:25px 16px}.page-head{align-items:flex-start;margin-bottom:23px;gap:12px}.page-head .primary{font-size:.8rem;padding:10px;white-space:nowrap}h1{font-size:1.4rem}.eyebrow{font-size:.7rem}.focus-card{padding:22px 19px;flex-wrap:wrap;gap:16px}.focus-copy{flex-basis:100%}.focus-card h2{font-size:1.15rem}.focus-card .focus-done{flex:1}.list-toolbar{gap:12px}.list-toolbar h2{white-space:nowrap;font-size:1rem}.search{width:210px;max-width:65%}.search input{font-size:.8rem}.task-row{gap:10px;padding:14px 12px}.task-title{font-size:.95rem}.task-row>.pin{padding:5px 6px;font-size:.7rem}.children{padding:0 12px 10px 26px}.child-row{gap:8px;flex-wrap:wrap}.child-row .task-content{min-width:100px}.child-move{margin-left:auto}.task-meta{font-size:.75rem}.main-footer{font-size:.7rem}.main-footer span:last-child{display:none}.urgent-box{padding:15px}.urgent-item{align-items:flex-start}.urgent-item span{padding-top:9px;white-space:nowrap}dialog{max-height:calc(100dvh - 24px);width:calc(100% - 20px)}.dialog-head,.dialog-body,#editor-body,.dialog-foot{padding:20px}.question-title{font-size:1.15rem}.focus-label{font-size:.7rem}#offline-status{display:none}}
+/* Keep task text in a wide row on phones; actions must not compete for its width. */
+@media(max-width:720px){
+  .task-row{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:start;gap:10px}
+  .task-row>.check{grid-column:1;margin-top:4px}
+  .task-row>.task-content{grid-column:2;width:100%;min-width:0}
+  .task-row>.pin{grid-column:2;justify-self:start;min-height:44px;padding:9px 14px;font-size:.875rem}
+  .task-title,.child-row .task-title{display:block;width:100%;font-size:1rem;line-height:1.65;white-space:normal;text-align:left}
+  .children{padding:0 12px 12px}
+  .child-row{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px 10px;align-items:start}
+  .child-row>.drag-handle{display:none}
+  .child-row>.check{grid-column:1;grid-row:1;margin-top:5px}
+  .child-row>.task-content{grid-column:2;grid-row:1;min-width:0;width:100%}
+  .child-move{grid-column:2;grid-row:2;margin-left:0;justify-content:flex-start;gap:8px}
+  .child-move button{min-width:44px;min-height:44px;border:1px solid var(--line);font-size:1rem}
+  .task-meta{font-size:.875rem;gap:6px 10px}
+  .task-meta .pill{font-size:.8rem}
+  .child-add{width:100%;text-align:left;font-size:.875rem;padding:12px 0;white-space:normal}
+  .focus-card{display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
+  .focus-copy{width:100%;min-width:0}
+  .focus-card button{width:100%;white-space:normal}
+  .focus-card p{overflow-wrap:anywhere}
+  .result-badge{display:grid;grid-template-columns:36px minmax(0,1fr);align-items:start}
+  .result-badge>div,.result-badge>strong{min-width:0;overflow-wrap:anywhere}
+  .priority-number{flex-shrink:0}
+  .urgent-item{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+  .urgent-item span{padding-top:0;padding-bottom:8px}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -25,7 +52,7 @@
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.1</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
