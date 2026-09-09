@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#142337">
+  <meta name="description" content="質問に答えて優先順位を決める、端末内保存のTODOアプリ。">
+  <title>ひとつずつ — TODO</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <style>:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Meiryo",sans-serif;color:#17263a;background:#f3f5f8;font-size:16px;font-synthesis:none;--blue:#245bdd;--line:#dde4ed;--muted:#5b6a7d;--navy:#142337}*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button,a,input,textarea,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:white;color:inherit;padding:10px 15px;min-height:44px;font-size:.9rem;font-weight:600;transition:background .15s}button:hover{background:#edf2fa}button:disabled{cursor:default;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #6798ff;outline-offset:3px}button.primary{background:var(--blue);color:white;border-color:var(--blue)}button.primary:hover{background:#1a4dc5}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(1.6rem,3vw,2rem);letter-spacing:-.04em;margin:8px 0 0}h2{font-size:1.08rem}h3{font-size:1rem}p{line-height:1.8}small,.muted{color:var(--muted);font-size:.875rem}.shell{min-height:100vh;display:grid;grid-template-columns:228px minmax(0,1fr)}.sidebar{background:var(--navy);color:#f7faff;padding:36px 22px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{display:flex;gap:12px;align-items:center;color:inherit;text-decoration:none;font-size:1.25rem;font-weight:750;letter-spacing:.04em}.brand-mark{display:grid;place-items:center;background:#3471f4;width:38px;height:38px;border-radius:11px;font-size:1.4rem}.brand small{display:block;font-size:.65rem;letter-spacing:.18em;color:#9aaec9;margin-top:5px}nav{display:grid;gap:8px;margin-top:54px}.nav-button{display:flex;justify-content:space-between;border:0;background:transparent;color:#b9c9df;text-align:left;padding:13px 14px}.nav-button:hover{background:#203650}.nav-button.selected{color:white;background:#2b425e}.nav-button span{font-size:.85rem;min-width:24px;text-align:center;border-radius:5px;background:#14233755}.sidebar-bottom{margin-top:auto;padding-top:30px}.side-action{background:none;border:0;color:#b9c9df;display:block;text-align:left;padding:10px 0;font-size:.875rem}.side-action:hover{background:none;color:white}.sidebar-bottom p{font-size:.8rem;color:#a4b8d4;margin:22px 0 6px}.version{font-size:.65rem;letter-spacing:.14em;color:#95a6bd}main{width:100%;max-width:1230px;padding:43px 48px 24px;margin:auto;align-self:start}.page-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:32px}.eyebrow{color:var(--muted);font-size:.8rem;letter-spacing:.08em;margin:0}.focus-card{background:var(--navy);border-radius:16px;color:white;padding:24px 28px;margin-bottom:24px;display:flex;align-items:center;gap:22px;min-height:146px}.focus-copy{flex:1;min-width:0}.focus-label{font-size:.75rem;letter-spacing:.12em;color:#a9c5fd;margin-bottom:12px;display:flex;gap:16px;align-items:center}.focus-card h2{font-size:1.3rem;margin:0 0 9px;line-height:1.5;overflow-wrap:anywhere}.focus-card p{margin:0;color:#bfcee3;font-size:.9rem}.focus-card button{background:#263e5d;color:white;border-color:#466080}.focus-card .focus-done{background:white;color:var(--navy);white-space:nowrap}.focus-empty{border:1px dashed #bbcbe0;border-radius:14px;padding:24px;margin-bottom:25px;color:var(--muted);font-size:.95rem}.focus-empty strong{display:block;color:#263c59;margin-bottom:7px}.urgent-box{padding:18px 22px;border:1px solid #ecd2c8;border-left:4px solid #c66b45;border-radius:11px;background:#fff9f5;margin-bottom:28px}.urgent-box h2{color:#934829;font-size:.9rem;margin:0 0 10px}.urgent-item{display:flex;align-items:center;gap:12px;margin-top:5px}.urgent-item button{min-height:34px;border:0;padding:3px 0;background:transparent;flex:1;text-align:left;overflow-wrap:anywhere}.urgent-item span{font-size:.8rem;color:#934829}.list-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:30px 0 22px}.list-toolbar h2{margin:0}.search{display:flex;gap:9px;align-items:center;background:white;border:1px solid var(--line);padding:0 12px;border-radius:9px;width:280px}.search input{border:0;background:none;padding:11px 0;min-width:0;width:100%;font-size:.875rem}.search input:focus{outline:none}.group{margin-bottom:25px}.group-head{display:flex;gap:9px;align-items:center;margin:0 0 10px;color:#475a72;font-size:.9rem}.priority-number{width:25px;height:25px;display:inline-grid;place-items:center;background:#e0e9ff;color:#2855b5;border-radius:6px;font-size:.8rem}.group-head .group-count{color:#768397;font-size:.8rem;margin-left:auto}.task-card{background:white;border:1px solid var(--line);border-radius:11px;margin-bottom:9px;overflow:hidden}.task-row{display:flex;gap:13px;align-items:center;padding:17px 18px}.check{width:24px;min-width:24px;height:24px;min-height:24px;padding:0;border:1.7px solid #aab8ca;border-radius:50%;color:var(--blue);font-size:.9rem}.check:hover{background:#eaf0ff;border-color:var(--blue)}.check.checked{background:#e7f0e9;border-color:#729b7c;color:#367344}.task-content{flex:1;min-width:0}.task-title{padding:0;min-height:26px;background:none!important;border:0;text-align:left;font-size:1rem;font-weight:600;line-height:1.55;overflow-wrap:anywhere}.done-title{color:#6d7b8d;text-decoration:line-through}.task-meta{display:flex;flex-wrap:wrap;gap:7px 12px;color:var(--muted);font-size:.8rem;align-items:center;margin-top:4px}.task-meta .overdue{color:#a44828;font-weight:600}.pill{font-size:.75rem;background:#edf2f8;border-radius:4px;padding:2px 7px}.pill.doing{color:#245bdd;background:#eaf0ff}.pin{padding:6px 9px;font-size:.8rem;min-height:36px;background:#fff;border-color:#e3e9f1;color:#5b6c85;white-space:nowrap}.pin.is-pinned{background:#eaf0ff;color:var(--blue)}.children{padding:0 18px 12px 53px}.child-row{display:flex;gap:11px;align-items:center;border-top:1px solid #ecf0f5;padding:12px 0}.child-row .task-title{font-weight:400;font-size:.9rem}.child-row .check{width:20px;min-width:20px;height:20px;min-height:20px}.child-move{display:flex;gap:3px}.child-move button{padding:3px 6px;min-height:32px;font-size:.85rem;border:0;color:#64768e}.child-row.drag-over{background:#edf3ff}.drag-handle{color:#8898ae;cursor:grab;user-select:none}.child-add{border:0;background:none;padding:8px 0;color:var(--blue);font-size:.85rem}.progress-track{height:3px;background:#edf1f6;margin-top:8px;border-radius:3px}.progress-track span{height:100%;background:#6a91e3;display:block;border-radius:3px}.empty-state{background:white;border:1px solid var(--line);border-radius:14px;text-align:center;padding:50px 20px;color:var(--muted)}.empty-state .empty-icon{font-size:2.1rem;color:#42649a;margin-bottom:16px}.empty-state h2{font-size:1.15rem;color:#263b56}.empty-state p{font-size:.9rem}.main-footer{display:flex;justify-content:space-between;gap:16px;color:#6b7c91;font-size:.75rem;padding-top:20px}.notice{padding:14px 18px;border:1px solid #c1d4f4;background:#eaf2ff;border-radius:9px;margin-bottom:18px;font-size:.9rem;line-height:1.7}.notice.warning{background:#fff4e9;border-color:#e7c49e;color:#7b4617}.notice button{margin-left:10px}.notice[hidden]{display:none}dialog{border:1px solid #d6e0ed;border-radius:17px;padding:0;max-width:620px;width:calc(100% - 32px);max-height:calc(100dvh - 48px);box-shadow:0 24px 100px #10274440;color:var(--navy);overflow:auto}dialog::backdrop{background:#0d1c3266;backdrop-filter:blur(3px)}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:21px 26px;border-bottom:1px solid var(--line)}.dialog-head h2{margin:0;font-size:1.15rem;overflow-wrap:anywhere}.icon-button{border:0;padding:3px 10px;font-size:1.5rem;background:transparent;min-width:40px}.dialog-body,#editor-body{padding:25px 26px}.dialog-body p{font-size:.9rem}.dialog-foot{display:flex;justify-content:flex-end;gap:10px;padding:19px 26px;border-top:1px solid var(--line)}label.field{display:block;font-size:.9rem;font-weight:600;margin-bottom:20px}.field input,.field textarea,.field select{display:block;width:100%;margin-top:9px;border:1px solid #bfcbdc;border-radius:8px;padding:12px;color:var(--navy);background:white;font-weight:400;min-width:0}.field textarea{resize:vertical;min-height:96px}.field small{display:block;margin-top:7px;font-weight:400}.steps{display:flex;gap:5px;margin-bottom:25px}.steps span{height:4px;background:#e5eaf2;flex:1;border-radius:3px}.steps span.filled{background:var(--blue)}.question-label{color:var(--blue);font-size:.8rem;font-weight:700;margin-bottom:12px}.question-title{font-size:1.3rem;line-height:1.7;margin-bottom:12px}.answer-buttons{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:28px}.answer-buttons button{padding:19px;background:#f5f8ff;border-color:#cddbf6}.answer-buttons button:hover{background:#e4edff;border-color:var(--blue)}.result-badge{display:flex;align-items:center;gap:12px;background:#edf3ff;border-radius:10px;padding:16px;margin-bottom:25px}.result-badge .priority-number{width:36px;height:36px;font-size:1.1rem;background:#d4e1ff}.error{color:#b34523;font-size:.9rem;margin:0;padding:0 26px 16px}.error:empty{display:none}.detail-note{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7fa;border-radius:8px;padding:15px}.detail-actions{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}.detail-dates{color:var(--muted);font-size:.85rem}.history{padding-left:20px;font-size:.85rem;color:#5b6c80;line-height:1.8}.history li{margin-bottom:8px}.data-option{border:1px solid var(--line);border-radius:11px;padding:19px;margin:20px 0}.file-label{display:block;font-size:.9rem;font-weight:600}.file-label input{display:block;width:100%;font-size:.85rem;margin-top:12px}.import-summary{padding:15px;background:#f0f5ff;border-radius:8px;margin-top:18px}.import-summary button{margin-top:10px;width:100%}.help-rules{padding-left:22px;line-height:1.8;font-size:.9rem}.help-rules li{padding:0 0 13px 4px}.help-rules strong{display:block}#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:white;padding:13px 23px;border-radius:10px;box-shadow:0 5px 30px #14233730;z-index:30;max-width:calc(100% - 32px);opacity:0;pointer-events:none;transition:all .2s;font-size:.9rem}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:1450px){main{padding-top:54px}.page-head{margin-bottom:40px}}
+@media(max-width:1000px){.shell{grid-template-columns:190px minmax(0,1fr)}.sidebar{padding:28px 16px}main{padding:30px 25px}.brand{font-size:1.05rem}.task-row{padding:15px}.children{padding-left:49px}.focus-card{padding:22px;gap:15px}}
+@media(max-width:720px){.shell{display:block}.sidebar{position:static;height:auto;padding:18px 18px 0}.brand{font-size:1.1rem}.brand small{display:none}.brand-mark{width:31px;height:31px;font-size:1.1rem}nav{display:flex;gap:6px;margin-top:20px;padding-bottom:12px}.nav-button{flex:1;font-size:.85rem;padding:10px;gap:5px}.sidebar-bottom{position:absolute;top:15px;right:14px;padding:0}.sidebar-bottom .side-action{display:inline-block;font-size:.8rem;padding:8px}.sidebar-bottom #help-button{display:none}.sidebar-bottom p,.sidebar-bottom .version{display:none}main{padding:25px 16px}.page-head{align-items:flex-start;margin-bottom:23px;gap:12px}.page-head .primary{font-size:.8rem;padding:10px;white-space:nowrap}h1{font-size:1.4rem}.eyebrow{font-size:.7rem}.focus-card{padding:22px 19px;flex-wrap:wrap;gap:16px}.focus-copy{flex-basis:100%}.focus-card h2{font-size:1.15rem}.focus-card .focus-done{flex:1}.list-toolbar{gap:12px}.list-toolbar h2{white-space:nowrap;font-size:1rem}.search{width:210px;max-width:65%}.search input{font-size:.8rem}.task-row{gap:10px;padding:14px 12px}.task-title{font-size:.95rem}.task-row>.pin{padding:5px 6px;font-size:.7rem}.children{padding:0 12px 10px 26px}.child-row{gap:8px;flex-wrap:wrap}.child-row .task-content{min-width:100px}.child-move{margin-left:auto}.task-meta{font-size:.75rem}.main-footer{font-size:.7rem}.main-footer span:last-child{display:none}.urgent-box{padding:15px}.urgent-item{align-items:flex-start}.urgent-item span{padding-top:9px;white-space:nowrap}dialog{max-height:calc(100dvh - 24px);width:calc(100% - 20px)}.dialog-head,.dialog-body,#editor-body,.dialog-foot{padding:20px}.question-title{font-size:1.15rem}.focus-label{font-size:.7rem}#offline-status{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="ひとつずつ ホーム"><span class="brand-mark">✓</span><span>ひとつずつ<small>MY TASKS</small></span></a>
+      <nav aria-label="タスクの表示">
+        <button class="nav-button selected" data-view="active">未完了 <span id="active-count">0</span></button>
+        <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
+        <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
+      </nav>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0</span></div>
+    </aside>
+    <main>
+      <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
+      <div id="storage-warning" class="notice warning" hidden></div>
+      <div id="update-notice" class="notice" hidden>新しいバージョンを利用できます。<button id="update-button">更新する</button></div>
+      <section id="focus" aria-label="今やるタスク"></section>
+      <section id="urgent" aria-label="締切が迫っているタスク"></section>
+      <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
+      <div id="task-list"></div>
+      <footer class="main-footer"><span id="save-status">保存を確認中…</span><span>ひとつ終えたら、次のひとつ。</span></footer>
+    </main>
+  </div>
+  <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form"><div class="dialog-head"><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
+  <dialog id="detail" aria-labelledby="detail-title"><div id="detail-content"></div></dialog>
+  <dialog id="data-dialog" aria-labelledby="data-title"><div class="dialog-head"><h2 id="data-title">データの持ち運び</h2><button class="icon-button" data-close="data-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p>未完了・待ち・完了済み、子タスクと履歴をまとめて保存します。別の端末でも、このファイルを読み込めます。</p><div class="data-option"><h3>書き出す</h3><p>移動前やバックアップ時に、最新のデータを保存してください。</p><button class="primary" id="export-button">JSONを書き出す</button><p id="export-status" class="muted"></p></div><div class="data-option"><h3>読み込む</h3><p>内容を確認してから、現在の一覧を置き換えます。端末間での自動統合は行いません。</p><label class="file-label">JSONファイルを選択<input id="import-file" type="file" accept=".json,application/json"></label><div id="import-preview"></div></div><p class="muted">ブラウザのデータ消去では、タスクも消えることがあります。書き出したファイルは、アプリとは別の場所に保管してください。</p></div></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-head"><h2 id="help-title">使い方と優先順位</h2><button class="icon-button" data-close="help-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><ol class="help-rules"><li><strong>相手につなぐ</strong>あなたが渡すまで、相手の作業が進まない。</li><li><strong>10分で片づける</strong>10分以内に終わる。</li><li><strong>分けて進める</strong>3営業日以上かかる。子タスクに分解して進める。</li><li><strong>締切から進める</strong>上のどれにも当てはまらない。</li></ol><p>最初にYesと答えた条件で優先度が決まります。同じ優先度では締切が近い順、登録が古い順に並びます。締切なしは各優先度の最後です。</p><p>「今やる」に1件固定できます。「待ち」は自分が作業できる一覧から分かれます。期限超過と今日締切は別枠にも表示します。</p><p>子タスクはどの優先度でも追加できます。上下ボタン、またはドラッグで並べ替えてください。親の締切・状態は子にも影響するため、親が「待ち」の間は子も「待ち」一覧に表示します。</p><p>子がすべて完了すると親を完了できます。子を再開すると、完了した親も再開します。出戻りは「再開」、繰り返し作業は「複製」を使います。複製では締切と完了状態をリセットします。</p><p>iPhoneではHTTPSのサイトをSafariで開き、共有メニューから「ホーム画面に追加」。ホーム画面から起動して「オフライン利用の準備完了」を確認してください。PCでファイルを直接開く版は、そのままネット接続なしで動きます。</p></div></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-head"><h2 id="confirm-title">確認</h2></div><div class="dialog-body"><p id="confirm-text"></p></div><div class="dialog-foot"><button id="confirm-no">キャンセル</button><button class="primary" id="confirm-yes">実行する</button></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script>document.querySelector('#data-dialog .dialog-body').insertAdjacentHTML('beforeend','<p id="data-offline-status" class="muted"></p><button type="button" id="mobile-help">使い方と優先順位</button>');document.querySelector('#mobile-help').onclick=function(){document.querySelector('#data-dialog').close();document.querySelector('#help-dialog').showModal();};</script>
+  <script>(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.TodoCore = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const VERSION = 1;
+  const RULE_VERSION = 1;
+  const statuses = ['todo', 'doing', 'waiting', 'done'];
+  const rules = [
+    { key: 'handoff', title: 'あなたが渡すまで、相手の作業が止まりますか？', help: '自分の成果物や依頼を渡すことで、相手が作業を始められるタスクです。', label: '相手につなぐ' },
+    { key: 'quick', title: '10分以内に終わりますか？', help: '準備や確認を含めた、自分の作業時間で考えてください。', label: '10分で片づける' },
+    { key: 'heavy', title: '3営業日以上かかりますか？', help: 'ご自身の見積もりで答えてください。大きな作業は、登録後に小さなステップへ分けられます。', label: '分けて進める' }
+  ];
+  function uid() { return globalThis.crypto?.randomUUID?.() || 't-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12); }
+  function now() { return new Date().toISOString(); }
+  function today() { const d = new Date(); return [d.getFullYear(), String(d.getMonth()+1).padStart(2,'0'), String(d.getDate()).padStart(2,'0')].join('-'); }
+  function validDate(s) { return s === null || (typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && s >= '0001-01-01' && Number.isFinite(Date.parse(s+'T12:00:00Z')) && new Date(s+'T12:00:00Z').toISOString().slice(0,10) === s); }
+  function priority(answers) {
+    for (let i = 0; i < rules.length; i++) {
+      if (answers[rules[i].key] === true) return i + 1;
+      if (answers[rules[i].key] !== false) return null;
+    }
+    return 4;
+  }
+  function empty() { return { app: 'hitotsu-todo', version: VERSION, ruleVersion: RULE_VERSION, revision: uid(), tasks: [], pinnedId: null }; }
+  function event(task, action, detail = '') { task.updatedAt = now(); task.history.push({ at: task.updatedAt, action, detail }); }
+  function makeTask(input, parentId = null) {
+    const at = now();
+    const answers = parentId ? null : { handoff: input.answers?.handoff ?? null, quick: input.answers?.quick ?? null, heavy: input.answers?.heavy ?? null };
+    if (!parentId && !priority(answers)) throw new Error('優先度の質問に回答してください。');
+    if (!input.title?.trim()) throw new Error('タスク名を入力してください。');
+    if (input.title.trim().length > 200) throw new Error('タスク名は200文字以内です。');
+    if (!validDate(input.due || null)) throw new Error('締切日を確認してください。');
+    return { id: uid(), parentId, title: input.title.trim(), note: input.note || '', due: input.due || null, answers, ruleVersion: RULE_VERSION, status: 'todo', order: input.order || 0, createdAt: at, updatedAt: at, completedAt: null, history: [{at, action:'created', detail:''}] };
+  }
+  function children(state, id) { return state.tasks.filter(t=>t.parentId === id).sort((a,b)=>a.order-b.order || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id)); }
+  function compare(a,b) { return (priority(a.answers) || 5) - (priority(b.answers) || 5) || (a.due || '9999-12-31').localeCompare(b.due || '9999-12-31') || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id); }
+  function setStatus(state, id, status) {
+    const task = state.tasks.find(t=>t.id===id);
+    if (!task || !statuses.includes(status)) throw new Error('状態を変更できません。');
+    if (status === task.status) return;
+    const kids = children(state,id);
+    if (status==='done' && kids.some(t=>t.status!=='done')) throw new Error('先に子タスクをすべて完了してください。');
+    const old = task.status;
+    task.status = status;
+    task.completedAt = status==='done' ? now() : null;
+    event(task, status==='done'?'completed':old==='done'?'reopened':'status', status);
+    if (status==='done' || status==='waiting') {
+      if (state.pinnedId === id || kids.some(t=>t.id===state.pinnedId)) state.pinnedId=null;
+    }
+    if (task.parentId && status!=='done') {
+      const parent = state.tasks.find(t=>t.id===task.parentId);
+      if (parent.status==='done') { parent.status='todo'; parent.completedAt=null; event(parent,'reopened','子タスクの再開'); }
+    }
+  }
+  function duplicate(state,id) {
+    const original = state.tasks.find(t=>t.id===id);
+    if (!original) throw new Error('タスクが見つかりません。');
+    const copy = makeTask({...original, title:original.title.slice(0,195)+'（コピー）'}, original.parentId);
+    copy.order = original.parentId ? children(state,original.parentId).length : 0;
+    copy.due = null;
+    event(copy,'duplicated',original.title);
+    state.tasks.push(copy);
+    if (!original.parentId) for (const kid of children(state,id)) {
+      const child = makeTask({...kid,due:null},copy.id); state.tasks.push(child);
+    }
+    if (original.parentId) {
+      const parent=state.tasks.find(t=>t.id===original.parentId);
+      if(parent.status==='done') setStatus(state,parent.id,'todo');
+    }
+    return copy;
+  }
+  function moveChild(state,id,targetId) {
+    const task=state.tasks.find(t=>t.id===id), target=state.tasks.find(t=>t.id===targetId);
+    if(!task?.parentId || task.parentId!==target?.parentId) return;
+    const list=children(state,task.parentId); const from=list.findIndex(t=>t.id===id),to=list.findIndex(t=>t.id===targetId);
+    list.splice(to,0,list.splice(from,1)[0]); list.forEach((t,i)=>{t.order=i;});
+    event(task,'reordered','子タスクの順番を変更');
+  }
+  function validate(raw) {
+    function fail() { throw new Error('対応するTODOデータではないか、内容が壊れています。現在のデータは変更していません。'); }
+    if(!raw || raw.app!=='hitotsu-todo' || raw.version!==VERSION || raw.ruleVersion!==RULE_VERSION || !Array.isArray(raw.tasks) || raw.tasks.length>20000) fail();
+    const ids=new Set();
+    const str=(v,max)=>typeof v==='string' && v.length<=max;
+    const stamp=v=>str(v,40) && /^\d{4}-\d{2}-\d{2}T/.test(v) && Number.isFinite(Date.parse(v));
+    const tasks=raw.tasks.map(t=>{
+      if(!t || !str(t.id,100) || !/^[a-zA-Z0-9_-]+$/.test(t.id) || ids.has(t.id) || !str(t.title,200) || !t.title.trim() || !str(t.note,20000) || !validDate(t.due) || !statuses.includes(t.status) || !Number.isSafeInteger(t.order) || t.order<0 || !stamp(t.createdAt) || !stamp(t.updatedAt) || !(t.completedAt===null || stamp(t.completedAt)) || (t.status==='done') !== (t.completedAt!==null) || t.ruleVersion!==RULE_VERSION || !Array.isArray(t.history) || t.history.length>100000) fail();
+      ids.add(t.id);
+      if(!(t.parentId===null || str(t.parentId,100))) fail();
+      if(t.parentId===null && (!t.answers || rules.some(r=>![true,false,null].includes(t.answers[r.key])) || !priority(t.answers))) fail();
+      if(t.parentId!==null && t.answers!==null) fail();
+      const history=t.history.map(h=>{if(!h || !stamp(h.at) || !str(h.action,80) || !str(h.detail,20000)) fail(); return {at:h.at,action:h.action,detail:h.detail};});
+      return {id:t.id,parentId:t.parentId,title:t.title,note:t.note,due:t.due,status:t.status,order:t.order,createdAt:t.createdAt,updatedAt:t.updatedAt,completedAt:t.completedAt,ruleVersion:t.ruleVersion,answers:t.parentId?null:Object.fromEntries(rules.map(r=>[r.key,t.answers[r.key]])),history};
+    });
+    const byId=new Map(tasks.map(t=>[t.id,t]));
+    for(const t of tasks) if(t.parentId!==null) {const p=byId.get(t.parentId); if(!p || p.parentId!==null || (p.status==='done' && t.status!=='done')) fail();}
+    if(raw.pinnedId!==null && (!byId.has(raw.pinnedId) || ['done','waiting'].includes(byId.get(raw.pinnedId).status) || ['done','waiting'].includes(byId.get(byId.get(raw.pinnedId).parentId)?.status))) fail();
+    return {app:raw.app,version:VERSION,ruleVersion:RULE_VERSION,revision:uid(),tasks,pinnedId:raw.pinnedId};
+  }
+  return { VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, priority, empty, event, makeTask, children, compare, setStatus, duplicate, moveChild, validate };
+});
+</script>
+  <script>(() => {
+  'use strict';
+  const C = TodoCore;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const KEY='hitotsu-todo-v1';
+  const names=['','相手につなぐ','10分で片づける','分けて進める','締切から進める'];
+  const stateNames={todo:'未着手',doing:'作業中',waiting:'待ち',done:'完了済み'};
+  let state=C.empty(),view='active',query='',persisted=null,storageBroken=false,conflict=false,detailId=null,draft=null,importState=null,registration=null,toastTimer;
+  function toast(message) { $('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),4500); }
+  function warning(message) {$('#storage-warning').textContent=message;$('#storage-warning').hidden=false;}
+  function load() {
+    try {
+      persisted=localStorage.getItem(KEY);
+      if(persisted) state=C.validate(JSON.parse(persisted));
+      $('#save-status').textContent=persisted?'保存したデータを読み込みました':'端末内に自動保存';
+    } catch(err) {
+      storageBroken=true;
+      warning(persisted?'保存データを読み込めませんでした。上書きせず保護しています。「データの持ち運び」から元データを退避できます。':'この環境では自動保存を利用できません。画面を閉じる前に必ずJSONを書き出してください。');
+      $('#save-status').textContent='自動保存できません';
+    }
+  }
+  function save() {
+    state.revision=C.uid();
+    if(storageBroken){$('#save-status').textContent='未保存の変更あり — JSONを書き出してください';return;}
+    try {
+      const current=localStorage.getItem(KEY);
+      if(current!==persisted) { conflict=true;warning('別の画面でデータが更新されました。現在の内容をJSONに書き出し、再読み込みしてください。上書きは停止しています。');$('#save-status').textContent='別画面との競合 — 自動保存を停止';return; }
+      const json=JSON.stringify(state);localStorage.setItem(KEY,json);persisted=json;
+      $('#save-status').textContent='保存済み · '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+    } catch {storageBroken=true;warning('端末内への保存に失敗しました。画面を閉じずに、JSONを書き出してください。');$('#save-status').textContent='保存失敗 — JSONを書き出してください';}
+  }
+  function mutate(fn,message) {
+    if(conflict){toast('別の画面の変更があります。JSONを書き出してから再読み込みしてください。');return false;}
+    const before=JSON.stringify(state);
+    try{fn();save();render();if(message)toast(message);return true;}catch(err){state=JSON.parse(before);toast(err.message);return false;}
+  }
+  function task(id){return state.tasks.find(t=>t.id===id);}
+  function waiting(t){return t.status==='waiting' || (t.parentId && task(t.parentId)?.status==='waiting');}
+  function available(t){return t.status!=='done' && !waiting(t);}
+  function matches(t){return !query || (t.title+' '+t.note).toLocaleLowerCase().includes(query);}
+  function dueText(d){if(!d)return '締切なし';const date=new Date(d+'T12:00:00');return date.toLocaleDateString('ja-JP',{year:date.getFullYear()!==new Date().getFullYear()?'numeric':undefined,month:'numeric',day:'numeric'})+' 締切';}
+  function badge(t){return '<span class="pill '+(t.status==='doing'?'doing':'')+'">'+stateNames[t.status]+'</span>';}
+  function check(t){return '<button class="check '+(t.status==='done'?'checked':'')+'" data-action="toggle" data-id="'+t.id+'" aria-label="'+esc(t.title)+(t.status==='done'?'を再開':'を完了')+'">'+(t.status==='done'?'✓':'')+'</button>';}
+  function meta(t){return '<div class="task-meta"><span class="'+(t.due && t.due<=C.today() && t.status!=='done'?'overdue':'')+'">'+dueText(t.due)+'</span>'+badge(t)+(t.note?'<span>メモあり</span>':'')+'</div>';}
+  function renderChild(t,list,index){return '<div class="child-row" data-child="'+t.id+'"><span class="drag-handle" draggable="true" data-drag="'+t.id+'" aria-hidden="true" title="ドラッグして並べ替え">⠿</span>'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+'</div><div class="child-move"><button data-action="up" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を上へ" '+(index===0?'disabled':'')+'>↑</button><button data-action="down" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を下へ" '+(index===list.length-1?'disabled':'')+'>↓</button></div></div>';}
+  function renderCard(t){const kids=C.children(state,t.id),complete=kids.filter(k=>k.status==='done').length;
+    return '<article class="task-card"><div class="task-row">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+(kids.length?'<div class="task-meta"><span>'+complete+' / '+kids.length+' ステップ完了</span></div><div class="progress-track" aria-hidden="true"><span style="width:'+complete/kids.length*100+'%"></span></div>':'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+(kids.length || t.status!=='done'?'<div class="children">'+kids.map((k,i)=>renderChild(k,kids,i)).join('')+(t.status!=='done'?'<button class="child-add" data-action="add-child" data-id="'+t.id+'">＋ '+(kids.length?'ステップを追加':C.priority(t.answers)===3?'小さなステップに分ける':'子タスクを追加')+'</button>':'')+'</div>':'')+'</article>';
+  }
+  function render(){
+    const roots=state.tasks.filter(t=>!t.parentId), active=roots.filter(available).sort(C.compare), waits=roots.filter(t=>waiting(t)&&t.status!=='done'),done=roots.filter(t=>t.status==='done');
+    $('#active-count').textContent=active.length;$('#waiting-count').textContent=state.tasks.filter(t=>t.status==='waiting').length;$('#done-count').textContent=done.length;
+    $('#today-label').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+    $('#view-title').textContent={active:'次のひとつに、集中。',waiting:'返事を待つあいだに。',done:'積み重ねた、ひとつずつ。'}[view];
+    $('#list-title').textContent={active:'優先順位',waiting:'待っているタスク',done:'完了の記録'}[view];
+    document.querySelectorAll('[data-view]').forEach(b=>{b.classList.toggle('selected',b.dataset.view===view);b.setAttribute('aria-current',b.dataset.view===view?'page':'false');});
+    renderFocus(active);renderUrgent();
+    let visible=(view==='active'?active:view==='waiting'?roots.filter(t=>t.status!=='done' && (waiting(t)||C.children(state,t.id).some(k=>k.status==='waiting'))).sort(C.compare):done.sort((a,b)=>b.completedAt.localeCompare(a.completedAt))).filter(t=>matches(t)||C.children(state,t.id).some(matches));
+    if(!visible.length){$('#task-list').innerHTML='<div class="empty-state"><div class="empty-icon">'+(view==='done'?'✓':'≡')+'</div><h2>'+ (query?'一致するタスクはありません':view==='active'?'頭の中のタスクを、ひとつ外へ。':view==='waiting'?'待っているタスクはありません':'完了したタスクがここに残ります')+'</h2><p>'+(query?'別の言葉で検索してみてください。':view==='active'?'質問に答えると、取りかかる順番が決まります。':view==='done'?'出戻りには再開、同じ作業には複製が使えます。':'相手に渡した後は、状態を「待ち」にできます。')+'</p>'+(view==='active'&&!query?'<button class="primary" data-action="add">＋ 最初のタスクを追加</button>':'')+'</div>';return;}
+    $('#task-list').innerHTML=view==='active'?[1,2,3,4].map(p=>{const group=visible.filter(t=>C.priority(t.answers)===p);return group.length?'<section class="group"><h3 class="group-head"><span class="priority-number">'+p+'</span>'+names[p]+'<span class="group-count">'+group.length+' 件</span></h3>'+group.map(renderCard).join('')+'</section>':'';}).join(''):visible.map(renderCard).join('');
+  }
+  function renderFocus(active){
+    $('#focus').hidden=view!=='active';if(view!=='active')return;
+    let selected=state.pinnedId?task(state.pinnedId):null;
+    if(selected&&!available(selected))selected=null;
+    const pinned=!!selected;
+    if(!selected)selected=active.find(p=>{const kids=C.children(state,p.id);return !kids.length||kids.every(k=>k.status==='done')||kids.some(available);});
+    if(!selected){$('#focus').innerHTML='<div class="focus-empty"><strong>今やることを、ここにひとつ。</strong>優先順位が一番高いタスクを表示します。別のタスクを固定することもできます。</div>';return;}
+    const kids=C.children(state,selected.id);const next=kids.find(available);const work=next||selected;
+    const allWaiting=kids.some(k=>k.status!=='done')&&!next;
+    $('#focus').innerHTML='<div class="focus-card"><div class="focus-copy"><div class="focus-label">'+(pinned?'今やる · 固定中':'次におすすめ')+'</div><h2>'+esc(work.title)+'</h2><p>'+esc(next?'親タスク：'+selected.title:selected.parentId?'親タスク：'+task(selected.parentId).title:allWaiting?'子タスクの再開を待っています':kids.length?'すべてのステップが完了しました':names[C.priority(selected.answers)])+'</p></div><button class="focus-done" data-action="toggle" data-id="'+work.id+'" '+(allWaiting?'disabled':'')+'>✓ 完了にする</button><button data-action="detail" data-id="'+work.id+'">詳細</button></div>';
+  }
+  function renderUrgent(){
+    $('#urgent').hidden=view==='done';
+    const urgent=state.tasks.filter(t=>t.status!=='done'&&t.due&&t.due<=C.today()).sort((a,b)=>a.due.localeCompare(b.due));
+    $('#urgent').innerHTML=urgent.length?'<div class="urgent-box"><h2>期限超過・今日締切 <span>('+urgent.length+')</span></h2>'+urgent.map(t=>'<div class="urgent-item"><button data-action="detail" data-id="'+t.id+'">'+esc(t.title)+(waiting(t)?'〈待ち〉':'')+'</button><span>'+dueText(t.due)+'</span></div>').join('')+'</div>':'';
+  }
+  function openEditor(id=null,parentId=null){
+    const t=id?task(id):null;
+    draft={id,parentId:t?t.parentId:parentId,step:0,title:t?.title||'',note:t?.note||'',due:t?.due||'',answers:t?.answers?{...t.answers}:{handoff:null,quick:null,heavy:null},editing:!!t};
+    if($('#detail').open)$('#detail').close();
+    $('#editor-title').textContent=t?'タスクを編集':parentId?'子タスクを追加':'タスクを追加';$('#editor-error').textContent='';renderEditor();$('#editor').showModal();
+  }
+  function renderEditor(){
+    const step=draft.step;$('#editor-back').hidden=step===0;$('#editor-next').hidden=step>=1&&step<=3;$('#editor-next').textContent=step===4?'保存する':'次へ';
+    const bar='<div class="steps" aria-label="登録ステップ '+(step+1)+'"><span class="filled"></span><span class="'+(step>0?'filled':'')+'"></span><span class="'+(step===4?'filled':'')+'"></span></div>';
+    if(step===0){$('#editor-body').innerHTML=bar+(draft.parentId?'<p class="muted">親タスク：'+esc(task(draft.parentId)?.title)+'</p>':'')+'<label class="field">タスク名<input id="task-name" required maxlength="200" placeholder="例：確認用の資料を田中さんに渡す" value="'+esc(draft.title)+'" autocomplete="off"></label><label class="field">メモ <small>任意。作業の内容や、次にすることなど。</small><textarea id="task-note" maxlength="20000" placeholder="補足を書いておく">'+esc(draft.note)+'</textarea></label>';setTimeout(()=>$('#task-name')?.focus(),0);}
+    else if(step<=3){const r=C.rules[step-1];$('#editor-body').innerHTML=bar+'<p class="question-label">質問 '+step+' / 3</p><h3 class="question-title">'+r.title+'</h3><p class="muted">'+r.help+'</p><div class="answer-buttons"><button type="button" data-answer="yes">Yes · はい</button><button type="button" data-answer="no">No · いいえ</button></div>';setTimeout(()=>document.querySelector('[data-answer]')?.focus(),0);}
+    else {const p=draft.parentId?null:C.priority(draft.answers);$('#editor-body').innerHTML=bar+(p?'<div class="result-badge"><span class="priority-number">'+p+'</span><div><small>このタスクの優先度</small><div><strong>'+names[p]+'</strong></div></div>':'<p class="muted">子タスクの順番は、登録後に手動で変更できます。</p>')+'<label class="field">締切日 <small>どの優先度でも設定できます。決まっていなければ空欄で大丈夫です。</small><input id="task-due" type="date" min="0001-01-01" max="9999-12-31" value="'+esc(draft.due)+'"></label>'+(p===3?'<p class="muted">登録後、「小さなステップに分ける」から子タスクを追加しましょう。</p>':'');setTimeout(()=>$('#task-due')?.focus(),0);}
+  }
+  $('#editor-form').addEventListener('submit',e=>{e.preventDefault();if(draft.step===0){draft.title=$('#task-name').value.trim();draft.note=$('#task-note').value;if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}draft.step=draft.parentId?4:1;renderEditor();}else if(draft.step===4){draft.due=$('#task-due').value||null;if(!C.validDate(draft.due)){ $('#editor-error').textContent='締切日を確認してください。';return; }
+    const ok=mutate(()=>{
+      if(draft.id){const t=task(draft.id);t.title=draft.title;t.note=draft.note;t.due=draft.due;if(!t.parentId)t.answers={...draft.answers};C.event(t,'edited','内容・優先度を更新');}
+      else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));}
+    },draft.editing?'タスクを更新しました':'タスクを登録しました');if(ok)$('#editor').close();}
+  });
+  $('#editor-back').addEventListener('click',()=>{if(draft.step===4){draft.due=$('#task-due').value;draft.step=draft.parentId?0:Math.min(C.priority(draft.answers),3);}else draft.step--;renderEditor();});
+  $('#editor-body').addEventListener('click',e=>{const b=e.target.closest('[data-answer]');if(!b)return;const i=draft.step-1;draft.answers[C.rules[i].key]=b.dataset.answer==='yes';for(let n=i+1;n<3;n++)draft.answers[C.rules[n].key]=null;draft.step=b.dataset.answer==='yes'||i===2?4:draft.step+1;renderEditor();});
+  function openDetail(id){detailId=id;renderDetail();if(!$('#detail').open)$('#detail').showModal();}
+  function renderDetail(){const t=task(detailId);if(!t){$('#detail').close();return;}const kids=C.children(state,t.id);const actions={created:'登録',edited:'編集',completed:'完了',reopened:'再開',status:'状態変更',duplicated:'複製',reordered:'並べ替え'};
+    $('#detail-content').innerHTML='<div class="dialog-head"><h2 id="detail-title">'+esc(t.title)+'</h2><button class="icon-button" data-close="detail" aria-label="閉じる">×</button></div><div class="dialog-body">'+(t.parentId?'<p class="muted">親：'+esc(task(t.parentId).title)+'</p>':'<div class="result-badge"><span class="priority-number">'+C.priority(t.answers)+'</span><strong>'+names[C.priority(t.answers)]+'</strong></div>')+'<div class="detail-actions"><button data-action="edit" data-id="'+t.id+'">編集</button><button data-action="duplicate" data-id="'+t.id+'">複製して新規作成</button>'+(available(t)?'<button data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定を解除':'今やるに固定')+'</button>':'')+'</div><label class="field">状態<select id="detail-status">'+C.statuses.map(s=>'<option value="'+s+'" '+(t.status===s?'selected':'')+' '+(s==='done'&&kids.some(k=>k.status!=='done')?'disabled':'')+'>'+stateNames[s]+'</option>').join('')+'</select></label>'+(kids.some(k=>k.status!=='done')?'<p class="muted">親を完了にするには、先に子タスクをすべて完了してください。</p>':'')+'<p>'+dueText(t.due)+'</p>'+(t.note?'<p class="detail-note">'+esc(t.note)+'</p>':'')+(!t.parentId?'<button data-action="add-child" data-id="'+t.id+'">＋ 子タスクを追加</button>':'')+'<p class="detail-dates" style="margin-top:22px">登録：'+esc(new Date(t.createdAt).toLocaleString('ja-JP'))+'</p><details><summary>操作履歴（'+t.history.length+'件）</summary><ol class="history">'+t.history.slice().reverse().map(h=>'<li>'+esc(new Date(h.at).toLocaleString('ja-JP'))+' · '+esc(actions[h.action]||h.action)+(h.detail?' — '+esc(stateNames[h.detail]||h.detail):'')+'</li>').join('')+'</ol></details></div>';
+  }
+  $('#detail').addEventListener('change',e=>{if(e.target.id==='detail-status'){mutate(()=>C.setStatus(state,detailId,e.target.value),'状態を更新しました');renderDetail();}});
+  function ask(text,label='実行する'){return new Promise(resolve=>{$('#confirm-text').textContent=text;$('#confirm-yes').textContent=label;const d=$('#confirm-dialog');function finish(answer){d.close();$('#confirm-yes').onclick=null;$('#confirm-no').onclick=null;d.oncancel=null;resolve(answer);}$('#confirm-yes').onclick=()=>finish(true);$('#confirm-no').onclick=()=>finish(false);d.oncancel=e=>{e.preventDefault();finish(false);};d.showModal();});}
+  document.addEventListener('click',async e=>{
+    const close=e.target.closest('[data-close]');if(close){$('#'+close.dataset.close).close();return;}
+    const nav=e.target.closest('[data-view]');if(nav){view=nav.dataset.view;render();return;}
+    const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id,t=task(id);
+    switch(b.dataset.action){
+      case 'add':openEditor();break;
+      case 'detail':openDetail(id);break;
+      case 'edit':openEditor(id);break;
+      case 'add-child':openEditor(null,id);break;
+      case 'toggle':mutate(()=>C.setStatus(state,id,t.status==='done'?'todo':'done'),t.status==='done'?'タスクを再開しました':'ひとつ完了しました');break;
+      case 'pin':mutate(()=>{state.pinnedId=state.pinnedId===id?null:id;},state.pinnedId===id?'固定を解除しました':'今やるタスクに固定しました');if($('#detail').open)renderDetail();break;
+      case 'up':case 'down':{const list=C.children(state,t.parentId),i=list.findIndex(k=>k.id===id),other=list[i+(b.dataset.action==='up'?-1:1)];if(other)mutate(()=>C.moveChild(state,id,other.id));break;}
+      case 'duplicate':if(await ask('タスクと子タスクを複製します。元の履歴は残し、新しいタスクの締切と完了状態をリセットします。','複製する')){let copy;const ok=mutate(()=>{copy=C.duplicate(state,id);},'複製しました。必要に応じて締切を設定してください。');if(ok)openDetail(copy.id);}break;
+    }
+  });
+  let dragId=null;
+  $('#task-list').addEventListener('dragstart',e=>{const h=e.target.closest('[data-drag]');if(!h){e.preventDefault();return;}dragId=h.dataset.drag;e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';});
+  $('#task-list').addEventListener('dragover',e=>{const row=e.target.closest('[data-child]');if(row&&task(dragId)?.parentId===task(row.dataset.child)?.parentId){e.preventDefault();row.classList.add('drag-over');}});
+  $('#task-list').addEventListener('dragleave',e=>e.target.closest('[data-child]')?.classList.remove('drag-over'));
+  $('#task-list').addEventListener('drop',e=>{e.preventDefault();const row=e.target.closest('[data-child]');if(row&&dragId)mutate(()=>C.moveChild(state,dragId,row.dataset.child),'順番を変更しました');dragId=null;});
+  $('#task-list').addEventListener('dragend',()=>{dragId=null;document.querySelectorAll('.drag-over').forEach(e=>e.classList.remove('drag-over'));});
+  $('#add-button').onclick=()=>openEditor();$('#help-button').onclick=()=>$('#help-dialog').showModal();
+  $('.brand').onclick=e=>{e.preventDefault();view='active';query='';$('#search').value='';render();};
+  $('#search').oninput=e=>{query=e.target.value.trim().toLocaleLowerCase();render();};
+  function download(text,filename){const url=URL.createObjectURL(new Blob([text],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+  function filename(prefix){return prefix+'-'+C.today()+'-'+new Date().toLocaleTimeString('en-GB',{hour12:false}).replaceAll(':','')+'.json';}
+  function exportData(prefix='hitotsu'){download(JSON.stringify({...state,exportedAt:C.now()},null,2),filename(prefix));$('#export-status').textContent='書き出しを開始しました。保存先にファイルがあることを確認してください。';toast('JSONの書き出しを開始しました');}
+  $('#export-button').onclick=()=>exportData();
+  $('#data-button').onclick=()=>{importState=null;$('#import-file').value='';$('#import-preview').innerHTML='';$('#data-offline-status').textContent=$('#offline-status').textContent;$('#data-dialog').showModal();if(storageBroken&&persisted){$('#import-preview').innerHTML='<button id="recover-button">読み込めなかった元データを退避</button>';$('#recover-button').onclick=()=>download(persisted,filename('hitotsu-recovery'));}};
+  $('#import-file').addEventListener('change',async e=>{
+    importState=null;$('#import-preview').textContent='';const file=e.target.files[0];if(!file)return;
+    try{if(file.size>20*1024*1024)throw new Error('ファイルが大きすぎます。20MB以内のJSONを選んでください。');const raw=JSON.parse(await file.text());importState=C.validate(raw);const roots=importState.tasks.filter(t=>!t.parentId);$('#import-preview').innerHTML='<div class="import-summary"><strong>'+esc(file.name)+'</strong><p>親タスク '+roots.length+' 件 / 子タスク '+(importState.tasks.length-roots.length)+' 件<br>完了済み '+importState.tasks.filter(t=>t.status==='done').length+' 件</p><p>現在の '+state.tasks.length+' 件を、このファイルの内容に置き換えます。</p><button id="backup-before-import">1. 現在のデータを書き出す</button><button id="apply-import" class="primary">2. この内容で置き換える</button></div>';$('#backup-before-import').onclick=()=>exportData('hitotsu-before-import');$('#apply-import').onclick=async()=>{if(!importState)return;if(conflict){toast('別の画面の変更があります。先に再読み込みしてください。');return;}if(await ask('現在の一覧を置き換えます。必要なデータの書き出しと保存を確認しましたか？','置き換える')){if(storageBroken&&persisted){toast('読み込めなかった元データを退避してから、ページを閉じずに別の環境でインポートしてください。');return;}if(mutate(()=>{state=importState;},'データを読み込みました')){$('#data-dialog').close();view='active';query='';$('#search').value='';render();}}};
+    }catch(err){$('#import-preview').textContent=err instanceof SyntaxError?'JSONファイルを読み取れませんでした。現在のデータは変更していません。':err.message;}
+  });
+  window.addEventListener('storage',e=>{if(e.key===KEY || e.key===null){conflict=true;warning('別の画面でデータが更新・消去されました。必要なら今の内容をJSONに書き出し、この画面を再読み込みしてください。');$('#save-status').textContent='別画面との競合 — 自動保存を停止';}});
+  window.addEventListener('beforeunload',e=>{if((storageBroken||conflict)&&state.tasks.length){e.preventDefault();e.returnValue='';}});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});setInterval(()=>{if(!document.hidden)render();},60000);
+  async function setupOffline(){
+    const label=$('#offline-status');
+    if(location.protocol==='file:'){label.textContent='PC版 · オフラインで利用可能';return;}
+    if(!('serviceWorker' in navigator)||!window.isSecureContext){label.textContent='オフライン利用にはHTTPSが必要';return;}
+    try{registration=await navigator.serviceWorker.register('./sw.js');
+      async function checkReady(){const keys=await caches.keys();const ours=keys.filter(k=>k.startsWith('hitotsu-v1:'+registration.scope+':'));let ready=false;for(const key of ours){const cache=await caches.open(key);if(await cache.match(new URL('index.html',registration.scope).href)){ready=true;break;}}label.textContent=ready&&navigator.serviceWorker.controller?'オフライン利用の準備完了':'オフライン利用を準備中…';$('#data-offline-status').textContent=label.textContent;}
+      navigator.serviceWorker.addEventListener('controllerchange',()=>{if(applyingUpdate)location.reload();else checkReady();});
+      const update=()=>{if(registration.waiting&&navigator.serviceWorker.controller)$('#update-notice').hidden=false;};
+      update();registration.addEventListener('updatefound',()=>{const worker=registration.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed'){update();checkReady();}});});
+      await navigator.serviceWorker.ready;await checkReady();
+    }catch{label.textContent='オフライン準備に失敗 · オンラインで再起動';}
+  }
+  let applyingUpdate=false;
+  $('#update-button').onclick=async()=>{if(storageBroken||conflict){toast('先にJSONを書き出し、データを保護してください。');return;}if($('#editor').open){toast('編集中のタスクを保存してから更新してください。');return;}if(registration?.waiting&&await ask('保存済みのタスクを維持して、アプリを更新します。','更新する')){applyingUpdate=true;registration.waiting.postMessage({type:'SKIP_WAITING'});}};
+  load();render();setupOffline();
+  if(document.modelContext?.registerTool){
+    const lifecycle=new AbortController();
+    const toolDefs=[
+      {name:'list_todo_tasks',description:'Read this device’s TODO tasks with their IDs, status and priority.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},execute(input){if(!input||Object.keys(input).length)throw new Error('Expected an empty object.');return {tasks:state.tasks.map(t=>({id:t.id,parentId:t.parentId,title:t.title,status:t.status,priority:t.answers?C.priority(t.answers):null,due:t.due}))};}},
+      {name:'set_todo_status',description:'Change one task status using the same completion and parent-child rules as the app.',inputSchema:{type:'object',properties:{id:{type:'string'},status:{type:'string',enum:C.statuses}},required:['id','status'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute(input){if(!input||Object.keys(input).some(k=>!['id','status'].includes(k))||typeof input.id!=='string'||!C.statuses.includes(input.status)||!task(input.id))throw new Error('Invalid task ID or status.');if(!mutate(()=>C.setStatus(state,input.id,input.status),'状態を更新しました'))throw new Error('The task could not be updated.');if($('#detail').open)renderDetail();return {id:input.id,status:task(input.id).status,saved:!storageBroken&&!conflict};}}
+    ];
+    for(const def of toolDefs)try{Promise.resolve(document.modelContext.registerTool(def,{signal:lifecycle.signal})).catch(()=>{});}catch{}
+    window.addEventListener('pagehide',e=>{if(!e.persisted)lifecycle.abort();});
+  }
+})();
+</script>
+</body>
+</html>
