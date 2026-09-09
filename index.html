@@ -71,6 +71,11 @@
   .tree-branches .child-row{padding:12px 10px;column-gap:8px}
   .tree-branches .child-row::before{left:-14px;width:12px}
 }
+@media(max-width:720px){
+  .task-row.has-pin{position:relative}
+  .task-row.has-pin>.pin{position:absolute;top:14px;right:12px;width:72px;min-height:44px;padding:8px 6px}
+  .task-row.has-pin>.task-content>.task-title{padding-right:82px;min-height:44px}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -83,7 +88,7 @@
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.3</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.4</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -260,7 +265,7 @@
     const subtree=kids.length
       ? '<details class="task-tree" data-parent="'+t.id+'"'+(expandedParents.has(t.id)?' open':'')+'><summary><span class="tree-chevron" aria-hidden="true">›</span><span>ステップ '+kids.length+'件</span><span class="tree-progress">'+complete+'/'+kids.length+' 完了</span>'+(childMatch?'<span class="tree-match">検索一致 '+childMatch+'件</span>':'')+'</summary><div class="children"><div class="tree-label">このタスクの子タスク</div><div class="tree-branches">'+kids.map((k,i)=>renderChild(k,kids,i)).join('')+'</div>'+add+'</div></details>'
       : add?'<div class="children empty-children">'+add+'</div>':'';
-    return '<article class="task-card"><div class="task-row">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+(kids.length?'<div class="progress-track" aria-hidden="true"><span style="width:'+complete/kids.length*100+'%"></span></div>':'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+subtree+'</article>';
+    return '<article class="task-card"><div class="task-row'+(available(t)?' has-pin':'')+'">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="detail" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+(kids.length?'<div class="progress-track" aria-hidden="true"><span style="width:'+complete/kids.length*100+'%"></span></div>':'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+subtree+'</article>';
   }
   function render(){
     const roots=state.tasks.filter(t=>!t.parentId), active=roots.filter(available).sort(C.compare), waits=roots.filter(t=>waiting(t)&&t.status!=='done'),done=roots.filter(t=>t.status==='done');
