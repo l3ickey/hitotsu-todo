@@ -87,6 +87,19 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 .editor-actions{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px}
 .danger-action{color:#b34523;border-color:#e6bfb3}
 .danger-action:hover{background:#fff1ec}
+.main-footer{flex-wrap:wrap}
+.sync-status{border:0;background:transparent;padding:0;min-height:32px;font-size:.75rem;color:var(--muted);text-align:left}
+.sync-choice{display:flex;gap:10px;border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;cursor:pointer;min-width:0}
+.sync-choice:has(input:checked){border-color:var(--blue);background:#f0f5ff}
+.sync-choice>input{flex:0 0 auto;align-self:flex-start;margin-top:4px;width:20px;height:20px}
+.sync-choice>span{min-width:0;flex:1}
+.sync-branch-origin{display:block;font-size:.8rem;color:var(--muted);margin-bottom:10px}
+.sync-task-preview{overflow-wrap:anywhere;border-top:1px solid var(--line);padding:10px 0}
+.sync-task-preview p{margin:5px 0 0;font-size:.875rem}
+.sync-note{white-space:pre-wrap;max-height:180px;overflow:auto}
+.sync-deleted{display:block;color:#b34523}
+#drive-error,#sync-choice-error{padding:12px 0 0}
+#drive-setup{margin:20px 0}
 #editor-body.editing-layout{display:flex;flex-direction:column;gap:20px}
 #editor-body.editing-layout>.field,#editor-body.editing-layout>p,#editor-body.editing-layout>.editor-actions{margin:0}
 .editing-layout .editor-priority{display:flex;flex-direction:column;gap:8px}
@@ -132,7 +145,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.0.14</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.1.0</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -142,7 +155,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><span id="save-status">保存を確認中…</span><span class="app-version" aria-label="アプリのバージョン">v1.0.14</span></footer>
+      <footer class="main-footer"><span id="save-status">保存を確認中…</span><span class="app-version" aria-label="アプリのバージョン">v1.1.0</span></footer>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
@@ -266,6 +279,231 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   }
   return { VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, priority, empty, event, makeTask, children, compare, setStatus, duplicate, moveChild, removeTask, validate };
 });
+</script><script>(function(root,factory){const api=factory(typeof module==='object'&&module.exports?require('./core.js'):root.TodoCore);if(typeof module==='object'&&module.exports)module.exports=api;else root.TodoSync=api;})(typeof globalThis!=='undefined'?globalThis:this,function(C){
+  'use strict';
+  const clone=x=>JSON.parse(JSON.stringify(x));
+  function stable(x){if(Array.isArray(x))return '['+x.map(stable).join(',')+']';if(x&&typeof x==='object')return '{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+stable(x[k])).join(',')+'}';return JSON.stringify(x);}
+  const equal=(a,b)=>stable(a)===stable(b);
+  function groups(state){const out=Object.create(null);for(const t of state.tasks.filter(t=>!t.parentId))out[t.id]=[t,...C.children(state,t.id)];return out;}
+  function validateEvents(events){
+    if(!Array.isArray(events)||events.length>50000)throw Error('同期記録の容量上限を超えています。JSONを退避してください。');
+    const ids=new Map();
+    for(const e of events){
+      if(!e||typeof e.id!=='string'||e.id.length>100||typeof e.key!=='string'||e.key.length>100||typeof e.device!=='string'||e.device.length>100||!Array.isArray(e.parents)||e.parents.length>1000||e.parents.some(p=>typeof p!=='string')||!Number.isFinite(Date.parse(e.at)))throw Error('同期記録の形式が正しくありません。');
+      if(ids.has(e.id)){if(!equal(ids.get(e.id),e))throw Error('同期記録のIDが重複しています。');continue;}
+      if(e.value!==null){const state=C.validate({...C.empty(),tasks:e.value});if(state.tasks.filter(t=>!t.parentId).length!==1||state.tasks.find(t=>!t.parentId).id!==e.key)throw Error('同期記録の親子関係が不正です。');}
+      ids.set(e.id,clone(e));
+    }
+    const degree=new Map(),children=new Map();
+    for(const e of ids.values()){
+      const parents=[...new Set(e.parents)];degree.set(e.id,parents.length);
+      for(const p of parents){if(!ids.has(p)||ids.get(p).key!==e.key)throw Error('同期記録に不足があります。再同期してください。');if(!children.has(p))children.set(p,[]);children.get(p).push(e.id);}
+    }
+    const queue=[...degree].filter(([,d])=>!d).map(([id])=>id);let count=0;
+    for(let i=0;i<queue.length;i++){count++;for(const id of children.get(queue[i])||[]){degree.set(id,degree.get(id)-1);if(!degree.get(id))queue.push(id);}}
+    if(count!==ids.size)throw Error('同期記録が循環しています。');
+    return [...ids.values()];
+  }
+  function combine(...sets){return validateEvents(sets.flat());}
+  function heads(events){const removed=new Set(events.flatMap(e=>e.parents));const out=Object.create(null);for(const e of events)if(!removed.has(e.id))(out[e.key]??=[]).push(e);for(const list of Object.values(out))list.sort((a,b)=>a.id.localeCompare(b.id));return out;}
+  function conflicts(events){return Object.entries(heads(events)).filter(([,list])=>list.some(e=>!equal(e.value,list[0].value))).map(([key,choices])=>({key,choices}));}
+  function append(events,key,value,device){const parents=(heads(events)[key]||[]).map(e=>e.id);return {id:C.uid(),key,parents,device,at:C.now(),value:clone(value)};}
+  function capture(events,before,after,device){
+    const a=groups(before),b=groups(after),next=[...events];
+    for(const key of new Set([...Object.keys(a),...Object.keys(b)]))if(!equal(a[key]||null,b[key]||null)){
+      if(conflicts(next).some(c=>c.key===key))throw Error('先に変更の衝突を解決してください。');
+      next.push(append(next,key,b[key]||null,device));
+    }
+    return next;
+  }
+  function seed(state,device){return Object.entries(groups(state)).map(([key,value])=>append([],key,value,device));}
+  function materialize(events,current){
+    const byKey=heads(events),existing=groups(current),tasks=[];
+    for(const [key,list] of Object.entries(byKey)){
+      const disputed=list.some(e=>!equal(e.value,list[0].value));
+      const value=disputed?(existing[key]||null):list[0].value;
+      if(value)tasks.push(...clone(value));
+    }
+    const state={...clone(current),tasks};
+    const pinned=tasks.find(t=>t.id===state.pinnedId),parent=pinned?.parentId?tasks.find(t=>t.id===pinned.parentId):null;
+    if(!pinned||['done','waiting'].includes(pinned.status)||parent&&['done','waiting'].includes(parent.status))state.pinnedId=null;
+    return C.validate(state);
+  }
+  function resolve(events,key,choiceId,expected,device){
+    const list=heads(events)[key]||[];
+    if(!equal(list.map(e=>e.id).sort(),[...expected].sort()))throw Error('比較中に別の変更を受信しました。内容を確認し直してください。');
+    const choice=list.find(e=>e.id===choiceId);if(!choice)throw Error('残す内容を選んでください。');
+    return [...events,append(events,key,choice.value,device)];
+  }
+  async function exchange(adapter,events,sent,onPersist){
+    const remote=await adapter.read();
+    const merged=combine(events,remote.events);
+    const known=new Set(remote.events.map(e=>e.id));
+    const pending=merged.filter(e=>!known.has(e.id));
+    // Persist fetched branches before publishing or applying them to the task list.
+    await onPersist(merged,[...known]);
+    if(pending.length){await adapter.write(pending);for(const e of pending)known.add(e.id);await onPersist(merged,[...known]);}
+    return {events:merged,sent:[...known]};
+  }
+  return {clone,equal,groups,combine,heads,conflicts,append,capture,seed,materialize,resolve,exchange};
+});
+</script><script>window.HITOTSU_DRIVE_CLIENT_ID="300409279635-i0b7vm5fb56qks4a66hpikhgtrlbg7fr.apps.googleusercontent.com";</script><script>(function(){
+  'use strict';
+  const C=TodoCore,S=TodoSync,$=s=>document.querySelector(s),K='hitotsu-drive-sync-v1';
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let host,store,stored,broken=false,busy=false,token='',expires=0,googleReady=null,retryAt=0,failures=0,timer,activeConflict=null,demo=null,remoteCache=new Map();
+  function fresh(){return {version:1,device:C.uid(),account:null,clientId:'',enabled:false,events:[],sent:[],lastSync:null};}
+  function persist(){
+    if(broken)throw Error('同期記録を保存できません。JSONを書き出してください。');
+    if(localStorage.getItem(K)!==stored){broken=true;throw Error('別の画面で同期設定が変わりました。再読み込みしてください。');}
+    const json=JSON.stringify(store);localStorage.setItem(K,json);stored=json;
+  }
+  function status(text){$('#drive-status').textContent=text;$('#drive-summary').textContent=text;}
+  function pending(){const sent=new Set(store.sent);return store.events.filter(e=>!sent.has(e.id)).length;}
+  function update(){
+    if(token&&Date.now()>=expires)token='';
+    const count=S.conflicts(store.events).length;
+    $('#drive-resolve').hidden=!count;$('#drive-resolve').textContent='変更の衝突を確認（'+count+'件）';
+    $('#drive-account').textContent=store.account?'連携先：'+store.account.email:'Google Driveは未接続です。';
+    $('#drive-stop').hidden=!store.enabled;
+    $('#drive-connect').textContent=token?'接続済み':store.account?'Google Driveに再接続':'Google Driveと連携';
+    $('#drive-connect').disabled=!!token;
+    $('#drive-last').textContent=store.lastSync?'前回の同期：'+new Date(store.lastSync).toLocaleString('ja-JP'):'';
+    if(broken)status('同期を停止：保存状態を確認してください');
+    else if(count)status('同期：変更の衝突 '+count+'件');
+    else if(!store.enabled)status('Drive同期：オフ');
+    else if(!navigator.onLine)status('オフライン：変更は端末内に保存');
+    else if(!token||Date.now()>=expires)status('同期：Googleへの再接続が必要'+(pending()?'・未送信あり':''));
+    else if(busy)status('同期中…');
+    else if(failures)status('同期：通信待ち・自動再試行予定');
+    else if(pending())status('同期：未送信の変更あり');
+    else status('Drive同期済み');
+  }
+  function error(err){$('#drive-error').textContent=err.message||String(err);update();}
+  function loadGoogle(){
+    if(window.google?.accounts?.oauth2)return Promise.resolve();
+    if(!googleReady)googleReady=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client';script.async=true;script.onload=resolve;script.onerror=()=>{googleReady=null;script.remove();reject(Error('Googleの接続機能を読み込めません。オンラインで再試行してください。'));};document.head.append(script);});
+    return googleReady;
+  }
+  async function request(url,options={}){
+    if(!token||Date.now()>=expires){token='';throw Error('Googleへの再接続が必要です。');}
+    const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30000);
+    try{
+      const response=await fetch(url,{...options,signal:controller.signal,headers:{...options.headers,Authorization:'Bearer '+token}});
+      if(response.status===401){token='';throw Error('Googleへの再接続が必要です。');}
+      if(response.status===403)throw Error('Google Driveの権限または利用上限を確認してください。');
+      if(response.status===429)throw Error('Google Driveが混み合っています。時間をおいて自動で再試行します。');
+      if(!response.ok)throw Error('Google Driveとの通信に失敗しました（'+response.status+'）。');
+      return response;
+    }finally{clearTimeout(timeout);}
+  }
+  const adapter={
+    async read(){
+      let page='',files=[];
+      do{
+        const q=new URLSearchParams({spaces:'appDataFolder',q:"trashed = false and appProperties has { key='hitotsuSync' and value='journal-v1' }",fields:'nextPageToken,files(id,size)',pageSize:'1000'});if(page)q.set('pageToken',page);
+        const result=await (await request('https://www.googleapis.com/drive/v3/files?'+q)).json();files.push(...(result.files||[]));page=result.nextPageToken||'';
+        if(files.length>10000)throw Error('同期記録が多くなっています。JSONを退避して開発者に相談してください。');
+      }while(page);
+      const batches=[];
+      for(const file of files){
+        if(Number(file.size)>20*1024*1024)throw Error('同期ファイルが大きすぎます。');
+        if(!remoteCache.has(file.id)){
+          const text=await (await request('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(file.id)+'?alt=media')).text();
+          if(text.length>20*1024*1024)throw Error('同期ファイルが大きすぎます。');
+          const doc=JSON.parse(text);if(doc.app!=='hitotsu-sync'||doc.version!==1||!Array.isArray(doc.events))throw Error('未対応の同期データです。アプリを更新してください。');remoteCache.set(file.id,doc.events);
+        }
+        batches.push(...remoteCache.get(file.id));
+      }
+      if(host.editing()||host.blocked())throw Error('編集中のため同期を待機しています。画面を閉じると再試行します。');
+      return {events:batches};
+    },
+    async write(events){
+      // Each batch is immutable: concurrent devices never overwrite the same file.
+      const metadata={name:'hitotsu-journal-'+C.uid()+'.json',parents:['appDataFolder'],mimeType:'application/json',appProperties:{hitotsuSync:'journal-v1'}};
+      const boundary='hitotsu_'+C.uid(),data=JSON.stringify({app:'hitotsu-sync',version:1,events});
+      if(data.length>20*1024*1024)throw Error('未送信データが大きすぎます。JSONを書き出してください。');
+      const body='--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(metadata)+'\r\n--'+boundary+'\r\nContent-Type: application/json\r\n\r\n'+data+'\r\n--'+boundary+'--';
+      await request('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body});
+    }
+  };
+  function schedule(){clearTimeout(timer);timer=setTimeout(run,2500);update();}
+  async function run(){
+    if(busy||broken||!store.enabled||!token||!navigator.onLine||document.hidden||Date.now()<retryAt||host.blocked()||host.editing())return;
+    if(Date.now()>=expires){token='';update();return;}
+    busy=true;update();
+    try{
+      await S.exchange(adapter,S.clone(store.events),store.sent,async(events,sent)=>{
+        if(!store.enabled||!token)throw Error('同期を停止しました。再接続すると再開します。');
+        // Edits made while the network request was running stay in the journal.
+        store.events=S.combine(store.events,events);store.sent=[...new Set([...store.sent,...sent])];persist();
+      });
+      if(host.blocked())throw Error('端末内の保存状態を確認してください。');
+      if(!host.editing()){host.apply(S.materialize(store.events,host.get()));store.observed=host.get();}
+      store.lastSync=C.now();persist();failures=0;retryAt=0;$('#drive-error').textContent='';
+    }catch(err){failures++;retryAt=Date.now()+Math.min(300000,5000*2**Math.min(failures,6));error(err);}
+    finally{busy=false;update();if(token&&pending()&&!failures)schedule();}
+  }
+  async function connect(response){
+    try{
+      if(response.error)throw Error('Googleとの接続を完了できませんでした。');
+      token=response.access_token;expires=Date.now()+Math.max(0,Number(response.expires_in)-60)*1000;
+      const profile=await (await request('https://www.googleapis.com/oauth2/v3/userinfo')).json();
+      if(!profile.sub||!profile.email)throw Error('Googleアカウントを確認できませんでした。');
+      if(store.account&&store.account.id!==profile.sub){token='';throw Error('この端末は '+store.account.email+' に連携済みです。同じGoogleアカウントで接続してください。');}
+      if(!store.account){store.account={id:profile.sub,email:profile.email};store.events=S.seed(host.get(),store.device);store.sent=[];store.observed=host.get();}
+      store.enabled=true;persist();retryAt=0;failures=0;update();await run();
+    }catch(err){token='';error(err);}
+  }
+  function branchHTML(e,device){
+    const states={todo:'未着手',doing:'作業中',waiting:'待ち',done:'完了済み'};
+    return '<span class="sync-branch-origin">'+(e.device===device?'この端末':'別の端末 '+esc(e.device.slice(-4)))+' · '+esc(new Date(e.at).toLocaleString('ja-JP'))+'</span>'+(e.value?e.value.map(t=>'<div class="sync-task-preview"><strong>'+(t.parentId?'↳ ':'')+esc(t.title)+'</strong><p>'+esc(states[t.status])+' · '+esc(t.due||'締切なし')+(t.answers?' · 優先度'+C.priority(t.answers):'')+'</p><p class="sync-note">'+esc(t.note||'メモなし')+'</p></div>').join(''):'<strong class="sync-deleted">このタスクと子タスクを削除</strong>');
+  }
+  function showConflict(){
+    const context=demo||store,conflict=S.conflicts(context.events)[0];
+    if(!conflict){$('#sync-conflict').close();activeConflict=null;return;}
+    activeConflict={key:conflict.key,ids:conflict.choices.map(e=>e.id),demo:!!demo};
+    $('#sync-conflict-title').textContent=demo?'競合の選択を試す（デモ）':'変更が衝突しています';
+    $('#sync-choices').innerHTML=conflict.choices.map(e=>'<label class="sync-choice"><input type="radio" name="sync-choice" value="'+esc(e.id)+'"><span>'+branchHTML(e,context.device)+'</span></label>').join('');
+    $('#sync-choice-error').textContent='';$('#sync-choose').disabled=true;
+    if(!$('#sync-conflict').open)$('#sync-conflict').showModal();
+  }
+  function startDemo(kind){
+    const a=C.empty(),root=C.makeTask({title:'資料をレビューする',note:'共通のメモ',answers:{handoff:true,quick:null,heavy:null}});a.tasks.push(root);
+    const base=S.seed(a,'demo-origin'),left=S.clone(a),right=S.clone(a);
+    left.tasks[0].note='PCで追加した確認ポイント';C.event(left.tasks[0],'edited','PCでメモを変更');
+    if(kind==='delete')right.tasks=[];else{right.tasks[0].note='iPhoneで追加した確認ポイント';right.tasks[0].due='2026-12-31';C.event(right.tasks[0],'edited','iPhoneで変更');}
+    demo={events:S.combine(S.capture(base,a,left,'demo-pc'),S.capture(base,a,right,'demo-phone')),device:'demo-pc'};showConflict();
+  }
+  window.HitotsuDrive={
+    init(api){
+      host=api;try{stored=localStorage.getItem(K);store=stored?JSON.parse(stored):fresh();if(store.version!==1||!Array.isArray(store.sent))throw Error('未対応の同期設定です。');store.events=S.combine(store.events);if(store.account){store.events=S.capture(store.events,store.observed||host.get(),host.get(),store.device);store.observed=host.get();persist();}}catch(err){store=fresh();broken=true;}
+      document.body.insertAdjacentHTML('beforeend','<dialog id="drive-dialog" aria-labelledby="drive-title"><div class="dialog-head"><h2 id="drive-title">Google Drive同期</h2><button class="icon-button" data-close="drive-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p id="drive-account"></p><p id="drive-summary" role="status"></p><p id="drive-last" class="muted"></p><p>タスク・子タスク・履歴・削除の記録をGoogle Driveのアプリ専用領域に保存します。固定するタスクは端末ごとです。</p><p>接続中は編集後と約30秒ごと、画面に戻ったときに自動同期します。認証が切れた場合は再接続してください。</p><div class="editor-actions"><button id="drive-connect" class="primary">Google Driveと連携</button><button id="drive-stop">同期を停止</button><button id="drive-resolve" hidden>変更の衝突を確認</button></div><p id="drive-error" class="error" role="alert"></p><details id="drive-setup"><summary>開発者向け初期設定</summary><p>Google Cloudで作成したウェブアプリ用OAuthクライアントIDを設定します。利用者ごとの発行は不要です。</p><label class="field">OAuthクライアントID<input id="drive-client-id" autocomplete="off" placeholder="…apps.googleusercontent.com"></label><button id="drive-config-save">設定を保存</button><p class="muted">クライアントシークレットは入力しないでください。</p></details><hr><p>実データを変更せずに、競合の選択画面を試せます。</p><div class="editor-actions"><button id="sync-demo-edit">編集同士の競合を試す</button><button id="sync-demo-delete">削除と編集の競合を試す</button></div><p id="sync-demo-result" role="status"></p></div></dialog><dialog id="sync-conflict" aria-labelledby="sync-conflict-title"><div class="dialog-head"><h2 id="sync-conflict-title">変更が衝突しています</h2><button class="icon-button" data-close="sync-conflict" aria-label="閉じる">×</button></div><div class="dialog-body"><p>残す内容を選んでください。親子の整合性を保つため、この親タスクと子タスク一式を比較しています。他のタスクは変更しません。</p><div id="sync-choices"></div><p id="sync-choice-error" class="error" role="alert"></p></div><div class="dialog-foot"><button data-close="sync-conflict">あとで選ぶ</button><button id="sync-choose" class="primary" disabled>選んだ内容を残す</button></div></dialog>');
+      $('#data-dialog .dialog-body').insertAdjacentHTML('afterbegin','<div class="data-option"><h3>端末間で自動同期</h3><button id="drive-open">Google Drive同期</button></div>');
+      $('.main-footer').insertAdjacentHTML('afterbegin','<button id="drive-status" class="sync-status">Drive同期：オフ</button>');
+      const open=()=>{update();$('#drive-dialog').showModal();loadGoogle().catch(error);};$('#drive-open').onclick=open;$('#drive-status').onclick=open;
+      const defaultId=window.HITOTSU_DRIVE_CLIENT_ID||'';$('#drive-client-id').value=defaultId||store.clientId;$('#drive-setup').open=!defaultId&&!store.clientId;
+      $('#drive-config-save').onclick=()=>{try{const id=$('#drive-client-id').value.trim();if(!/^[\w-]+\.apps\.googleusercontent\.com$/.test(id))throw Error('OAuthクライアントIDの形式を確認してください。');if(store.account&&store.clientId&&store.clientId!==id)throw Error('連携後は同じクライアントIDを利用してください。');store.clientId=id;persist();$('#drive-error').textContent='設定しました。「Google Driveと連携」を押してください。';}catch(err){error(err);}};
+      $('#drive-connect').onclick=()=>{try{if(broken||host.blocked())throw Error('端末内の保存状態を確認してから接続してください。');if(!navigator.onLine)throw Error('オンラインで接続してください。');const clientId=defaultId||store.clientId;if(!clientId)throw Error('開発者によるOAuthクライアントIDの設定が必要です。');if(!window.google?.accounts?.oauth2){loadGoogle().then(()=>{$('#drive-error').textContent='準備できました。もう一度接続ボタンを押してください。';}).catch(error);return;}store.clientId=clientId;persist();window.google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'https://www.googleapis.com/auth/drive.appdata openid email',callback:connect,error_callback:()=>error(Error('接続画面が閉じられたか、ポップアップを開けませんでした。')),hint:store.account?.email}).requestAccessToken();}catch(err){error(err);}};
+      $('#drive-stop').onclick=()=>{try{token='';store.enabled=false;persist();update();}catch(err){error(err);}};
+      $('#drive-resolve').onclick=()=>{demo=null;showConflict();};
+      $('#sync-demo-edit').onclick=()=>startDemo('edit');$('#sync-demo-delete').onclick=()=>startDemo('delete');
+      $('#sync-choices').onchange=()=>{$('#sync-choose').disabled=!$('#sync-choices input:checked');};
+      $('#sync-choose').onclick=()=>{try{
+        const selected=$('#sync-choices input:checked');if(!selected)throw Error('残す内容を選んでください。');
+        const context=demo||store;context.events=S.resolve(context.events,activeConflict.key,selected.value,activeConflict.ids,context.device);
+        if(demo){const result=S.materialize(demo.events,C.empty());$('#sync-demo-result').textContent='デモ結果：'+(result.tasks.length?result.tasks[0].note:'削除を採用しました')+'（実データは変更していません）';demo=null;$('#sync-conflict').close();}
+        else{persist();host.apply(S.materialize(store.events,host.get()));store.observed=host.get();persist();update();schedule();showConflict();}
+      }catch(err){$('#sync-choice-error').textContent=err.message;}};
+      window.addEventListener('online',()=>{retryAt=0;run();update();});window.addEventListener('offline',update);
+      document.addEventListener('visibilitychange',()=>{if(!document.hidden){run();update();}});
+      window.addEventListener('storage',e=>{if(e.key===K||e.key===null){broken=true;token='';update();}});
+      setInterval(()=>{run();update();},30000);update();
+    },
+    record(before,after){if(!store?.account||broken)return;try{store.events=S.capture(store.events,before,after,store.device);store.observed=S.clone(after);persist();schedule();}catch(err){broken=true;error(err);}},
+    blocked(){return store&&S.conflicts(store.events).length?'先にGoogle Drive同期の変更の衝突を解決してください。':null;}
+  };
+})();
 </script>
   <script>(() => {
   'use strict';
@@ -276,6 +514,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   const names=['','相手につなぐ','10分で片づける','分けて進める','締切から進める'];
   const stateNames={todo:'未着手',doing:'作業中',waiting:'待ち',done:'完了済み'};
   const expandedParents=new Set();
+  let applyingDrive=false;
   let state=C.empty(),view='active',query='',persisted=null,storageBroken=false,conflict=false,draft=null,importState=null,registration=null,toastTimer;
   function toast(message) { $('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),4500); }
   function warning(message) {$('#storage-warning').textContent=message;$('#storage-warning').hidden=false;}
@@ -296,11 +535,14 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     try {
       const current=localStorage.getItem(KEY);
       if(current!==persisted) { conflict=true;warning('別の画面でデータが更新されました。現在の内容をJSONに書き出し、再読み込みしてください。上書きは停止しています。');$('#save-status').textContent='別画面との競合 — 自動保存を停止';return; }
+      const previous=persisted?JSON.parse(persisted):C.empty();
       const json=JSON.stringify(state);localStorage.setItem(KEY,json);persisted=json;
+      if(!applyingDrive)window.HitotsuDrive?.record(previous,state);
       $('#save-status').textContent='保存済み · '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
     } catch {storageBroken=true;warning('端末内への保存に失敗しました。画面を閉じずに、JSONを書き出してください。');$('#save-status').textContent='保存失敗 — JSONを書き出してください';}
   }
   function mutate(fn,message) {
+    const syncBlock=window.HitotsuDrive?.blocked();if(syncBlock){toast(syncBlock);return false;}
     if(conflict){toast('別の画面の変更があります。JSONを書き出してから再読み込みしてください。');return false;}
     const before=JSON.stringify(state);
     try{fn();save();render();if(message)toast(message);return true;}catch(err){state=JSON.parse(before);toast(err.message);return false;}
@@ -352,6 +594,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     $('#urgent').innerHTML=urgent.length?'<div class="urgent-box"><h2>期限超過・今日締切 <span>('+urgent.length+')</span></h2>'+urgent.map(t=>'<div class="urgent-item"><button data-action="edit" data-id="'+t.id+'">'+esc(t.title)+(waiting(t)?'〈待ち〉':'')+'</button><span>'+dueText(t.due)+'</span></div>').join('')+'</div>':'';
   }
   function openEditor(id=null,parentId=null){
+    const syncBlock=window.HitotsuDrive?.blocked();if(syncBlock){toast(syncBlock);return;}
     const t=id?task(id):null;
     draft={id,parentId:t?t.parentId:parentId,step:0,title:t?.title||'',note:t?.note||'',due:t?.due||'',answers:t?.answers?{...t.answers}:{handoff:null,quick:null,heavy:null},editing:!!t,status:t?.status||'todo'};
     $('#editor-title').textContent=t?'タスクを編集':parentId?'子タスクを追加':'タスクを追加';$('#editor-error').textContent='';renderEditor();if(!$('#editor').open)$('#editor').showModal();
@@ -478,6 +721,17 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   let applyingUpdate=false;
   $('#update-button').onclick=async()=>{if(storageBroken||conflict){toast('先にJSONを書き出し、データを保護してください。');return;}if($('#editor').open){toast('編集中のタスクを保存してから更新してください。');return;}if(registration?.waiting&&await ask('保存済みのタスクを維持して、アプリを更新します。','更新する')){applyingUpdate=true;registration.waiting.postMessage({type:'SKIP_WAITING'});}};
   load();render();setupOffline();
+  window.HitotsuDrive?.init({
+    get:()=>JSON.parse(JSON.stringify(state)),
+    editing:()=>$('#editor').open||$('#confirm-dialog').open,
+    blocked:()=>storageBroken||conflict,
+    apply:next=>{
+      if(storageBroken||conflict)throw Error('端末内に保存できないため、同期の反映を停止しています。');
+      if(TodoSync.equal(state.tasks,next.tasks)&&state.pinnedId===next.pinnedId)return;
+      const old=state;applyingDrive=true;
+      try{state=next;save();if(storageBroken||conflict){state=old;throw Error('同期結果を端末内に保存できませんでした。');}render();}finally{applyingDrive=false;}
+    }
+  });
   if(document.modelContext?.registerTool){
     const lifecycle=new AbortController();
     const toolDefs=[
