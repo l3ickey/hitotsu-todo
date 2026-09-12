@@ -152,7 +152,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.2.2</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.2.3</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -162,7 +162,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><span class="app-version" aria-label="アプリのバージョン">v1.2.2</span></footer>
+      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><span class="app-version" aria-label="アプリのバージョン">v1.2.3</span></footer>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
@@ -567,7 +567,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   function dueText(d){if(!d)return '締切なし';const date=new Date(d+'T12:00:00');return date.toLocaleDateString('ja-JP',{year:date.getFullYear()!==new Date().getFullYear()?'numeric':undefined,month:'numeric',day:'numeric'})+' 締切';}
   function badge(t){return '<span class="pill '+(t.status==='doing'?'doing':'')+'">'+stateNames[t.status]+'</span>';}
   function check(t){return '<button class="check '+(t.status==='done'?'checked':'')+'" data-action="toggle" data-id="'+t.id+'" aria-label="'+esc(t.title)+(t.status==='done'?'を再開':'を完了')+'">'+(t.status==='done'?'✓':'')+'</button>';}
-  function meta(t){return '<div class="task-meta"><span class="'+(t.due && t.due<=C.today() && t.status!=='done'?'overdue':'')+'">'+dueText(t.due)+'</span><button class="meta-action" data-action="edit" data-id="'+t.id+'" aria-label="状態・履歴を開く">'+badge(t)+'</button>'+(t.note?'<button class="meta-action note-preview" data-action="edit-note" data-id="'+t.id+'" aria-label="メモを編集">'+esc(t.note.replace(/\s+/g,' ').trim())+'</button>':'')+'</div>';}
+  function meta(t){const note=(t.note||'').replace(/\s+/g,' ').trim();return '<div class="task-meta">'+(note?'<button class="meta-action note-preview" data-action="edit-note" data-id="'+t.id+'" aria-label="メモを編集">'+esc(note)+'</button>':'')+'<span class="'+(t.due && t.due<=C.today() && t.status!=='done'?'overdue':'')+'">'+dueText(t.due)+'</span><button class="meta-action" data-action="edit" data-id="'+t.id+'" aria-label="状態・履歴を開く">'+badge(t)+'</button></div>';}
   function renderChild(t,list,index){return '<div class="child-row" data-child="'+t.id+'"><span class="drag-handle" draggable="true" data-drag="'+t.id+'" aria-hidden="true" title="ドラッグして並べ替え">⠿</span>'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="edit" data-id="'+t.id+'">'+esc(t.title)+'</button>'+meta(t)+'</div><div class="child-move"><button data-action="up" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を上へ" '+(index===0?'disabled':'')+'>↑</button><button data-action="down" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を下へ" '+(index===list.length-1?'disabled':'')+'>↓</button></div></div>';}
   function renderCard(t){
     const kids=C.children(state,t.id),complete=kids.filter(k=>k.status==='done').length;
