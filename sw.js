@@ -1,8 +1,8 @@
 'use strict';
 // Change the version whenever any shipped asset changes.
-const CACHE='hitotsu-v1:'+self.registration.scope+':1.2.4:9e5e958e8120';
+const CACHE='hitotsu-v1:'+self.registration.scope+':1.4.18:578e3c1d7dba';
 const PREFIX='hitotsu-v1:'+self.registration.scope+':';
-const ASSETS=['./','./index.html','./firebase-sdk.js','./about.html','./privacy.html','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const ASSETS=['./','./index.html','./firebase-sdk.js','./about.html','./privacy.html','./characters.html','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
 });
