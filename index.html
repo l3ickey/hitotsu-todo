@@ -190,6 +190,8 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 /* Keep deadline navigation targets visible, including expanded child tasks. */
 [data-task-id]{scroll-margin-block:24px}.task-located{outline:3px solid #6798ff;outline-offset:-3px;background:#edf4ff}.urgent-item .urgent-deadline{flex:none;text-align:right;line-height:1.5;font-weight:700}
 @media(max-width:600px){.urgent-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center}.urgent-item .urgent-deadline{max-width:none;padding:0;white-space:nowrap}}
+
+.main-footer #sound-toggle{background:none;border:0;padding:4px 0;color:var(--muted);font-size:inherit;font-weight:inherit}
 </style>
 </head>
 <body>
@@ -201,7 +203,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.4.20</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.4.23</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -211,7 +213,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.4.20</span></footer>
+      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><span class="app-version" aria-label="アプリのバージョン">v1.4.23</span></footer>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><span id="editor-monster" aria-hidden="true" hidden></span><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
@@ -587,6 +589,73 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 </script>
   <script>window.TodoCharacters={"hero":{"name":"騎士","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACOElEQVR4nMXUz24SURQG8NlJTewr4J8HqCbaJjYNNtZaIsgwU4ImFdCFz6AUmNY6d4Y3EKgRNFUS9wVdFDTRpe7c1UTTFky76BY4h8/cC3UpozXxJjdzJ5n7O985i9G0/7HMaBSu4+LfYBEdlUoFQthwHHE8NGYaEEIgn89j0TDgCIGYYfwdKttce7QGiS4aUeRdV6GuI2Dounf0VjwO04hidWUFZlTH0/V1OLJdIVCtVhVq27Yq4gl8kMnAdRx1UWLCttV2XRelYgHFYhGmrqP8rOwNvJQTeN8lZJfTaH18DG7VwO1NlAoFcGsT1KqhUHiCdPohYqY5Gv3UI/SYsdUhcKsO3qsNnu36EK8pdDmdHo296xGYCUyERpdVIk3TQAqsqad8lwXm5+ZGg02JMIOJsTUEeYipdDKtSlr3Nr/GEcikWu6334Lbb1Sqoy0xwIPX7BKIGH3uq4Ty3OiwAkgmbdfQ/zGY5Yl4EmO37/1elVUlQKrlwQwvT07gxulxvAieQSXoRznox8mwiR0m7BCj2aHRURsdUh/KAqlkAqViCeGzp/A86Ef43Di+HBwMkhNj1wvqW4jAl7gPy7K0ZCKBXDYLy8rh5cYGrFwWH/b31Zz3iBTaGAW+ep3Xeu0mAoGAlstmcGdpCalUEl+3t3E3mcTnw0MF7kqQPbYtVygU0manL2Jm6oK6MDN1HtOTExi7FsZ3kjMkfCP2/pPQF65AD84icj2gLt2cD/w6+64G0ez8AXac9RNOYQYvj+EPTAAAAABJRU5ErkJggg=="},"slime":{"name":"スライム","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAS0lEQVR4nGNgGAWjYBQMRlCwZ+J/ZEw1gygyGKbp7ff/GAYhi5FsoJqJN4aByGJU8SrJXsemCeQqbK4l20CKI8eiMvk/MZgowygFAFgGzJtiMDaOAAAAAElFTkSuQmCC"},"zombie":{"name":"ゾンビ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAfklEQVR4nGNgGAXowKIy+T8yptiwgj0TUTBFhiIb9KSiAs6myEA1E2+4QTA2VVyIjMk2ENmVyC6l2ECKXQfT3JK2EismyXBk1yAbAoplsgxFVojLhejqiAa4XEeSIejAJLz+PzKmmmHIfIoNxMUnGaAHPEVpEVuRRbVijBQAAJaT8xW+rmf9AAAAAElFTkSuQmCC"},"bat":{"name":"コウモリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbUlEQVR4nGNgGAWjYBABNRPv/1TVCxLEJoEshksep4EtaSsxJGFiMHli9KBIoiuAicEwIfVYDYQpQjcMlxxRBsLw93PlWNkEDcRlKLrXiDYMn6Fvv/8HY5INI+R9sgxjwJL2sBlCSUbAnXjpAQBtwPETqVuSgAAAAABJRU5ErkJggg=="},"skeleton":{"name":"スケルトン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbElEQVR4nGNgGAXoYPeJa/+RMcWGvf3+HwWTbSg2wygyFNlANRNvFHpwGIhuKDImyzB0Q2Guo8gwBmolG3TNhPgEDYMFPD5MdOTAFKPz0Q2gKPlQLevhcyFFBmJjk20Y2bGLyzBsBlLF68QCADhTQ6b46EmeAAAAAElFTkSuQmCC"},"goblin":{"name":"ゴブリン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGAV0ARaVyf9BmCIDkNkFeyaCMbo40QbCNCMbhmwoTJwkV6IbhI5JMgxm4Pdz5f/VTLzhhiDzSTYQnyvJMgzZ0Lff/4MxxYZNjHf8jw2T7TKYAaCwA2EYn6IYRncd2WEJ04DNuxSFJSwhU5z9GLDkYYoNRQ8ritIhNm9SzeukAABmm+P5D4DqhAAAAABJRU5ErkJggg=="},"ghost":{"name":"ゴースト","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAYElEQVR4nGNgGAVDD+w+ce0/MqbYsLff/6Ngsg3FZhjZhuIzjCxDkQ1UM/HGyh44A2GxSYyXiTIUm2EglyG7jiRXUt1AXIZSLZYHp4HIhqLHOrI4yQYia0LmU6WgIBYAAPHuzfz6892XAAAAAElFTkSuQmCC"},"mushroom":{"name":"キノコ魔人","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAhUlEQVR4nGNgGAVDD+x2DviPjCk26ElFxf+33/+DMYhNlsEwg5ANgxkIw0QbimwYsqHoLiXKUGxeRDeYJEMJGUiyK9FjlFhMMBxfbqv6TwwmaBC6of+vLoBrRmaTbBjMQDUTb7gByGyyDaSad5ENBXmVYu+iuxCfGFFgYrzjfxgmRY4mAAD3l3LzmTUc5AAAAABJRU5ErkJggg=="},"spider":{"name":"大グモ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiklEQVR4nGNgGAXIoLR74X9smGzDWtJWYsVkGYps4Nvv/8GYJAPRvUOsC/EGA7IkMQYSFabIgY/PQKJdhi6GyzBC+hmw2Uoo2RCVlNA14/MuSckHZtiTigowRjacZIOQXQczkOgIwRce+MIQr8G4JEBisFwCwrjUkBQphMSJ8jZV1JGaDCgqykgBAMaOjppeyh/HAAAAAElFTkSuQmCC"},"scorpion":{"name":"サソリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAgklEQVR4nGNgGChQFpj6Hxsm27DNExdixWQZCjMQXZwiA3c7B1DPQBCguoHYwOA2EBZROA1Ej0lCNuM1EDmdwRIsPtvR1eNVgG4wyYYhK8SVrSjOdsgacGU7ggaiG4IcliCsZuJNvIG4IgVfgUC0geiayA4/5KSC7HV8NMmA6gaSAwDXQz/wPigRiwAAAABJRU5ErkJggg=="},"imp":{"name":"小悪魔","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAmUlEQVR4nO2SwQ2AIAxFmcYJ3MCjF7eR3dzBKbx65ljzTWqahppSw82fEIHCy6MxpT/dUvaVIrVXYO2ite/KkTNt00L4ynkYZgFDUFzC04ZxfiCYY+8TlM3CdrDQ0LPQPTRMnzWBsNGW2g5nmoDyiXpw3QWUUAbwvyeBbpiEWobNMI7um1zLPrvDvaqtdc0NqwEltNnSa98tF6EN/+CuDlvbAAAAAElFTkSuQmCC"},"mimic":{"name":"ミミック","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGJLg+7ny/8Rgog2bGO+IgrGJwcSJMuzltiowxmYgNjmiXUbIhXgNJTbciA5PNRPv/2+//wdjcthYDYQpgrHR+bjYOA0s0XckC5Nk4JOKCjim2EBkw/AZSnYY4uMTHcu4xAjGMtXTIXpuQObDNOHKOWQZCPIWVQ0ky4VUDUNqAQD89qkriwC/CgAAAABJRU5ErkJggg=="},"mummy":{"name":"マミー","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAkElEQVR4nGNgoCd4ua3qPzqmyLC33/9jYLINRTYAhmFiZLtQzcQbjL+fK4ezyXYlTVxI1TBkQIpligzD5kVcfKIMw+ZFdAOJdjG67dgMgEUKsiVEuRDd++hyRLsS2VZc3semlqChhFyIHEwEDURWjKwBm4FEJyWYi7B5keKsh0+MaIAtzMjOz7gKVaoVtqQAAEzb6z1RPowiAAAAAElFTkSuQmCC"},"golem":{"name":"岩のゴーレム","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABUklEQVR4nO3WMQ7CMAwF0F4PcQEmNgQjKyNHgJmNYyBxIQ4BaqVKUWT7+ztpU6RGykJT8nDsmK5bxzr+eBx2269nNsO9nldz3i77Nsh+w35zCTXC++fjnB0pAVNMimuCtBDS54sBppDFAD/vswodnzUtFAmZ4hYBRLk4+/FqeaYVSg6c7DJPL2dvF5Fm8WUufenuuBmm1Tk0UB7d/O6kkPkvHGEIqOWjdPzaeoiUOsT9cRpg1h3nnehdChi5iGcDer4kunlRr/ZuwuC0QgkBEZIFsmsnAbJRt+5HiOscf+OZyGo5KO3jwkWBkSoNRRC1oVrAULvztCGUnxYuTwW63aUvatVXG0hVM6pOVCQIxxYTBOYbl/bhKkAtiqiyI5PCSVFkosegmgJRyqCcdQFrHUs04irOglqbWkC0PoRDcOZY2PVVgMyxFB1jLegU69dRc/wAIK+LD4HeRcgAAAAASUVORK5CYII="},"hydra":{"name":"ヒュドラ","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABG0lEQVR4nO2Xyw3CMAyGOw0TcGAHxmABbgi2YBlOzMAeHDj3GJRKQZaJE9vNw6BYspJW+e0vDzfqNA0bNkxm8+PkOO96aBbbnQ/ueL8uHvq+5Wh8q9HAfGw47JS4lcY+YBBttvvPYH8m4DMWY40fr9H4fkqTnVUuWW0NKX7NbnHudoXxNTTJGXIrsrbmNwCDGAdIiaXJYrHZcOYBpXAaQDWkBk4LqII0D6iFbLbFKUgYhHM7xMbk4rLgcoljsLnJUHFUUBLINV4EDkJyVoS72kXhMGgM4Hm7fHmxc/Y3gBI4CrL42cvBaQCrFEiqADSARSEH4AC0Dsj9DnatZKk3gYvdr5R32WITgCE4/PvX3KkQEsdaDUh5jzgm7Q3wxxjZx/tsegAAAABJRU5ErkJggg=="},"lich":{"name":"リッチキング","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAA80lEQVR4nGNgGAWjYBSMgsELvp8r/4/OxyZGd4ehO4gQHnUgNtCStvI/KXhAHLb7xLX/b7//x4tBaujq0CHlQJAD1Ey8wbhE3xErG6RmUDgQHSOH4qgDcTkQVxoEiSPjAc3NMEcghxqIje44ujlsUDgQXy2AqyDGF61UK7RhjkJOT8iOJFRbPKmoAGOa1S6D3oHoDoU5jlgLSXUg2Y6cGO+IohG97MNWvuFzID49VHUgenlHjgOpUnAPOQeiO3TAM8moA6ntwCFVzIw6kFQHkmIZOQ4ky6GjDqRGVJNjCSUOJNmRow6kxIGgjvdAYpJCcqABAAhT9uF88xhpAAAAAElFTkSuQmCC"},"boss":{"name":"ドラゴン","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABuklEQVR4nO3YPU4DMRAFYJ+GloYLIEoaihwFRMTBaLgDp6BJAW3KRSNloqdhZvy8sZ2AsGTtTzbyl7e215tS/svP8nb3sJzbEJbH69vlooGC+9huLxOo6U0BtjYiuK+nzREox+N0ByDbiOKmAqUBtiFMT7ZTgdKo7EcN2vTOAtRqG0WcBcp2GBJHIwIRaXEecBhSgRkySs8ChyAZYJSe3R+C7AHUuhq5f39epHrnM6CHQ6DFWSiNVCAi9RiBFrk2vWgmqJbd68vxy7Kv570UmfRsajqgtOpnVZjtV1hPAdo0vbmzuiTzbkOGZIA2xQhIJ6f97ermnk4x638eUI+nAJn0IiCdIgIyIC4OFNkCtAsICpgNCq+eAiwwGKjbXBsQa4HRfIdtUy9RLal504C3OGCBdJG+9rlfFtxKRZT9UTpxZ8AuOJsE02kVqE+abILuBmSL3joE1rrFUGDUuAJZ5BCgnReLkyADLDP/k7E4FlgLoRuuFZgh8ZphwJY51IPRj7tfD1wzgll8V5y3RM9S865reSg04/R8BoyW8t1QFodvdB4Q3wKH/zFUDosHqdiwnsNr8HPvmj9fvgE3Zqdx7vF4yAAAAABJRU5ErkJggg=="},"evilEye":{"name":"イビルアイ","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABCUlEQVR4nO3Xyw2DMAwGYKbptRcW6Ll7dAKkMgDLdJlO0WvPHKlyAIXUeTj+HYIUS5ZoIc4nNwHadS1atGixi+F6W442bGEwqXkY7DOO0SwG5aBi2CpxakgkDo7UwEGRXNz8frKR4u5Nj9dffudllwZ26e9bms/uNVQdURcpnDvpiluPbSCFpKAwIDWZDXQ76AO6yCJA6idWBbrrL4bzAVOQ2euw6g6eEhjaxRwgdBdXfR/0dTGUBsa5HvKo4yI5OOgLQ5U4DaTKG7ZdGIGDrUGqkN0BacfE0FABzr86Xw0RMDbY111EHTWgZp3zAWODEUDVTVLiPBua+r10HAyZA1TB5UxYHNeCiB/BE5TLV9SsRwAAAABJRU5ErkJggg=="}};</script><script>(() => {
   'use strict';
+  const KEY='hitotsu-battle-sound-v1';
+  let enabled=false,context=null,epoch=0;
+  const active=new Set(),buffers=new Map();
+  try{enabled=localStorage.getItem(KEY)==='on';}catch{}
+  function stop(){epoch++;for(const source of active){try{source.stop();source.disconnect();}catch{}}active.clear();}
+  function prepare(){
+    if(!enabled||document.hidden)return null;
+    try{
+      const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return null;
+      if(!context||context.state==='closed'){context=new Audio();buffers.clear();}
+      // Called from the completion click (or sound toggle) for mobile autoplay rules.
+      if(context.state!=='running')return context.resume().then(()=>context).catch(()=>null);
+      return Promise.resolve(context);
+    }catch{return null;}
+  }
+  function makeBuffer(ctx,boss){
+    const buffer=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*1.65),ctx.sampleRate),data=buffer.getChannelData(0);
+    // Approved finishes: A for mobs, C for bosses.
+    const finishNotes=boss?[{"at":0,"hz":523.25,"volume":0.04,"duration":0.2,"decay":19},{"at":0.085,"hz":659.25,"volume":0.04,"duration":0.2,"decay":19},{"at":0.17,"hz":784.875,"volume":0.04,"duration":0.2,"decay":19},{"at":0.29,"hz":1046.5,"volume":0.048,"duration":0.3,"decay":14}]:[{"at":0,"hz":523.25,"volume":0.045,"duration":0.2,"decay":19},{"at":0.12,"hz":784.875,"volume":0.045,"duration":0.2,"decay":19},{"at":0.24,"hz":1046.5,"volume":0.05,"duration":0.24,"decay":16}];
+    let seed=1783,last=0;
+    const noise=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2147483648-1;};
+    for(let i=0;i<data.length;i++){
+      const t=i/ctx.sampleRate;let value=0;
+      // A short, filtered air cut leading into the 540ms impact frame.
+      if(t>=.42&&t<.54){const u=(t-.42)/.12,n=noise();last+=.3*(n-last);value+=last*Math.sin(Math.PI*u)*.20;}
+      if(t>=.54&&t<.54+(boss?.30:.19)){
+        const u=t-.54,decay=Math.exp(-u*(boss?17:26));
+        const pitch=boss?95:170;
+        value+=(Math.sin(2*Math.PI*pitch*(1-Math.exp(-12*u))/12)*.25+noise()*.13)*decay*Math.min(1,u/.003);
+      }
+      // The finish begins after the hit-stop, as the enemy disappears.
+      for(const note of finishNotes){
+        const u=t-(.96+note.at);if(u<0||u>note.duration)continue;
+        const phase=(u*note.hz)%1;
+        value+=(1-4*Math.abs(phase-.5))*note.volume*Math.min(1,u/.005)*Math.exp(-note.decay*u);
+      }
+      data[i]=value;
+    }
+    return buffer;
+  }
+  function play(boss){
+    const started=performance.now(),ticket=epoch,ready=prepare();if(!ready)return;
+    ready.then(ctx=>{
+      if(!ctx||ctx.state!=='running'||!enabled||document.hidden||ticket!==epoch)return;
+      // Never play a delayed hit after the visual strike has passed.
+      const offset=(performance.now()-started)/1000;if(offset>.3)return;
+      try{
+        if(!buffers.has(boss))buffers.set(boss,makeBuffer(ctx,boss));
+        const source=ctx.createBufferSource();source.buffer=buffers.get(boss);source.connect(ctx.destination);
+        source.onended=()=>{active.delete(source);source.disconnect();};active.add(source);
+        source.start(ctx.currentTime,Math.max(0,(performance.now()-started)/1000));
+      }catch{}
+    }).catch(()=>{});
+  }
+  const button=document.querySelector('#sound-toggle');
+  function render(){if(button){button.textContent='効果音：'+(enabled?'オン':'オフ');button.setAttribute('aria-pressed',String(enabled));}}
+  if(button)button.onclick=()=>{
+    enabled=!enabled;stop();try{localStorage.setItem(KEY,enabled?'on':'off');}catch{}
+    render();if(enabled)prepare();
+  };
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+  window.addEventListener('pagehide',stop);
+  window.addEventListener('storage',event=>{if(event.key===KEY||event.key===null){enabled=event.key===KEY&&event.newValue==='on';stop();render();}});
+  render();window.TodoAudio={prepare,play};
+})();
+</script><script>(() => {
+  'use strict';
   // The player's PNG is embedded at build time for offline and single-file use.
   const characters=window.TodoCharacters;
   const mobs=['slime','zombie','bat','skeleton','goblin','ghost','mushroom','spider','scorpion','imp','mimic','mummy'];
@@ -617,9 +686,10 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     panel.innerHTML='<div class="battle-heading">'+(item.boss?'BOSS CLEAR':'MONSTER CLEAR')+'</div><div class="battle-arena" aria-hidden="true"><span class="battle-hero">'+sprite('hero')+'</span><span class="battle-target"><span class="battle-enemy">'+sprite(item.kind)+'</span><span class="battle-slash">'+slash()+'</span><span class="battle-sparks">✦</span></span></div><div class="battle-title"></div>';
     panel.querySelector('.battle-title').textContent=item.title;
     document.body.append(panel);if(panel.showPopover)panel.showPopover();
+    window.TodoAudio?.play(item.boss);
     setTimeout(()=>{panel.remove();playing=false;playNext();},1800);
   }
-  function celebrate(task,tasks){queue.push({title:task.title,kind:enemy(task,tasks),boss:boss(task,tasks)});playNext();}
+  function celebrate(task,tasks){window.TodoAudio?.prepare();queue.push({title:task.title,kind:enemy(task,tasks),boss:boss(task,tasks)});playNext();}
   function marker(task,tasks,showCompleted=false){return task.status==='done'&&!showCompleted?'':'<span class="quest-marker'+(boss(task,tasks)?' boss-marker':'')+'" aria-hidden="true">'+sprite(enemy(task,tasks))+'</span>';}
   window.TodoAdventure={journey,encounter,celebrate,marker};
 })();
@@ -769,7 +839,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     if(draft.id){const t=task(draft.id);if(t.title===draft.title&&t.note===draft.note&&t.due===(draft.due||null)&&(!draft.status||t.status===draft.status)&&(t.parentId||JSON.stringify(t.answers)===JSON.stringify(draft.answers))){if(close)$('#editor').close();return true;}}
     const ok=mutate(()=>{
       if(draft.id){const t=task(draft.id);const changed=!t.parentId&&JSON.stringify(t.answers)!==JSON.stringify(draft.answers);t.title=draft.title;t.note=draft.note;t.due=draft.due||null;if(!t.parentId)t.answers={...draft.answers};if(draft.status&&draft.status!==t.status)C.setStatus(state,t.id,draft.status);C.event(t,'edited',changed?'内容・優先度を更新':'タスク名・メモ・締切を更新');}
-      else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));if(parent)expandedParents.delete(parent.id);}
+      else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));}
     },draft.editing?(close?'タスクを更新しました':null):'タスクを登録しました',true);if(ok&&close)$('#editor').close();return ok;
   }
   let editSaveTimer=null;
