@@ -175,7 +175,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 .battle-title{text-align:center;font-size:.8rem;margin-top:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* The identical poses from 30% to 40% hold the hit for 180ms. */
 @keyframes hero-strike{0%,12%{left:24px;transform:none}30%,40%{left:calc(100% - var(--enemy-right) - var(--enemy-size) - 48px);transform:rotate(-6deg)}64%,100%{left:calc(100% - var(--enemy-right) - var(--enemy-size) - 72px);transform:none}}
-@keyframes enemy-fall{0%,29%{opacity:1;transform:none;filter:none}30%,40%{opacity:1;transform:translateX(7px);filter:brightness(2.4)}65%{opacity:1;transform:translateX(16px) scale(.8);filter:none}82%,100%{opacity:0;transform:translateX(25px) scale(.2)}}
+@keyframes enemy-fall{0%,29%{opacity:1;transform:none;filter:none}30%,40%{opacity:1;transform:translateX(7px);filter:brightness(3)}65%,100%{opacity:0;transform:translate(23px,-5px);filter:brightness(3)}}
 @keyframes slash-hit{0%,29%{opacity:0;transform:translateX(7px)}30%,40%{opacity:1;transform:translateX(7px)}58%,100%{opacity:0;transform:translate(10px,6px)}}
 @keyframes hit-sparks{0%,29%{opacity:0;transform:scale(.5)}30%,40%{opacity:1;transform:scale(1)}75%,100%{opacity:0;transform:scale(1.8)}}
 @keyframes battle-panel{0%{opacity:0;transform:translateY(8px)}10%,86%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
@@ -192,6 +192,39 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 @media(max-width:600px){.urgent-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center}.urgent-item .urgent-deadline{max-width:none;padding:0;white-space:nowrap}}
 
 .main-footer #sound-toggle{background:none;border:0;padding:4px 0;color:var(--muted);font-size:inherit;font-weight:inherit}
+
+.with-world{padding-bottom:102px}.world-strip{position:fixed;bottom:0;left:228px;right:0;height:72px;z-index:5;background:#edf2e7;border-top:1px solid #d5decb;color:#50604b;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box}.world-meta{display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;font-size:11px;height:20px}.world-meta a{color:#50604b;text-decoration:none}.world-meta button{font:inherit;min-height:20px;padding:0 8px;line-height:20px;background:transparent;border:0;color:#50604b}.world-lane{position:relative;height:72px;overflow:hidden;background:linear-gradient(transparent 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-sprite{display:inline-flex;align-items:flex-end;justify-content:center;width:40px;height:40px;flex-shrink:0}.world-sprite img{width:40px;height:40px;image-rendering:pixelated;object-fit:contain}.world-boss,.world-boss img{width:56px;height:56px}.world-walker,.world-foe{position:absolute;bottom:10px;left:0;line-height:0}.world-walker{animation:world-walk 12s linear infinite}.world-walker .world-sprite{animation:world-step .5s steps(2,end) infinite}.world-foe{animation:world-meet 12s linear infinite}.world-cut{position:absolute;left:calc(61% + 22px);bottom:5px;width:52px;height:52px;opacity:0;animation:world-slash 12s steps(1,end) infinite}.world-cut svg{width:52px;height:52px;image-rendering:pixelated}.world-paused *{animation-play-state:paused!important}
+@keyframes world-walk{0%{left:-40px}60%,65%,68%{left:calc(61% - 22px)}78%{left:calc(61% - 22px)}100%{left:105%}}@keyframes world-meet{0%,15%{left:105%;opacity:1}60%,65%,68%{left:calc(61% + 22px);opacity:1;filter:none;transform:none}69%{left:calc(61% + 22px);opacity:1;filter:brightness(3)}75%,100%{left:calc(61% + 38px);opacity:0;transform:translateY(-5px)}}@keyframes world-slash{0%,64%{opacity:0}65%,68%{opacity:1}72%,100%{opacity:0}}@keyframes world-step{50%{transform:translateY(-2px)}}
+.quest-all-clear{background:#edf3e9;border:1px solid #d6e2ce;border-radius:16px;padding:36px 24px;text-align:center;color:#304935}.clear-badge{font-size:11px;letter-spacing:.22em;color:#627c4e}.quest-all-clear h2{font-size:1.5rem;margin:16px 0 10px}.quest-all-clear p{color:#63735e;font-size:14px}.clear-parade{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:12px;padding:25px 10px 12px;border-bottom:3px solid #a8b88d;margin:20px auto;max-width:650px}.clear-parade>.world-sprite:first-child{margin-right:16px}.clear-record{font-size:12px!important}.clear-links{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.clear-links a{font-size:12px;color:#4d6845}
+@media(max-width:1000px){.world-strip{left:190px}}@media(max-width:720px){.world-strip{left:0}.with-world{padding-bottom:calc(100px + env(safe-area-inset-bottom))}.world-meta{padding-inline:16px}.quest-all-clear{padding:28px 16px}.quest-all-clear h2{font-size:1.25rem}.clear-parade{gap:8px}}
+@media(prefers-reduced-motion:reduce){.clear-parade *{animation:none}}
+.world-strip[hidden]{display:none}.world-trees,.world-ground{position:absolute;left:0;bottom:0;width:calc(100% + 320px);height:72px;background-repeat:repeat-x;background-size:320px 72px;animation:world-scroll 12s linear infinite;pointer-events:none}
+.world-trees{opacity:.55;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%239baa7d' d='M70 25h12v6h6v18H64V31h6zM238 32h12v6h6v16h-24V38h6z'/%3E%3Cpath fill='%23778761' d='M74 43h4v18h-4zM242 49h4v12h-4z'/%3E%3C/svg%3E")}
+.world-ground{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%238b9e6b' d='M22 56h3v5h-3zM28 53h3v8h-3zM34 57h3v4h-3zM190 55h3v6h-3zM196 57h3v4h-3z'/%3E%3Cpath fill='%23969c8a' d='M116 57h4v-3h8v3h4v4h-16zM278 59h3v-3h8v3h3v3h-14z'/%3E%3Cpath fill='%23b8bca5' d='M120 55h6v3h-6zM281 57h5v2h-5z'/%3E%3C/svg%3E")}
+@keyframes world-scroll{0%{transform:translateX(0)}60%,78%{transform:translateX(-240px)}100%{transform:translateX(-320px)}}
+.main-footer{display:flex;flex-direction:column;align-items:stretch;gap:0}.footer-controls,.footer-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}.main-footer #adventure-toggle{background:none;border:0;padding:4px 0;color:var(--muted);font-size:inherit;font-weight:inherit}.main-footer #save-status{display:inline!important}.footer-controls button{white-space:nowrap}.footer-links{min-height:32px}.footer-controls #save-status{min-width:0;overflow-wrap:anywhere}.main-footer .app-version{margin-left:auto}
+
+
+.world-foe.is-walking .world-sprite{animation:world-enemy-step .6s steps(1,end) 12}@keyframes world-enemy-step{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.with-world{padding-bottom:0}.with-world main{padding-bottom:calc(106px + env(safe-area-inset-bottom))}
+.world-lane{background:none}.world-biome,.world-actors{position:absolute;inset:0;overflow:hidden}.world-biome{background:linear-gradient(#edf2e7 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-actors{z-index:2}.world-biome.entering{animation:biome-fade 1s linear both}.world-biome.previous{z-index:0}.world-biome.entering{z-index:1}@keyframes biome-fade{from{opacity:0}to{opacity:1}}
+.world-biome[data-biome=cave]{background:linear-gradient(#d7d9dc 61px,#858998 61px,#858998 64px,#aaaeb6 64px)}
+[data-biome=cave] .world-trees{opacity:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%23b0b4be' d='M0 0h320v6H0zM20 5h20v7h-5v9h-5v10h-5V12h-5zM122 5h26v7h-6v8h-6v12h-6V15h-8zM250 5h18v12h-5v13h-5V17h-8zM64 61V45h5v-8h8v8h5v16zM222 61V48h5v-8h6v8h5v13z'/%3E%3C/svg%3E")}
+[data-biome=cave] .world-ground{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%237e8492' d='M35 57h6v-3h10v3h5v5H35zM174 59h4v-5h12v5h5v4h-21z'/%3E%3Cpath fill='%23819ca6' d='M96 61V49h4v-4h4v16zM104 61V54h5v7zM280 61V51h4v10z'/%3E%3C/svg%3E")}
+.world-biome[data-biome=desert]{background:linear-gradient(#f1e6cc 61px,#c3a268 61px,#c3a268 64px,#e1c388 64px)}
+[data-biome=desert] .world-trees{opacity:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%23e1cda4' d='M0 54h20v-5h25v-5h20v-5h25v5h20v5h25v5h30v7H0zM175 54h25v-5h20v-5h30v5h25v5h45v7H175z'/%3E%3Cpath fill='%23a4a07a' d='M62 38h5v23h-5zM55 44h4v8h7v4H55zM70 42h4v12h-8v-4h4zM246 47h5v14h-5z'/%3E%3C/svg%3E")}
+[data-biome=desert] .world-ground{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%23bfa477' d='M122 58h4v-4h9v4h5v4h-18zM284 58h12v4h-12z'/%3E%3Cpath fill='%23c7ad79' d='M24 66h28v2H24zM175 67h40v2h-40z'/%3E%3C/svg%3E")}
+.world-biome[data-biome=hall]{background:linear-gradient(#dcd7d5 61px,#9b8b8a 61px,#9b8b8a 64px,#c7b7b0 64px)}
+[data-biome=hall] .world-trees{opacity:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%23c7c0c0' d='M0 0h320v4H0zM0 18h320v2H0zM0 39h320v2H0zM45 0h2v18h-2zM200 0h2v18h-2zM120 20h2v19h-2zM275 20h2v19h-2z'/%3E%3Cpath fill='%23aea7ae' d='M18 0h18v7H18zM22 7h10v47H22zM18 54h18v7H18zM240 0h18v7h-18zM244 7h10v47h-10zM240 54h18v7h-18z'/%3E%3Cpath fill='%23987985' d='M98 3h22v32h-6v5h-10v-5h-6z'/%3E%3Cpath fill='%23c1a66a' d='M94 1h30v4H94zM176 31h5v15h-5z'/%3E%3Cpath fill='%23e4b465' d='M172 24h12v8h-12z'/%3E%3Cpath fill='%23f5db93' d='M176 19h4v10h-4z'/%3E%3C/svg%3E")}
+[data-biome=hall] .world-ground{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='72' shape-rendering='crispEdges'%3E%3Cpath fill='%23aa9995' d='M0 68h320v1H0zM28 64h2v5h-2zM106 64h2v5h-2zM184 64h2v5h-2zM262 64h2v5h-2z'/%3E%3C/svg%3E")}
+.quest-landscape.habitat-boss{background:linear-gradient(transparent 70%,#e2cfb8 70%,#e2cfb8 78%,transparent 78%)}.quest-landscape.habitat-evilEye{background:linear-gradient(transparent 70%,#d4d5de 70%,#d4d5de 78%,transparent 78%)}.quest-landscape.habitat-hydra{background:linear-gradient(transparent 70%,#e6d3ad 70%,#e6d3ad 78%,transparent 78%)}.quest-landscape.habitat-lich{background:linear-gradient(transparent 70%,#dbc6d0 70%,#dbc6d0 78%,transparent 78%)}
+/* The region fills the entire existing 72px strip; controls float above it. */
+.world-strip{background:transparent}.world-lane{position:absolute;top:0;left:0;right:0;height:72px}.world-actors{top:auto;height:72px}.world-meta{position:absolute;top:3px;left:0;right:0;height:24px;padding:0 10px;z-index:3;pointer-events:none}.world-meta a,.world-meta button{display:inline-flex;align-items:center;min-height:24px;padding:2px 8px;border:1px solid #ffffffa8;border-radius:6px;background:#ffffffe8;color:#35453e;box-shadow:0 1px 3px #24332b18;font-size:11px;line-height:18px;pointer-events:auto}.world-meta a:hover,.world-meta button:hover{background:#fff}
+.world-biome{background:linear-gradient(#edf2e7 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-biome[data-biome=cave]{background:linear-gradient(#d7d9dc 61px,#858998 61px,#858998 64px,#aaaeb6 64px)}.world-biome[data-biome=desert]{background:linear-gradient(#f1e6cc 61px,#c3a268 61px,#c3a268 64px,#e1c388 64px)}.world-biome[data-biome=hall]{background:linear-gradient(#dcd7d5 61px,#9b8b8a 61px,#9b8b8a 64px,#c7b7b0 64px)}
+
+[data-biome=cave] .world-trees,[data-biome=hall] .world-trees{height:72px;background-size:320px 72px}
+
+.habitat-hydra .quest-castle{width:76px}.habitat-hydra .quest-road{right:40px}
 </style>
 </head>
 <body>
@@ -203,7 +236,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.4.23</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.5.0</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -213,7 +246,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><span id="save-status">保存を確認中…</span><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><span class="app-version" aria-label="アプリのバージョン">v1.4.23</span></footer>
+      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.5.0</span></div></footer>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><span id="editor-monster" aria-hidden="true" hidden></span><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
@@ -231,6 +264,49 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   const VERSION = 1;
   const RULE_VERSION = 1;
   const statuses = ['todo', 'doing', 'waiting', 'done'];
+  const unlocks=[[1,'slime'],[1,'golem'],[3,'bat'],[7,'mushroom'],[14,'zombie'],[30,'boss'],[60,'spider'],[90,'skeleton'],[120,'ghost'],[150,'evilEye'],[180,'scorpion'],[210,'mimic'],[240,'mummy'],[270,'hydra'],[300,'goblin'],[330,'imp'],[365,'lich']];
+  const bossKinds=['golem','evilEye','hydra','lich','boss'];
+  function questValid(value={}) {
+    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>50000)throw Error('冒険の記録が不正です。');
+    const out={};for(const [id,v] of Object.entries(value)){
+      if(!/^[a-zA-Z0-9_-]{1,100}$/.test(id)||!Array.isArray(v)||v.length!==2||!v[0]||!validDate(v[0])||!unlocks.some(u=>u[1]===v[1]))throw Error('冒険の記録が不正です。');
+      Object.defineProperty(out,id,{value:[...v],enumerable:true,writable:true,configurable:true});
+    }return out;
+  }
+  const questCache=new WeakMap(),emptyQuest=Object.freeze({});
+  const questThresholds=[...new Set(unlocks.map(u=>u[0]))];
+  function questInfo(state){
+    const quest=state.quest||emptyQuest,cached=questCache.get(quest);
+    if(cached)return cached;
+    const dates=new Set(),counts=Object.fromEntries(unlocks.map(([,kind])=>[kind,0]));
+    for(const id in quest){
+      if(!Object.hasOwn(quest,id))continue;
+      const [date,kind]=quest[id];dates.add(date);counts[kind]++;
+    }
+    const days=dates.size,levelDays=Math.max(1,days);
+    const info=Object.freeze({days,stage:questThresholds.filter(d=>d<=levelDays).length,
+      next:questThresholds.find(d=>d>levelDays)||null,
+      kinds:Object.freeze(unlocks.filter(u=>u[0]<=levelDays).map(u=>u[1])),counts:Object.freeze(counts)});
+    questCache.set(quest,info);return info;
+  }
+  // At JSON/import/sync boundaries, retain the cached ledger when its content
+  // is unchanged. Normal renders use the reference directly, without this scan.
+  function reuseQuest(state,previous){
+    const current=state.quest||emptyQuest,old=previous.quest||emptyQuest;
+    if(current===old)return;
+    const keys=Object.keys(current);
+    if(keys.length!==Object.keys(old).length)return;
+    for(const id of keys)if(!Object.hasOwn(old,id)||current[id][0]!==old[id][0]||current[id][1]!==old[id][1])return;
+    if(previous.quest)state.quest=previous.quest;
+  }
+  function isBoss(task,tasks){return !task.parentId&&(priority(task.answers)===3||tasks.some(t=>t.parentId===task.id));}
+  function pickEnemy(id,kinds){let hash=2166136261;for(const c of id)hash=Math.imul(hash^c.charCodeAt(0),16777619)>>>0;return kinds[hash%kinds.length];}
+  // Per-task marker also survives imports and synchronization from older devices.
+  function migrateEnemy(task){
+    return task.enemyVersion===1?task:{...task,enemyVersion:1,mobEnemy:'slime',bossEnemy:'golem'};
+  }
+  function prepareQuest(state){const kinds=questInfo(state).kinds;state.quest??={};for(const t of state.tasks){t.mobEnemy??=pickEnemy(t.id,kinds.filter(k=>!bossKinds.includes(k)));t.bossEnemy??=pickEnemy(t.id,kinds.filter(k=>bossKinds.includes(k)));}}
+  function taskEnemy(task,tasks){return isBoss(task,tasks)?task.bossEnemy||'golem':task.mobEnemy||'slime';}
   const rules = [
     { key: 'handoff', title: 'あなたが渡すまで、相手の作業が止まりますか？', help: '自分の成果物や依頼を渡すことで、相手が作業を始められるタスクです。', label: '相手につなぐ' },
     { key: 'quick', title: '10分以内に終わりますか？', help: '準備や確認を含めた、自分の作業時間で考えてください。', label: '10分で片づける' },
@@ -271,7 +347,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     if (!input.title?.trim()) throw new Error('タスク名を入力してください。');
     if (input.title.trim().length > 200) throw new Error('タスク名は200文字以内です。');
     if (!validDate(input.due || null)) throw new Error('締切日を確認してください。');
-    return { id: uid(), parentId, title: input.title.trim(), note: input.note || '', due: input.due || null, answers, ruleVersion: RULE_VERSION, status: 'todo', order: input.order || 0, createdAt: at, updatedAt: at, completedAt: null };
+    return { id: uid(), enemyVersion:1, parentId, title: input.title.trim(), note: input.note || '', due: input.due || null, answers, ruleVersion: RULE_VERSION, status: 'todo', order: input.order || 0, createdAt: at, updatedAt: at, completedAt: null };
   }
   function children(state, id) { return state.tasks.filter(t=>t.parentId === id).sort((a,b)=>a.order-b.order || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id)); }
   function compare(a,b) { return (priority(a.answers) || 5) - (priority(b.answers) || 5) || (a.due || '9999-12-31').localeCompare(b.due || '9999-12-31') || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id); }
@@ -282,6 +358,11 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     const kids = children(state,id);
     if (status==='done' && kids.some(t=>t.status!=='done')) throw new Error('先に子タスクをすべて完了してください。');
     const old = task.status;
+    prepareQuest(state);
+    if(status==='done'&&!Object.hasOwn(state.quest,id)){
+      Object.defineProperty(state.quest,id,{value:[today(),taskEnemy(task,state.tasks)],enumerable:true,writable:true,configurable:true});
+      questCache.delete(state.quest);
+    }
     task.status = status;
     task.completedAt = status==='done' ? now() : null;
     event(task, status==='done'?'completed':old==='done'?'reopened':'status', status);
@@ -329,12 +410,14 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       if(!(t.parentId===null || str(t.parentId,100))) fail();
       if(t.parentId===null && (!t.answers || rules.some(r=>![true,false,null].includes(t.answers[r.key])) || !priority(t.answers))) fail();
       if(t.parentId!==null && t.answers!==null) fail();
-      return {id:t.id,parentId:t.parentId,title:t.title,note:t.note,due:t.due,status:t.status,order:t.order,createdAt:t.createdAt,updatedAt:t.updatedAt,completedAt:t.completedAt,ruleVersion:t.ruleVersion,answers:t.parentId?null:Object.fromEntries(rules.map(r=>[r.key,t.answers[r.key]]))};
+      if(t.enemyVersion!==undefined&&t.enemyVersion!==1)fail();
+      for(const key of ['mobEnemy','bossEnemy'])if(t[key]!==undefined&&(!unlocks.some(u=>u[1]===t[key])||bossKinds.includes(t[key])!==(key==='bossEnemy')))fail();
+      return migrateEnemy({enemyVersion:t.enemyVersion,id:t.id,parentId:t.parentId,title:t.title,note:t.note,due:t.due,status:t.status,order:t.order,createdAt:t.createdAt,updatedAt:t.updatedAt,completedAt:t.completedAt,ruleVersion:t.ruleVersion,answers:t.parentId?null:Object.fromEntries(rules.map(r=>[r.key,t.answers[r.key]])),...(t.mobEnemy?{mobEnemy:t.mobEnemy}:{}),...(t.bossEnemy?{bossEnemy:t.bossEnemy}:{})});
     });
     const byId=new Map(tasks.map(t=>[t.id,t]));
     for(const t of tasks) if(t.parentId!==null) {const p=byId.get(t.parentId); if(!p || p.parentId!==null || (p.status==='done' && t.status!=='done')) fail();}
     if(raw.pinnedId!==null && (!byId.has(raw.pinnedId) || ['done','waiting'].includes(byId.get(raw.pinnedId).status) || ['done','waiting'].includes(byId.get(byId.get(raw.pinnedId).parentId)?.status))) fail();
-    return {app:raw.app,version:VERSION,ruleVersion:RULE_VERSION,revision:uid(),tasks,pinnedId:raw.pinnedId};
+    return {app:raw.app,version:VERSION,ruleVersion:RULE_VERSION,revision:uid(),tasks,pinnedId:raw.pinnedId,...(raw.quest?{quest:questValid(raw.quest)}:{})};
   }
   function removeTask(state,id) {
     const target=state.tasks.find(t=>t.id===id);
@@ -349,7 +432,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     }
     return ids.size;
   }
-  return { VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, daysUntil, deadlineAlert, priority, empty, event, makeTask, children, compare, setStatus, duplicate, moveChild, removeTask, validate };
+  return { VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, daysUntil, deadlineAlert, priority, empty, event, makeTask, children, compare, setStatus, duplicate, moveChild, removeTask, validate, unlocks, bossKinds, questInfo, questValid, prepareQuest, taskEnemy, isBoss, reuseQuest, migrateEnemy };
 });
 </script><script>(function(root,factory){const api=factory(typeof module==='object'&&module.exports?require('./core.js'):root.TodoCore);if(typeof module==='object'&&module.exports)module.exports=api;else root.TodoSync=api;})(typeof globalThis!=='undefined'?globalThis:this,function(C){
   'use strict';
@@ -358,16 +441,17 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   const equal=(a,b)=>stable(a)===stable(b);
   // Ignore retired display history when comparing task snapshots, but never rewrite
   // existing event payloads: acknowledged IDs must remain immutable for retries.
-  const taskValue=value=>value===null?null:value.map(({history,...task})=>task);
+  const taskValue=value=>value===null?null:Array.isArray(value)?value.map(({history,...task})=>C.migrateEnemy(task)):value;
   const equalValue=(a,b)=>equal(taskValue(a),taskValue(b));
-  function groups(state){const out=Object.create(null);for(const t of state.tasks.filter(t=>!t.parentId))out[t.id]=taskValue([t,...C.children(state,t.id)]);return out;}
+  function groups(state){const out=Object.create(null);for(const t of state.tasks.filter(t=>!t.parentId))out[t.id]=taskValue([t,...C.children(state,t.id)]);for(const [id,value] of Object.entries(state.quest||{}))out['quest:'+id]={quest:value};return out;}
   function validateEvents(events){
     if(!Array.isArray(events)||events.length>50000)throw Error('同期記録の容量上限を超えています。JSONを退避してください。');
     const ids=new Map();
     for(const e of events){
-      if(!e||typeof e.id!=='string'||e.id.length>100||typeof e.key!=='string'||e.key.length>100||typeof e.device!=='string'||e.device.length>100||!Array.isArray(e.parents)||e.parents.length>1000||e.parents.some(p=>typeof p!=='string')||!Number.isFinite(Date.parse(e.at)))throw Error('同期記録の形式が正しくありません。');
+      if(!e||typeof e.id!=='string'||e.id.length>100||typeof e.key!=='string'||e.key.length>106||typeof e.device!=='string'||e.device.length>100||!Array.isArray(e.parents)||e.parents.length>1000||e.parents.some(p=>typeof p!=='string')||!Number.isFinite(Date.parse(e.at)))throw Error('同期記録の形式が正しくありません。');
       if(ids.has(e.id)){if(!equal(ids.get(e.id),e))throw Error('同期記録のIDが重複しています。');continue;}
-      if(e.value!==null){const state=C.validate({...C.empty(),tasks:e.value});if(state.tasks.filter(t=>!t.parentId).length!==1||state.tasks.find(t=>!t.parentId).id!==e.key)throw Error('同期記録の親子関係が不正です。');}
+      if(e.key.startsWith('quest:')){if(!/^[a-zA-Z0-9_-]{1,100}$/.test(e.key.slice(6)))throw Error('冒険の同期記録が不正です。');if(e.value!==null){if(!e.value||!Array.isArray(e.value.quest))throw Error('冒険の同期記録が不正です。');C.questValid({[e.key.slice(6)]:e.value.quest});}}
+      else if(e.value!==null){const state=C.validate({...C.empty(),tasks:e.value});if(state.tasks.filter(t=>!t.parentId).length!==1||state.tasks.find(t=>!t.parentId).id!==e.key)throw Error('同期記録の親子関係が不正です。');}
       ids.set(e.id,clone(e));
     }
     const degree=new Map(),children=new Map();
@@ -382,7 +466,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   }
   function combine(...sets){return validateEvents(sets.flat());}
   function heads(events){const removed=new Set(events.flatMap(e=>e.parents));const out=Object.create(null);for(const e of events)if(!removed.has(e.id))(out[e.key]??=[]).push(e);for(const list of Object.values(out))list.sort((a,b)=>a.id.localeCompare(b.id));return out;}
-  function conflicts(events){return Object.entries(heads(events)).filter(([,list])=>list.some(e=>!equalValue(e.value,list[0].value))).map(([key,choices])=>({key,choices}));}
+  function conflicts(events){return Object.entries(heads(events)).filter(([key,list])=>!key.startsWith('quest:')&&list.some(e=>!equalValue(e.value,list[0].value))).map(([key,choices])=>({key,choices}));}
   function append(events,key,value,device){const parents=(heads(events)[key]||[]).map(e=>e.id);return {id:C.uid(),key,parents,device,at:C.now(),value:clone(taskValue(value))};}
   function capture(events,before,after,device){
     const a=groups(before),b=groups(after),next=[...events];
@@ -409,13 +493,14 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     return combine([...records.values()]);
   }
   function materialize(events,current){
-    const byKey=heads(events),existing=groups(current),tasks=[];
+    const byKey=heads(events),existing=groups(current),tasks=[],quest={};
     for(const [key,list] of Object.entries(byKey)){
+      if(key.startsWith('quest:')){const values=list.filter(e=>e.value!==null).map(e=>e.value.quest).sort((a,b)=>a[0].localeCompare(b[0])||a[1].localeCompare(b[1]));if(values.length)Object.defineProperty(quest,key.slice(6),{value:values[0],enumerable:true});continue;}
       const disputed=list.some(e=>!equalValue(e.value,list[0].value));
       const value=disputed?(existing[key]||null):list[0].value;
       if(value)tasks.push(...clone(value));
     }
-    const state={...clone(current),tasks};
+    const state={...clone(current),tasks,...(current.quest||Object.keys(quest).length?{quest}:{} )};
     const pinned=tasks.find(t=>t.id===state.pinnedId),parent=pinned?.parentId?tasks.find(t=>t.id===pinned.parentId):null;
     if(!pinned||['done','waiting'].includes(pinned.status)||parent&&['done','waiting'].includes(parent.status))state.pinnedId=null;
     return C.validate(state);
@@ -587,7 +672,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   };
 })();
 </script>
-  <script>window.TodoCharacters={"hero":{"name":"騎士","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACOElEQVR4nMXUz24SURQG8NlJTewr4J8HqCbaJjYNNtZaIsgwU4ImFdCFz6AUmNY6d4Y3EKgRNFUS9wVdFDTRpe7c1UTTFky76BY4h8/cC3UpozXxJjdzJ5n7O985i9G0/7HMaBSu4+LfYBEdlUoFQthwHHE8NGYaEEIgn89j0TDgCIGYYfwdKttce7QGiS4aUeRdV6GuI2Dounf0VjwO04hidWUFZlTH0/V1OLJdIVCtVhVq27Yq4gl8kMnAdRx1UWLCttV2XRelYgHFYhGmrqP8rOwNvJQTeN8lZJfTaH18DG7VwO1NlAoFcGsT1KqhUHiCdPohYqY5Gv3UI/SYsdUhcKsO3qsNnu36EK8pdDmdHo296xGYCUyERpdVIk3TQAqsqad8lwXm5+ZGg02JMIOJsTUEeYipdDKtSlr3Nr/GEcikWu6334Lbb1Sqoy0xwIPX7BKIGH3uq4Ty3OiwAkgmbdfQ/zGY5Yl4EmO37/1elVUlQKrlwQwvT07gxulxvAieQSXoRznox8mwiR0m7BCj2aHRURsdUh/KAqlkAqViCeGzp/A86Ef43Di+HBwMkhNj1wvqW4jAl7gPy7K0ZCKBXDYLy8rh5cYGrFwWH/b31Zz3iBTaGAW+ep3Xeu0mAoGAlstmcGdpCalUEl+3t3E3mcTnw0MF7kqQPbYtVygU0manL2Jm6oK6MDN1HtOTExi7FsZ3kjMkfCP2/pPQF65AD84icj2gLt2cD/w6+64G0ez8AXac9RNOYQYvj+EPTAAAAABJRU5ErkJggg=="},"slime":{"name":"スライム","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAS0lEQVR4nGNgGAWjYBQMRlCwZ+J/ZEw1gygyGKbp7ff/GAYhi5FsoJqJN4aByGJU8SrJXsemCeQqbK4l20CKI8eiMvk/MZgowygFAFgGzJtiMDaOAAAAAElFTkSuQmCC"},"zombie":{"name":"ゾンビ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAfklEQVR4nGNgGAXowKIy+T8yptiwgj0TUTBFhiIb9KSiAs6myEA1E2+4QTA2VVyIjMk2ENmVyC6l2ECKXQfT3JK2EismyXBk1yAbAoplsgxFVojLhejqiAa4XEeSIejAJLz+PzKmmmHIfIoNxMUnGaAHPEVpEVuRRbVijBQAAJaT8xW+rmf9AAAAAElFTkSuQmCC"},"bat":{"name":"コウモリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbUlEQVR4nGNgGAWjYBABNRPv/1TVCxLEJoEshksep4EtaSsxJGFiMHli9KBIoiuAicEwIfVYDYQpQjcMlxxRBsLw93PlWNkEDcRlKLrXiDYMn6Fvv/8HY5INI+R9sgxjwJL2sBlCSUbAnXjpAQBtwPETqVuSgAAAAABJRU5ErkJggg=="},"skeleton":{"name":"スケルトン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbElEQVR4nGNgGAXoYPeJa/+RMcWGvf3+HwWTbSg2wygyFNlANRNvFHpwGIhuKDImyzB0Q2Guo8gwBmolG3TNhPgEDYMFPD5MdOTAFKPz0Q2gKPlQLevhcyFFBmJjk20Y2bGLyzBsBlLF68QCADhTQ6b46EmeAAAAAElFTkSuQmCC"},"goblin":{"name":"ゴブリン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGAV0ARaVyf9BmCIDkNkFeyaCMbo40QbCNCMbhmwoTJwkV6IbhI5JMgxm4Pdz5f/VTLzhhiDzSTYQnyvJMgzZ0Lff/4MxxYZNjHf8jw2T7TKYAaCwA2EYn6IYRncd2WEJ04DNuxSFJSwhU5z9GLDkYYoNRQ8ritIhNm9SzeukAABmm+P5D4DqhAAAAABJRU5ErkJggg=="},"ghost":{"name":"ゴースト","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAYElEQVR4nGNgGAVDD+w+ce0/MqbYsLff/6Ngsg3FZhjZhuIzjCxDkQ1UM/HGyh44A2GxSYyXiTIUm2EglyG7jiRXUt1AXIZSLZYHp4HIhqLHOrI4yQYia0LmU6WgIBYAAPHuzfz6892XAAAAAElFTkSuQmCC"},"mushroom":{"name":"キノコ魔人","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAhUlEQVR4nGNgGAVDD+x2DviPjCk26ElFxf+33/+DMYhNlsEwg5ANgxkIw0QbimwYsqHoLiXKUGxeRDeYJEMJGUiyK9FjlFhMMBxfbqv6TwwmaBC6of+vLoBrRmaTbBjMQDUTb7gByGyyDaSad5ENBXmVYu+iuxCfGFFgYrzjfxgmRY4mAAD3l3LzmTUc5AAAAABJRU5ErkJggg=="},"spider":{"name":"大グモ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiklEQVR4nGNgGAXIoLR74X9smGzDWtJWYsVkGYps4Nvv/8GYJAPRvUOsC/EGA7IkMQYSFabIgY/PQKJdhi6GyzBC+hmw2Uoo2RCVlNA14/MuSckHZtiTigowRjacZIOQXQczkOgIwRce+MIQr8G4JEBisFwCwrjUkBQphMSJ8jZV1JGaDCgqykgBAMaOjppeyh/HAAAAAElFTkSuQmCC"},"scorpion":{"name":"サソリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAgklEQVR4nGNgGChQFpj6Hxsm27DNExdixWQZCjMQXZwiA3c7B1DPQBCguoHYwOA2EBZROA1Ej0lCNuM1EDmdwRIsPtvR1eNVgG4wyYYhK8SVrSjOdsgacGU7ggaiG4IcliCsZuJNvIG4IgVfgUC0geiayA4/5KSC7HV8NMmA6gaSAwDXQz/wPigRiwAAAABJRU5ErkJggg=="},"imp":{"name":"小悪魔","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAmUlEQVR4nO2SwQ2AIAxFmcYJ3MCjF7eR3dzBKbx65ljzTWqahppSw82fEIHCy6MxpT/dUvaVIrVXYO2ite/KkTNt00L4ynkYZgFDUFzC04ZxfiCYY+8TlM3CdrDQ0LPQPTRMnzWBsNGW2g5nmoDyiXpw3QWUUAbwvyeBbpiEWobNMI7um1zLPrvDvaqtdc0NqwEltNnSa98tF6EN/+CuDlvbAAAAAElFTkSuQmCC"},"mimic":{"name":"ミミック","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGJLg+7ny/8Rgog2bGO+IgrGJwcSJMuzltiowxmYgNjmiXUbIhXgNJTbciA5PNRPv/2+//wdjcthYDYQpgrHR+bjYOA0s0XckC5Nk4JOKCjim2EBkw/AZSnYY4uMTHcu4xAjGMtXTIXpuQObDNOHKOWQZCPIWVQ0ky4VUDUNqAQD89qkriwC/CgAAAABJRU5ErkJggg=="},"mummy":{"name":"マミー","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAkElEQVR4nGNgoCd4ua3qPzqmyLC33/9jYLINRTYAhmFiZLtQzcQbjL+fK4ezyXYlTVxI1TBkQIpligzD5kVcfKIMw+ZFdAOJdjG67dgMgEUKsiVEuRDd++hyRLsS2VZc3semlqChhFyIHEwEDURWjKwBm4FEJyWYi7B5keKsh0+MaIAtzMjOz7gKVaoVtqQAAEzb6z1RPowiAAAAAElFTkSuQmCC"},"golem":{"name":"岩のゴーレム","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABUklEQVR4nO3WMQ7CMAwF0F4PcQEmNgQjKyNHgJmNYyBxIQ4BaqVKUWT7+ztpU6RGykJT8nDsmK5bxzr+eBx2269nNsO9nldz3i77Nsh+w35zCTXC++fjnB0pAVNMimuCtBDS54sBppDFAD/vswodnzUtFAmZ4hYBRLk4+/FqeaYVSg6c7DJPL2dvF5Fm8WUufenuuBmm1Tk0UB7d/O6kkPkvHGEIqOWjdPzaeoiUOsT9cRpg1h3nnehdChi5iGcDer4kunlRr/ZuwuC0QgkBEZIFsmsnAbJRt+5HiOscf+OZyGo5KO3jwkWBkSoNRRC1oVrAULvztCGUnxYuTwW63aUvatVXG0hVM6pOVCQIxxYTBOYbl/bhKkAtiqiyI5PCSVFkosegmgJRyqCcdQFrHUs04irOglqbWkC0PoRDcOZY2PVVgMyxFB1jLegU69dRc/wAIK+LD4HeRcgAAAAASUVORK5CYII="},"hydra":{"name":"ヒュドラ","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABG0lEQVR4nO2Xyw3CMAyGOw0TcGAHxmABbgi2YBlOzMAeHDj3GJRKQZaJE9vNw6BYspJW+e0vDzfqNA0bNkxm8+PkOO96aBbbnQ/ueL8uHvq+5Wh8q9HAfGw47JS4lcY+YBBttvvPYH8m4DMWY40fr9H4fkqTnVUuWW0NKX7NbnHudoXxNTTJGXIrsrbmNwCDGAdIiaXJYrHZcOYBpXAaQDWkBk4LqII0D6iFbLbFKUgYhHM7xMbk4rLgcoljsLnJUHFUUBLINV4EDkJyVoS72kXhMGgM4Hm7fHmxc/Y3gBI4CrL42cvBaQCrFEiqADSARSEH4AC0Dsj9DnatZKk3gYvdr5R32WITgCE4/PvX3KkQEsdaDUh5jzgm7Q3wxxjZx/tsegAAAABJRU5ErkJggg=="},"lich":{"name":"リッチキング","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAA80lEQVR4nGNgGAWjYBSMgsELvp8r/4/OxyZGd4ehO4gQHnUgNtCStvI/KXhAHLb7xLX/b7//x4tBaujq0CHlQJAD1Ey8wbhE3xErG6RmUDgQHSOH4qgDcTkQVxoEiSPjAc3NMEcghxqIje44ujlsUDgQXy2AqyDGF61UK7RhjkJOT8iOJFRbPKmoAGOa1S6D3oHoDoU5jlgLSXUg2Y6cGO+IohG97MNWvuFzID49VHUgenlHjgOpUnAPOQeiO3TAM8moA6ntwCFVzIw6kFQHkmIZOQ4ky6GjDqRGVJNjCSUOJNmRow6kxIGgjvdAYpJCcqABAAhT9uF88xhpAAAAAElFTkSuQmCC"},"boss":{"name":"ドラゴン","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABuklEQVR4nO3YPU4DMRAFYJ+GloYLIEoaihwFRMTBaLgDp6BJAW3KRSNloqdhZvy8sZ2AsGTtTzbyl7e215tS/svP8nb3sJzbEJbH69vlooGC+9huLxOo6U0BtjYiuK+nzREox+N0ByDbiOKmAqUBtiFMT7ZTgdKo7EcN2vTOAtRqG0WcBcp2GBJHIwIRaXEecBhSgRkySs8ChyAZYJSe3R+C7AHUuhq5f39epHrnM6CHQ6DFWSiNVCAi9RiBFrk2vWgmqJbd68vxy7Kv570UmfRsajqgtOpnVZjtV1hPAdo0vbmzuiTzbkOGZIA2xQhIJ6f97ermnk4x638eUI+nAJn0IiCdIgIyIC4OFNkCtAsICpgNCq+eAiwwGKjbXBsQa4HRfIdtUy9RLal504C3OGCBdJG+9rlfFtxKRZT9UTpxZ8AuOJsE02kVqE+abILuBmSL3joE1rrFUGDUuAJZ5BCgnReLkyADLDP/k7E4FlgLoRuuFZgh8ZphwJY51IPRj7tfD1wzgll8V5y3RM9S865reSg04/R8BoyW8t1QFodvdB4Q3wKH/zFUDosHqdiwnsNr8HPvmj9fvgE3Zqdx7vF4yAAAAABJRU5ErkJggg=="},"evilEye":{"name":"イビルアイ","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABCUlEQVR4nO3Xyw2DMAwGYKbptRcW6Ll7dAKkMgDLdJlO0WvPHKlyAIXUeTj+HYIUS5ZoIc4nNwHadS1atGixi+F6W442bGEwqXkY7DOO0SwG5aBi2CpxakgkDo7UwEGRXNz8frKR4u5Nj9dffudllwZ26e9bms/uNVQdURcpnDvpiluPbSCFpKAwIDWZDXQ76AO6yCJA6idWBbrrL4bzAVOQ2euw6g6eEhjaxRwgdBdXfR/0dTGUBsa5HvKo4yI5OOgLQ5U4DaTKG7ZdGIGDrUGqkN0BacfE0FABzr86Xw0RMDbY111EHTWgZp3zAWODEUDVTVLiPBua+r10HAyZA1TB5UxYHNeCiB/BE5TLV9SsRwAAAABJRU5ErkJggg=="}};</script><script>(() => {
+  <script>window.TodoCharacters={"hero":{"name":"騎士","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACOElEQVR4nMXUz24SURQG8NlJTewr4J8HqCbaJjYNNtZaIsgwU4ImFdCFz6AUmNY6d4Y3EKgRNFUS9wVdFDTRpe7c1UTTFky76BY4h8/cC3UpozXxJjdzJ5n7O985i9G0/7HMaBSu4+LfYBEdlUoFQthwHHE8NGYaEEIgn89j0TDgCIGYYfwdKttce7QGiS4aUeRdV6GuI2Dounf0VjwO04hidWUFZlTH0/V1OLJdIVCtVhVq27Yq4gl8kMnAdRx1UWLCttV2XRelYgHFYhGmrqP8rOwNvJQTeN8lZJfTaH18DG7VwO1NlAoFcGsT1KqhUHiCdPohYqY5Gv3UI/SYsdUhcKsO3qsNnu36EK8pdDmdHo296xGYCUyERpdVIk3TQAqsqad8lwXm5+ZGg02JMIOJsTUEeYipdDKtSlr3Nr/GEcikWu6334Lbb1Sqoy0xwIPX7BKIGH3uq4Ty3OiwAkgmbdfQ/zGY5Yl4EmO37/1elVUlQKrlwQwvT07gxulxvAieQSXoRznox8mwiR0m7BCj2aHRURsdUh/KAqlkAqViCeGzp/A86Ef43Di+HBwMkhNj1wvqW4jAl7gPy7K0ZCKBXDYLy8rh5cYGrFwWH/b31Zz3iBTaGAW+ep3Xeu0mAoGAlstmcGdpCalUEl+3t3E3mcTnw0MF7kqQPbYtVygU0manL2Jm6oK6MDN1HtOTExi7FsZ3kjMkfCP2/pPQF65AD84icj2gLt2cD/w6+64G0ez8AXac9RNOYQYvj+EPTAAAAABJRU5ErkJggg=="},"slime":{"name":"スライム","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAS0lEQVR4nGNgGAWjYBQMRlCwZ+J/ZEw1gygyGKbp7ff/GAYhi5FsoJqJN4aByGJU8SrJXsemCeQqbK4l20CKI8eiMvk/MZgowygFAFgGzJtiMDaOAAAAAElFTkSuQmCC"},"zombie":{"name":"ゾンビ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAfklEQVR4nGNgGAXowKIy+T8yptiwgj0TUTBFhiIb9KSiAs6myEA1E2+4QTA2VVyIjMk2ENmVyC6l2ECKXQfT3JK2EismyXBk1yAbAoplsgxFVojLhejqiAa4XEeSIejAJLz+PzKmmmHIfIoNxMUnGaAHPEVpEVuRRbVijBQAAJaT8xW+rmf9AAAAAElFTkSuQmCC"},"bat":{"name":"コウモリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbUlEQVR4nGNgGAWjYBABNRPv/1TVCxLEJoEshksep4EtaSsxJGFiMHli9KBIoiuAicEwIfVYDYQpQjcMlxxRBsLw93PlWNkEDcRlKLrXiDYMn6Fvv/8HY5INI+R9sgxjwJL2sBlCSUbAnXjpAQBtwPETqVuSgAAAAABJRU5ErkJggg=="},"skeleton":{"name":"スケルトン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbElEQVR4nGNgGAXoYPeJa/+RMcWGvf3+HwWTbSg2wygyFNlANRNvFHpwGIhuKDImyzB0Q2Guo8gwBmolG3TNhPgEDYMFPD5MdOTAFKPz0Q2gKPlQLevhcyFFBmJjk20Y2bGLyzBsBlLF68QCADhTQ6b46EmeAAAAAElFTkSuQmCC"},"goblin":{"name":"ゴブリン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGAV0ARaVyf9BmCIDkNkFeyaCMbo40QbCNCMbhmwoTJwkV6IbhI5JMgxm4Pdz5f/VTLzhhiDzSTYQnyvJMgzZ0Lff/4MxxYZNjHf8jw2T7TKYAaCwA2EYn6IYRncd2WEJ04DNuxSFJSwhU5z9GLDkYYoNRQ8ritIhNm9SzeukAABmm+P5D4DqhAAAAABJRU5ErkJggg=="},"ghost":{"name":"ゴースト","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAYElEQVR4nGNgGAVDD+w+ce0/MqbYsLff/6Ngsg3FZhjZhuIzjCxDkQ1UM/HGyh44A2GxSYyXiTIUm2EglyG7jiRXUt1AXIZSLZYHp4HIhqLHOrI4yQYia0LmU6WgIBYAAPHuzfz6892XAAAAAElFTkSuQmCC"},"mushroom":{"name":"キノコ魔人","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAhUlEQVR4nGNgGAVDD+x2DviPjCk26ElFxf+33/+DMYhNlsEwg5ANgxkIw0QbimwYsqHoLiXKUGxeRDeYJEMJGUiyK9FjlFhMMBxfbqv6TwwmaBC6of+vLoBrRmaTbBjMQDUTb7gByGyyDaSad5ENBXmVYu+iuxCfGFFgYrzjfxgmRY4mAAD3l3LzmTUc5AAAAABJRU5ErkJggg=="},"spider":{"name":"大グモ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiklEQVR4nGNgGAXIoLR74X9smGzDWtJWYsVkGYps4Nvv/8GYJAPRvUOsC/EGA7IkMQYSFabIgY/PQKJdhi6GyzBC+hmw2Uoo2RCVlNA14/MuSckHZtiTigowRjacZIOQXQczkOgIwRce+MIQr8G4JEBisFwCwrjUkBQphMSJ8jZV1JGaDCgqykgBAMaOjppeyh/HAAAAAElFTkSuQmCC"},"scorpion":{"name":"サソリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAgklEQVR4nGNgGChQFpj6Hxsm27DNExdixWQZCjMQXZwiA3c7B1DPQBCguoHYwOA2EBZROA1Ej0lCNuM1EDmdwRIsPtvR1eNVgG4wyYYhK8SVrSjOdsgacGU7ggaiG4IcliCsZuJNvIG4IgVfgUC0geiayA4/5KSC7HV8NMmA6gaSAwDXQz/wPigRiwAAAABJRU5ErkJggg=="},"imp":{"name":"小悪魔","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAmUlEQVR4nO2SwQ2AIAxFmcYJ3MCjF7eR3dzBKbx65ljzTWqahppSw82fEIHCy6MxpT/dUvaVIrVXYO2ite/KkTNt00L4ynkYZgFDUFzC04ZxfiCYY+8TlM3CdrDQ0LPQPTRMnzWBsNGW2g5nmoDyiXpw3QWUUAbwvyeBbpiEWobNMI7um1zLPrvDvaqtdc0NqwEltNnSa98tF6EN/+CuDlvbAAAAAElFTkSuQmCC"},"mimic":{"name":"ミミック","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGJLg+7ny/8Rgog2bGO+IgrGJwcSJMuzltiowxmYgNjmiXUbIhXgNJTbciA5PNRPv/2+//wdjcthYDYQpgrHR+bjYOA0s0XckC5Nk4JOKCjim2EBkw/AZSnYY4uMTHcu4xAjGMtXTIXpuQObDNOHKOWQZCPIWVQ0ky4VUDUNqAQD89qkriwC/CgAAAABJRU5ErkJggg=="},"mummy":{"name":"マミー","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAkElEQVR4nGNgoCd4ua3qPzqmyLC33/9jYLINRTYAhmFiZLtQzcQbjL+fK4ezyXYlTVxI1TBkQIpligzD5kVcfKIMw+ZFdAOJdjG67dgMgEUKsiVEuRDd++hyRLsS2VZc3semlqChhFyIHEwEDURWjKwBm4FEJyWYi7B5keKsh0+MaIAtzMjOz7gKVaoVtqQAAEzb6z1RPowiAAAAAElFTkSuQmCC"},"golem":{"name":"岩のゴーレム","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABUklEQVR4nO3WMQ7CMAwF0F4PcQEmNgQjKyNHgJmNYyBxIQ4BaqVKUWT7+ztpU6RGykJT8nDsmK5bxzr+eBx2269nNsO9nldz3i77Nsh+w35zCTXC++fjnB0pAVNMimuCtBDS54sBppDFAD/vswodnzUtFAmZ4hYBRLk4+/FqeaYVSg6c7DJPL2dvF5Fm8WUufenuuBmm1Tk0UB7d/O6kkPkvHGEIqOWjdPzaeoiUOsT9cRpg1h3nnehdChi5iGcDer4kunlRr/ZuwuC0QgkBEZIFsmsnAbJRt+5HiOscf+OZyGo5KO3jwkWBkSoNRRC1oVrAULvztCGUnxYuTwW63aUvatVXG0hVM6pOVCQIxxYTBOYbl/bhKkAtiqiyI5PCSVFkosegmgJRyqCcdQFrHUs04irOglqbWkC0PoRDcOZY2PVVgMyxFB1jLegU69dRc/wAIK+LD4HeRcgAAAAASUVORK5CYII="},"hydra":{"name":"ヒュドラ","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABG0lEQVR4nO2Xyw3CMAyGOw0TcGAHxmABbgi2YBlOzMAeHDj3GJRKQZaJE9vNw6BYspJW+e0vDzfqNA0bNkxm8+PkOO96aBbbnQ/ueL8uHvq+5Wh8q9HAfGw47JS4lcY+YBBttvvPYH8m4DMWY40fr9H4fkqTnVUuWW0NKX7NbnHudoXxNTTJGXIrsrbmNwCDGAdIiaXJYrHZcOYBpXAaQDWkBk4LqII0D6iFbLbFKUgYhHM7xMbk4rLgcoljsLnJUHFUUBLINV4EDkJyVoS72kXhMGgM4Hm7fHmxc/Y3gBI4CrL42cvBaQCrFEiqADSARSEH4AC0Dsj9DnatZKk3gYvdr5R32WITgCE4/PvX3KkQEsdaDUh5jzgm7Q3wxxjZx/tsegAAAABJRU5ErkJggg=="},"lich":{"name":"リッチキング","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAA80lEQVR4nGNgGAWjYBSMgsELvp8r/4/OxyZGd4ehO4gQHnUgNtCStvI/KXhAHLb7xLX/b7//x4tBaujq0CHlQJAD1Ey8wbhE3xErG6RmUDgQHSOH4qgDcTkQVxoEiSPjAc3NMEcghxqIje44ujlsUDgQXy2AqyDGF61UK7RhjkJOT8iOJFRbPKmoAGOa1S6D3oHoDoU5jlgLSXUg2Y6cGO+IohG97MNWvuFzID49VHUgenlHjgOpUnAPOQeiO3TAM8moA6ntwCFVzIw6kFQHkmIZOQ4ky6GjDqRGVJNjCSUOJNmRow6kxIGgjvdAYpJCcqABAAhT9uF88xhpAAAAAElFTkSuQmCC"},"boss":{"name":"ドラゴン","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABuklEQVR4nO3YPU4DMRAFYJ+GloYLIEoaihwFRMTBaLgDp6BJAW3KRSNloqdhZvy8sZ2AsGTtTzbyl7e215tS/svP8nb3sJzbEJbH69vlooGC+9huLxOo6U0BtjYiuK+nzREox+N0ByDbiOKmAqUBtiFMT7ZTgdKo7EcN2vTOAtRqG0WcBcp2GBJHIwIRaXEecBhSgRkySs8ChyAZYJSe3R+C7AHUuhq5f39epHrnM6CHQ6DFWSiNVCAi9RiBFrk2vWgmqJbd68vxy7Kv570UmfRsajqgtOpnVZjtV1hPAdo0vbmzuiTzbkOGZIA2xQhIJ6f97ermnk4x638eUI+nAJn0IiCdIgIyIC4OFNkCtAsICpgNCq+eAiwwGKjbXBsQa4HRfIdtUy9RLal504C3OGCBdJG+9rlfFtxKRZT9UTpxZ8AuOJsE02kVqE+abILuBmSL3joE1rrFUGDUuAJZ5BCgnReLkyADLDP/k7E4FlgLoRuuFZgh8ZphwJY51IPRj7tfD1wzgll8V5y3RM9S865reSg04/R8BoyW8t1QFodvdB4Q3wKH/zFUDosHqdiwnsNr8HPvmj9fvgE3Zqdx7vF4yAAAAABJRU5ErkJggg=="},"evilEye":{"name":"バジリスク","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABYUlEQVR4nO3Xuw3CMBAG4IzDBAiJARgBIVHQUDIEHVmBBZiAggFQJmAASnqog86S0el0Pj9yfhRY+oWIg++LCbHpun9roM2W87G2wdkAdzvvRg7ZBNwCKVKCVwe60FWBz3tvgnFVgVDYBgMxrhoQip4uh6A0DyyOjMVZYHYkvueg6OexN4H38IpB+LjtW2xW+ZAwMBSAYEQsMBsSAzEyJsWA6+PWpBkgnT0OiPu5WaZ9qkgXECObBULer8FEOp4NSHHNATmkC2LXYogEzPLQ5n7FNBRo47q4rLPIQTmgdH4RJC5MgT5cUSQEA0Nx6kgJ6LsFiiJtNGDZvmoaV1HfOWrI0EIhEFWcC8XNoi/qQPjQdeh/SYVhHB1v8uxxA6ZA1YF0eYNtU+i9JPXTcZI2EL4tfuqjhBsjeZej8T9EyiRcbqTq/pBbMZrBYaS0vMUGjzcZJ2G5UAAXdVTsBVQFlG5fgtIPdUDQ07kAAAAASUVORK5CYII="}};</script><script>(() => {
   'use strict';
   const KEY='hitotsu-battle-sound-v1';
   let enabled=false,context=null,epoch=0;
@@ -658,19 +743,27 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   'use strict';
   // The player's PNG is embedded at build time for offline and single-file use.
   const characters=window.TodoCharacters;
-  const mobs=['slime','zombie','bat','skeleton','goblin','ghost','mushroom','spider','scorpion','imp','mimic','mummy'];
-  const bosses=['boss','golem','hydra','evilEye','lich'];
   const palette={o:'#26344b',h:'#b87942',s:'#ffd5a0',b:'#5985be',d:'#34577f',w:'#edf7ff',g:'#70bc91',v:'#387963',r:'#e47878',y:'#f7ce77',p:'#8466a9',t:'#bbc8d6',a:'#758ba1',c:'#bb4350',f:'#ee7554',m:'#742f41',n:'#e9b67a'};
   const sprites={
     castle:['........r.......','........rrr.....','........t.......','.t.t...ttt..t.t.','.ttt...ttt..ttt.','.tdt...tdt..tdt.','.tttttttttttttt.','.tttttttttttttt.','.tdtttttttttdtt.','.tttttoootttttt.','.tttttoootttttt.','.tttttoootttttt.']
   };
   function sprite(kind){if(characters[kind])return '<img class="pixel-sprite" data-character="'+kind+'" src="'+characters[kind].url+'" width="'+characters[kind].width+'" height="'+characters[kind].height+'" alt="" draggable="false">';const pixels=sprites[kind];return '<svg class="pixel-sprite" viewBox="0 0 '+Math.max(...pixels.map(row=>row.length))+' '+pixels.length+'" aria-hidden="true" shape-rendering="crispEdges">'+pixels.flatMap((row,y)=>[...row].map((c,x)=>palette[c]?'<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+palette[c]+'"/>':'')).join('')+'</svg>';}
-  function boss(task,tasks){return !task.parentId&&(TodoCore.priority(task.answers)===3||tasks.some(t=>t.parentId===task.id));}
-  function enemy(task,tasks){const pool=boss(task,tasks)?bosses:mobs;let hash=2166136261;for(const c of task.id)hash=Math.imul(hash^c.charCodeAt(0),16777619)>>>0;return pool[hash%pool.length];}
+  function boss(task,tasks){return TodoCore.isBoss(task,tasks);}
+  function enemy(task,tasks){return TodoCore.taskEnemy(task,tasks);}
+  function habitat(kind){
+    const art={
+      golem:'<path fill="#52764b" d="M4 3h6v3h3v5h-2v5H1v-5H0V6h4zM22 1h6v4h3v7h-2v4H19v-5h-2V5h5zM13 6h6v4h3v8H9v-8h4z"/><path fill="#8f7352" d="M5 15h3v8H5zM14 17h3v6h-3zM23 15h3v8h-3z"/><path fill="#819268" d="M0 22h32v2H0z"/>',
+      boss:'<path fill="#936d53" d="M0 2h8v4h3v18H0zM25 0h7v24H22V7h3z"/><path fill="#bc956a" d="M0 2h8v3H0zM25 0h7v3h-7zM1 14h7v3H1z"/><path fill="#584333" d="M7 6h2v12H7zM23 5h2v13h-2z"/><path fill="#aa8458" d="M8 12h4v2h8v-2h4v2h-3v2H11v-2H8zM8 8h4v2h8V8h4v1h-3v2H11V9H8z"/><path fill="#d1b084" d="M12 13h2v3h-2zM16 13h2v3h-2z"/>',
+      evilEye:'<path fill="#676b76" d="M4 2h24v5h4v17H0V7h4z"/><path fill="#252a38" d="M7 7h19v17H5V10h2z"/><path fill="#9698a0" d="M5 3h20v3H5zM1 10h3v9H1zM28 8h3v10h-3z"/><path fill="#676b76" d="M9 7h3v5h-1v3h-1v-3H9zM20 7h4v5h-1v4h-2v-4h-1zM8 24v-5h2v-3h2v8zM22 24v-6h2v-3h2v9z"/>',
+      hydra:'<path fill="#737988" d="M1 1h4v3h3V1h4v5h8V1h4v3h3V1h4v23H1z"/><path fill="#353947" d="M12 10h8v3h3v11H9V13h3z"/><path fill="#b2b0a0" d="M1 6h11v3H1zM20 6h11v3H20zM3 12h3v5H3zM26 12h3v5h-3z"/><path fill="#a38a5e" d="M11 15h2v9h-2zM16 12h2v12h-2zM21 15h2v9h-2z"/><path fill="#a38a5e" d="M11 18h12v2H11z"/>',
+      lich:'<path fill="#c19b51" d="M7 2h3V0h3v3h6V0h3v2h3v15H7zM3 13h5v8H3zM24 13h5v8h-5zM6 20h20v4H6z"/><path fill="#863b50" d="M10 6h12v11H10zM8 17h16v3H8z"/><path fill="#dfc487" d="M4 12h5v4H4zM23 12h5v4h-5z"/><path fill="#5a4256" d="M0 21h32v3H0z"/>'
+    };art.hydra='<path fill="#858b97" d="M0 9h3v3h3V9h3v15H0zM39 9h3v3h3V9h3v15h-9z"/><path fill="#a8abb1" d="M0 16h9v2H0zM39 16h9v2h-9z"/><g transform="translate(8 0)">'+art.hydra+'</g>';return '<svg class="pixel-sprite" viewBox="0 0 '+(kind==='hydra'?48:32)+' 24" shape-rendering="crispEdges" aria-hidden="true">'+(art[kind]||art.golem)+'</svg>';
+  }
   function journey(task,kids){
     const done=kids.filter(t=>t.status==='done').length,ratio=done/kids.length;
-    const label=task.status==='done'?'ボス討伐済み':done===kids.length?'城に到着 · 親タスクの完了でボス討伐':'城への道 · '+done+' / '+kids.length+' ステップ';
-    return '<div class="quest-journey" role="img" aria-label="'+label+'"><div class="quest-landscape" aria-hidden="true"><div class="quest-road"></div><div class="quest-travel" style="--journey:'+ratio*100+'%"><span class="quest-traveler">'+sprite('hero')+'</span></div><span class="quest-castle">'+sprite('castle')+'</span></div><div class="quest-caption">'+label+'</div></div>';
+    const kind=task.bossEnemy||'golem',place={golem:'森',boss:'渓谷',evilEye:'洞窟',hydra:'城門',lich:'玉座'}[kind];
+    const label=task.status==='done'?'ボス討伐済み':done===kids.length?'ボスに到着 · 親タスクの完了でボス討伐':'ボスへの道 · '+done+' / '+kids.length+' ステップ';
+    return '<div class="quest-journey" role="img" aria-label="'+label+' · '+place+'"><div class="quest-landscape habitat-'+kind+'" aria-hidden="true"><div class="quest-road"></div><div class="quest-travel" style="--journey:'+ratio*100+'%"><span class="quest-traveler">'+sprite('hero')+'</span></div><span class="quest-castle">'+habitat(kind)+'</span></div><div class="quest-caption">'+label+'</div></div>';
   }
   function encounter(task,tasks){return '<div class="quest-encounter" aria-label="あなたの騎士と'+(boss(task,tasks)?'ドラゴン':'モンスター')+'"><span>'+sprite('hero')+'</span><span class="quest-encounter-label">次に倒す敵 <span aria-hidden="true">→</span></span><span>'+sprite(enemy(task,tasks))+'</span></div>';}
   const queue=[];let playing=false;
@@ -691,8 +784,24 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   }
   function celebrate(task,tasks){window.TodoAudio?.prepare();queue.push({title:task.title,kind:enemy(task,tasks),boss:boss(task,tasks)});playNext();}
   function marker(task,tasks,showCompleted=false){return task.status==='done'&&!showCompleted?'':'<span class="quest-marker'+(boss(task,tasks)?' boss-marker':'')+'" aria-hidden="true">'+sprite(enemy(task,tasks))+'</span>';}
-  window.TodoAdventure={journey,encounter,celebrate,marker};
+  window.TodoAdventure={journey,encounter,celebrate,marker,sprite,slash};
 })();
+</script><script>(() => {
+  const C=TodoCore,A=TodoAdventure,key='hitotsu-adventure-enabled';let info=null,index=0,signature='',enabled=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try{if(!window.TodoWorldPreview){const saved=localStorage.getItem(key);if(saved!==null)enabled=saved==='true';}}catch{}
+  function cast(kind){return '<span class="world-sprite '+(C.bossKinds.includes(kind)?'world-boss':'')+'">'+A.sprite(kind)+'</span>';}
+  function biome(kind){if(['spider','skeleton','ghost','evilEye'].includes(kind))return 'cave';if(['scorpion','mimic','mummy','hydra'].includes(kind))return 'desert';if(['goblin','imp','lich'].includes(kind))return 'hall';return 'forest';}
+  function scene(){const lane=document.querySelector('.world-lane');if(!lane||!info)return;const kind=info.kinds[index++%info.kinds.length];const region=biome(kind);lane.querySelector('.world-biome.previous')?.remove();const old=lane.querySelector('.world-biome');if(old)old.classList.add('previous');lane.querySelector('.world-actors')?.remove();lane.insertAdjacentHTML('beforeend','<div class="world-biome'+(old?' entering':'')+'" data-biome="'+region+'"><div class="world-trees"></div><div class="world-ground"></div></div><div class="world-actors"><div class="world-walker">'+cast('hero')+'</div><div class="world-foe is-walking">'+cast(kind)+'</div><div class="world-cut">'+A.slash()+'</div></div>');}
+  function setEnabled(value){enabled=value;try{if(!window.TodoWorldPreview)localStorage.setItem(key,String(enabled));}catch{}if(enabled)scene();updateMotion();}
+  function render(state){info=C.questInfo(state);let bar=document.querySelector('.world-strip');if(!bar){bar=document.createElement('section');bar.className='world-strip';bar.setAttribute('aria-label','小さな自動冒険');bar.innerHTML='<div class="world-meta"><a href="./characters.html"></a></div><div class="world-lane" aria-hidden="true"></div>';document.body.append(bar);bar.addEventListener('animationiteration',e=>{if(e.animationName==='world-walk'&&enabled&&!document.hidden)scene();});}bar.querySelector('a').textContent='冒険 '+info.days+'日';const toggle=document.querySelector('#adventure-toggle');if(toggle)toggle.onclick=()=>setEnabled(!enabled);const next=JSON.stringify(info.kinds);if(next!==signature){signature=next;scene();}updateMotion();}
+  function updateMotion(){const bar=document.querySelector('.world-strip');if(!bar)return;bar.hidden=!enabled;document.body.classList.toggle('with-world',enabled);bar.classList.toggle('world-paused',!enabled||document.hidden);const toggle=document.querySelector('#adventure-toggle');if(toggle){toggle.textContent='冒険：'+(enabled?'オン':'オフ');toggle.setAttribute('aria-pressed',String(enabled));}}
+  document.addEventListener('visibilitychange',updateMotion);
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches){enabled=false;updateMotion();}});
+  window.addEventListener('storage',e=>{if(e.key===key&&!window.TodoWorldPreview){enabled=e.newValue==='true';if(enabled)scene();updateMotion();}});
+  function empty(state){const q=C.questInfo(state);return '<section class="quest-all-clear"><span class="clear-badge">ALL CLEAR</span><h2>ひとつずつ、全部できた。</h2><p>今あるタスクは、すべて完了。<br>剣をおいて、ひと息つこう。</p><div class="clear-parade" aria-label="騎士と解放したキャラクターたち">'+cast('hero')+q.kinds.map(cast).join('')+'</div><p class="clear-record">冒険 '+q.days+'日 · 討伐 '+Object.values(q.counts).reduce((a,b)=>a+b,0)+'体</p><div class="clear-links"><button data-action="add">＋ 次のタスクを追加</button><a href="./characters.html">キャラクター一覧を見る →</a></div></section>';}
+  window.TodoWorld={render,empty};
+})();
+
 </script><script>(() => {
   'use strict';
   const C = TodoCore;
@@ -712,7 +821,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
       if(persisted) {
         const raw=JSON.parse(persisted);state=C.validate(raw);
         // Migrate the current local snapshot without changing task IDs or timestamps.
-        if(raw.tasks.some(t=>Object.hasOwn(t,'history'))){
+        if(raw.tasks.some(t=>Object.hasOwn(t,'history')||t.enemyVersion!==1)){
           const compact=JSON.stringify(state);localStorage.setItem(KEY,compact);persisted=compact;
         }
       }
@@ -738,8 +847,8 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
   function mutate(fn,message,celebrate=false) {
     const syncBlock=window.HitotsuFirebase?.blocked();if(syncBlock){toast(syncBlock);return false;}
     if(conflict){toast('別の画面の変更があります。JSONを書き出してから再読み込みしてください。');return false;}
-    const before=JSON.stringify(state);
-    try{fn();save();render();if(message)toast(message);}catch(err){state=JSON.parse(before);toast(err.message);return false;}
+    const before=JSON.stringify(state),previousQuest=state.quest;
+    try{fn();C.reuseQuest(state,{quest:previousQuest});C.prepareQuest(state);save();render();if(message)toast(message);}catch(err){state=JSON.parse(before);toast(err.message);return false;}
     if(celebrate){const previous=new Map(JSON.parse(before).tasks.map(t=>[t.id,t.status]));for(const t of state.tasks){if(t.status==='done'&&previous.has(t.id)&&previous.get(t.id)!=='done')window.TodoAdventure?.celebrate(t,state.tasks);}}
     return true;
   }
@@ -762,6 +871,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     return '<article class="task-card" data-task-id="'+t.id+'" tabindex="-1"><div class="task-row'+(available(t)?' has-pin':'')+'">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="edit" data-id="'+t.id+'">'+window.TodoAdventure.marker(t,state.tasks)+esc(t.title)+'</button>'+meta(t)+(kids.length?window.TodoAdventure.journey(t,kids):'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+subtree+'</article>';
   }
   function render(){
+    C.prepareQuest(state);window.TodoWorld?.render(state);
     if(draft?.editing)renderEditorMonster(task(draft.id));
     const roots=state.tasks.filter(t=>!t.parentId), active=roots.filter(available).sort(C.compare), waits=roots.filter(t=>waiting(t)&&t.status!=='done'),done=roots.filter(t=>t.status==='done');
     $('#active-count').textContent=active.length;$('#waiting-count').textContent=state.tasks.filter(t=>t.status==='waiting').length;$('#done-count').textContent=done.length;
@@ -771,6 +881,7 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     document.querySelectorAll('[data-view]').forEach(b=>{b.classList.toggle('selected',b.dataset.view===view);b.setAttribute('aria-current',b.dataset.view===view?'page':'false');});
     renderFocus(active);renderUrgent();
     let visible=(view==='active'?active:view==='waiting'?roots.filter(t=>t.status!=='done' && (waiting(t)||C.children(state,t.id).some(k=>k.status==='waiting'))).sort(C.compare):done.sort((a,b)=>b.completedAt.localeCompare(a.completedAt))).filter(t=>matches(t)||C.children(state,t.id).some(matches));
+    if(!query&&view==='active'&&state.tasks.length&&state.tasks.every(t=>t.status==='done')){$('#focus').hidden=true;$('#task-list').innerHTML=window.TodoWorld?.empty(state)||'';return;}
     if(!visible.length){$('#task-list').innerHTML='<div class="empty-state"><div class="empty-icon">'+(view==='done'?'✓':'≡')+'</div><h2>'+ (query?'一致するタスクはありません':view==='active'?'頭の中のタスクを、ひとつ外へ。':view==='waiting'?'待っているタスクはありません':'完了したタスクがここに残ります')+'</h2><p>'+(query?'別の言葉で検索してみてください。':view==='active'?'質問に答えると、取りかかる順番が決まります。':view==='done'?'出戻りには再開、同じ作業には複製が使えます。':'相手に渡した後は、状態を「待ち」にできます。')+'</p>'+(view==='active'&&!query?'<button class="primary" data-action="add">＋ 最初のタスクを追加</button>':'')+'</div>';return;}
     $('#task-list').innerHTML=view==='active'?[1,2,3,4].map(p=>{const group=visible.filter(t=>C.priority(t.answers)===p);return group.length?'<section class="group"><h3 class="group-head"><span class="priority-number">'+p+'</span>'+names[p]+'<span class="group-count">'+group.length+' 件</span></h3>'+group.map(renderCard).join('')+'</section>':'';}).join(''):visible.map(renderCard).join('');
   }
@@ -938,7 +1049,8 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
     blocked:()=>storageBroken||conflict,
     apply:next=>{
       if(storageBroken||conflict)throw Error('端末内に保存できないため、同期の反映を停止しています。');
-      if(TodoSync.equal(state.tasks,next.tasks)&&state.pinnedId===next.pinnedId)return;
+      C.reuseQuest(next,state);
+      if(TodoSync.equal(state.tasks,next.tasks)&&state.pinnedId===next.pinnedId&&state.quest===next.quest)return;
       const old=state;applyingSync=true;
       try{state=next;save();if(storageBroken||conflict){state=old;throw Error('同期結果を端末内に保存できませんでした。');}render();}finally{applyingSync=false;}
     }
