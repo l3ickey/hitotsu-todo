@@ -188,4 +188,15 @@
     document.querySelector('main').innerHTML=items.map(([kind,day])=>{const c=catalog[kind],open=kind==='hero'||q.kinds.includes(kind);return '<figure class="'+(c.width===40?'boss':'mob')+(open?'':' locked')+'"><div class="stage">'+(open?'<img src="'+c.url+'" width="'+c.width*4+'" height="'+c.height*4+'" alt="">':'<span class="unknown" aria-label="未解放">？</span>')+'</div><figcaption>'+(open?c.name:'？？？')+'<small>'+(kind==='hero'?'あなた · 冒険 '+q.days+'日':open?'討伐 '+q.counts[kind]+'体':day+'日で解放')+'</small></figcaption></figure>';}).join('');
   }render();window.addEventListener('storage',render);document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});
 })();
+// The guided first visit reveals only the silhouette of tomorrow's encounter.
+(() => {
+ const key='hitotsu-tutorial-v1';let p;try{p=JSON.parse(localStorage.getItem(key)||'null');}catch{return;}
+ if(p?.step!=='gallery'||p.done)return;
+ const header=document.querySelector('header'),intro=document.createElement('section');
+ intro.style.cssText='padding:20px;border:1px solid #a3926d;border-radius:14px;margin:20px 0;text-align:center;background:#243b52';
+ intro.innerHTML='<h2>次の出会いは、冒険2日目。</h2><img src="'+TodoCharacters.bat.url+'" width="80" height="80" style="filter:brightness(0);image-rendering:pixelated" alt="次に出会う敵のシルエット"><p>明日またタスクを1つ完了すると、<br>新しい敵が解放されます。</p><p>1日にタスクを何個終えても冒険日数は1日分。<br>休んでも日数は減りません。</p><button class="tutorial-finish"><span>タスク一覧へ戻る</span><span>・チュートリアルを終了</span><span aria-hidden="true" class="finish-arrow">→</span></button>';
+ const finishStyle=document.createElement('style');finishStyle.textContent='.tutorial-finish{display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 0;position:relative;max-width:100%;padding:16px 42px 16px 22px;border:1px solid #f4dba2;border-radius:12px;background:linear-gradient(135deg,#f4dcaa,#dcb979);color:#23364c;box-shadow:0 4px 16px #08152640;font:700 14px/1.6 system-ui;cursor:pointer;transition:filter .15s,transform .15s}.tutorial-finish:hover{filter:brightness(1.06)}.tutorial-finish:active{transform:translateY(1px)}.tutorial-finish:focus-visible{outline:3px solid #8ddfff;outline-offset:4px}.finish-arrow{position:absolute;right:16px;font-size:20px}';document.head.append(finishStyle);
+ header.querySelector('a').hidden=true;header.append(intro);
+ intro.querySelector('button').onclick=()=>{try{localStorage.setItem(key,JSON.stringify({done:true,step:'done'}));location.href=window.TodoTutorialHome||'./index.html';}catch{intro.querySelector('p').textContent='保存できませんでした。ブラウザーの保存設定を確認してください。';}};
+})();
 </script></body></html>

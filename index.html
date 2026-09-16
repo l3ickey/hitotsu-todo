@@ -193,6 +193,28 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 
 .main-footer #sound-toggle{background:none;border:0;padding:4px 0;color:var(--muted);font-size:inherit;font-weight:inherit}
 
+.tutorial{width:calc(100% - 32px);max-width:440px;max-height:calc(100dvh - 32px);overflow:auto;border:1px solid #a3926d;border-radius:18px;padding:28px;text-align:center;background:radial-gradient(ellipse at 50% 40%,#314760,#142337 80%);color:#edf7ff}
+.tutorial::backdrop{background:#0b1626b8}.tutorial h2{font-size:23px;color:#fff1d5}.tutorial h3{font-size:18px;line-height:1.7}.tutorial p{line-height:1.8;color:#d2dfeb}.tutorial .muted{font-size:12px;color:#aebfd0}.tutorial .field{text-align:left}.tutorial input{width:100%;font-size:13px}.tutorial-character{width:80px;height:80px;object-fit:contain;image-rendering:pixelated}.tutorial-glow{background:radial-gradient(#e3c88850,transparent 68%)}.tutorial-glow img{width:120px;height:120px}.tutorial-eyebrow{font-size:11px;letter-spacing:.12em;color:#dfc38d}.tutorial-next{width:100%;margin-top:12px;min-height:44px}
+.tutorial-target{outline:3px solid #efc66e!important;outline-offset:4px;box-shadow:0 0 0 8px #efc66e25!important}
+.tutorial-coach{position:fixed;z-index:10000;display:flex;align-items:center;gap:12px;width:min(320px,calc(100vw - 24px));padding:14px 16px;background:#142337;color:#edf7ff;border:1px solid #d8b86f;border-radius:12px;box-shadow:0 8px 28px #10213a30;pointer-events:none;text-align:left;box-sizing:border-box}
+.tutorial-coach strong{font-size:11px;color:#efce88}.tutorial-coach p{font-size:13px;line-height:1.7;margin:4px 0 0}.tutorial-arrow{color:#efce88;font-size:28px;transform:rotate(-90deg)}.tutorial-coach.above .tutorial-arrow{transform:rotate(90deg)}
+/* Put the pointer on the button side of the guidance bubble. */
+.tutorial-coach .tutorial-arrow{order:2;flex-shrink:0}.tutorial-coach>div{flex:1;min-width:0}
+/* Fit the guidance bubble to its text instead of stretching the arrow away. */
+.tutorial-coach{width:max-content;max-width:calc(100vw - 24px);gap:8px}.tutorial-coach>div{flex:0 1 auto;max-width:260px}
+/* Anchor the arrow to the actual button center, including viewport edges. */
+.tutorial-coach{display:block}.tutorial-coach>div{max-width:260px}
+.tutorial-coach .tutorial-arrow{position:absolute;left:var(--pointer-x);top:-27px;line-height:24px;width:24px;height:24px;text-align:center;transform:translateX(-50%) rotate(-90deg)}
+.tutorial-coach.above .tutorial-arrow{top:auto;bottom:-27px;transform:translateX(-50%) rotate(90deg)}
+/* Keep the button-aligned arrow inside the coach frame. */
+.tutorial-coach{padding-top:38px}
+.tutorial-coach .tutorial-arrow{top:7px}
+.tutorial-coach.above{padding-top:14px;padding-bottom:38px}
+.tutorial-coach.above .tutorial-arrow{top:auto;bottom:7px}
+/* High-contrast pointer outside the guidance frame. */
+.tutorial-coach,.tutorial-coach.above{padding:14px 16px}
+.tutorial-coach .tutorial-arrow{top:-27px;color:#153f66;filter:drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)}
+.tutorial-coach.above .tutorial-arrow{top:auto;bottom:-27px}
 .with-world{padding-bottom:102px}.world-strip{position:fixed;bottom:0;left:228px;right:0;height:72px;z-index:5;background:#edf2e7;border-top:1px solid #d5decb;color:#50604b;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box}.world-meta{display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;font-size:11px;height:20px}.world-meta a{color:#50604b;text-decoration:none}.world-meta button{font:inherit;min-height:20px;padding:0 8px;line-height:20px;background:transparent;border:0;color:#50604b}.world-lane{position:relative;height:72px;overflow:hidden;background:linear-gradient(transparent 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-sprite{display:inline-flex;align-items:flex-end;justify-content:center;width:40px;height:40px;flex-shrink:0}.world-sprite img{width:40px;height:40px;image-rendering:pixelated;object-fit:contain}.world-boss,.world-boss img{width:56px;height:56px}.world-walker,.world-foe{position:absolute;bottom:10px;left:0;line-height:0}.world-walker{left:-40px;animation:world-walk 12s linear both}.world-walker .world-sprite{animation:world-step .6s steps(2,end) 12,world-step-resume .6s steps(2,end) 9.36s infinite}.world-foe{left:105%;opacity:0;animation:world-meet 12s linear both}.world-cut{position:absolute;left:calc(61% + 14px);bottom:5px;width:52px;height:52px;opacity:0;animation:world-slash 12s steps(1,end) both}.world-cut svg{width:52px;height:52px;image-rendering:pixelated}.world-paused *{animation-play-state:paused!important}
 @keyframes world-walk{0%{left:-40px}60%,65%,68%{left:calc(61% - 22px)}78%{left:calc(61% - 22px)}100%{left:105%}}@keyframes world-meet{0%,15%{left:105%;opacity:1}60%,65%,68%{left:calc(61% + 22px);opacity:1;filter:none;transform:none}69%{left:calc(61% + 22px);opacity:1;filter:brightness(3)}75%,100%{left:calc(61% + 38px);opacity:0;transform:translateY(-5px)}}@keyframes world-slash{0%,64%{opacity:0}65%,68%{opacity:1}72%,100%{opacity:0}}@keyframes world-step{50%{transform:translateY(-2px)}}
 .quest-all-clear{background:#edf3e9;border:1px solid #d6e2ce;border-radius:16px;padding:36px 24px;text-align:center;color:#304935}.clear-badge{font-size:11px;letter-spacing:.22em;color:#627c4e}.quest-all-clear h2{font-size:1.5rem;margin:16px 0 10px}.quest-all-clear p{color:#63735e;font-size:14px}.clear-parade{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:12px;padding:25px 10px 12px;border-bottom:3px solid #a8b88d;margin:20px auto;max-width:650px}.clear-parade>.world-sprite:first-child{margin-right:16px}.clear-record{font-size:12px!important}.clear-links{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.clear-links a{font-size:12px;color:#4d6845}
@@ -298,7 +320,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.7.3</span></div>
+      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.8.0</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -308,7 +330,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.7.3</span></div></footer>
+      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.8.0</span></div></footer>
     </main>
   </div>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><span id="editor-monster" aria-hidden="true" hidden></span><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
@@ -737,9 +759,9 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   <script>window.TodoCharacters={"hero":{"name":"騎士","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABw0lEQVR4nK3Ry0rDQBQG4LyAvkK9rARBBVGwFBWKGkTNpUUXavUttPbihUzTtRuTKraK0o3bpgri1o2vYeMjCI2/nKORWLCm1YHDXMh882dGkn5oN5IEv376JnQLYn9GWwF9RUGlUoEQBpKa1jkcxJK6BiEEisUiEpqGghDdoZxMVXF0eARCE5qKomkyahYENEUJj66trkLXVBzs70NXFZydnqIgDE5XrVYZNQyDDwkF7mQyeHht8kbChGFwmaaJkm3Btm3oioLyeTkcePj4xCD1lnUCr+HAc2soWRa8Rg3NhsPr6fQukrr+OxoEvUYd3rPz0bv1T9xhdC+d7jwhJZIkCU0GHe5pTgfMxePdgd4nxukoLSeth3/lIPjm3sFzbzmVX3xAtyDNaXOTkroO3l4+7nJoOPqtQoNTEyNY7OvFpdyPihxBWY58IfHdY6626P1xAq1VsktYGujBhRzB0mDvN4wO9tG2KSkVJUptbiKXzSKfz+H66gr5XPYLJMyvtiBBPpjLZrCxvo6trRSj26lUZwkJCdZsdByxyTEexyZHEZ0Y4XHrHbb9Xb8pCzNQ5FmszE/zhuW5aR7TOs1DvfB/tHelo+ThswsYtAAAAABJRU5ErkJggg=="},"slime":{"name":"スライム","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAS0lEQVR4nGNgGAWjYBQMRlCwZ+J/ZEw1gygyGKbp7ff/GAYhi5FsoJqJN4aByGJU8SrJXsemCeQqbK4l20CKI8eiMvk/MZgowygFAFgGzJtiMDaOAAAAAElFTkSuQmCC"},"zombie":{"name":"ゾンビ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAfklEQVR4nGNgGAXowKIy+T8yptiwgj0TUTBFhiIb9KSiAs6myEA1E2+4QTA2VVyIjMk2ENmVyC6l2ECKXQfT3JK2EismyXBk1yAbAoplsgxFVojLhejqiAa4XEeSIejAJLz+PzKmmmHIfIoNxMUnGaAHPEVpEVuRRbVijBQAAJaT8xW+rmf9AAAAAElFTkSuQmCC"},"bat":{"name":"コウモリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbUlEQVR4nGNgGAWjYBABNRPv/1TVCxLEJoEshksep4EtaSsxJGFiMHli9KBIoiuAicEwIfVYDYQpQjcMlxxRBsLw93PlWNkEDcRlKLrXiDYMn6Fvv/8HY5INI+R9sgxjwJL2sBlCSUbAnXjpAQBtwPETqVuSgAAAAABJRU5ErkJggg=="},"skeleton":{"name":"スケルトン","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbElEQVR4nGNgGAXoYPeJa/+RMcWGvf3+HwWTbSg2wygyFNlANRNvFHpwGIhuKDImyzB0Q2Guo8gwBmolG3TNhPgEDYMFPD5MdOTAFKPz0Q2gKPlQLevhcyFFBmJjk20Y2bGLyzBsBlLF68QCADhTQ6b46EmeAAAAAElFTkSuQmCC"},"goblin":{"name":"ヘルハウンド","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAkUlEQVR4nGNgGAVUBSrqpv+JEUMHM2yD/4MwVgORDUDn4zMMr4HomJAL319owDQQpPFhWRYYu3jEwtkUGQgyCB2TZSA2byIbiC8YcIYhNgORFdd2zIRjmEXI8lgj5dvzvSiGIitGDwqChuEzEFfY4jUM3fv4XIcctgQNwxVJ+CKOaoYODgOJFccJ0AOfWDmaAQDTUh/ZIafHugAAAABJRU5ErkJggg=="},"ghost":{"name":"ゴースト","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAYElEQVR4nGNgGAVDD+w+ce0/MqbYsLff/6Ngsg3FZhjZhuIzjCxDkQ1UM/HGyh44A2GxSYyXiTIUm2EglyG7jiRXUt1AXIZSLZYHp4HIhqLHOrI4yQYia0LmU6WgIBYAAPHuzfz6892XAAAAAElFTkSuQmCC"},"mushroom":{"name":"キノコ魔人","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAhUlEQVR4nGNgGAVDD+x2DviPjCk26ElFxf+33/+DMYhNlsEwg5ANgxkIw0QbimwYsqHoLiXKUGxeRDeYJEMJGUiyK9FjlFhMMBxfbqv6TwwmaBC6of+vLoBrRmaTbBjMQDUTb7gByGyyDaSad5ENBXmVYu+iuxCfGFFgYrzjfxgmRY4mAAD3l3LzmTUc5AAAAABJRU5ErkJggg=="},"spider":{"name":"大グモ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiklEQVR4nGNgGAXIoLR74X9smGzDWtJWYsVkGYps4Nvv/8GYJAPRvUOsC/EGA7IkMQYSFabIgY/PQKJdhi6GyzBC+hmw2Uoo2RCVlNA14/MuSckHZtiTigowRjacZIOQXQczkOgIwRce+MIQr8G4JEBisFwCwrjUkBQphMSJ8jZV1JGaDCgqykgBAMaOjppeyh/HAAAAAElFTkSuQmCC"},"scorpion":{"name":"サソリ","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAgklEQVR4nGNgGChQFpj6Hxsm27DNExdixWQZCjMQXZwiA3c7B1DPQBCguoHYwOA2EBZROA1Ej0lCNuM1EDmdwRIsPtvR1eNVgG4wyYYhK8SVrSjOdsgacGU7ggaiG4IcliCsZuJNvIG4IgVfgUC0geiayA4/5KSC7HV8NMmA6gaSAwDXQz/wPigRiwAAAABJRU5ErkJggg=="},"imp":{"name":"小悪魔","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAoklEQVR4nGNgGJLgw8We/yBMrjxODUURnhiaQGIkGwjTiGxgUnD1f2ziJBsIMggZ08xAmIuJBiANsLCCGYbOJ8kwYjFIvU9Ayn8QRjEEXZAYw2B68BoIw8gaL9SUgTFFBqIbis+rJBu4uHsrHONyHUlexmYgcizD5DAMROfjMxA9ZWAYSGrywaaWoIHYvI8tvIhO5Mia0WMWn2uJMhCfGE0BAPgFgwIeZ/IWAAAAAElFTkSuQmCC"},"mimic":{"name":"ミミック","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAiElEQVR4nGNgGJLg+7ny/8Rgog2bGO+IgrGJwcSJMuzltiowxmYgNjmiXUbIhXgNJTbciA5PNRPv/2+//wdjcthYDYQpgrHR+bjYOA0s0XckC5Nk4JOKCjim2EBkw/AZSnYY4uMTHcu4xAjGMtXTIXpuQObDNOHKOWQZCPIWVQ0ky4VUDUNqAQD89qkriwC/CgAAAABJRU5ErkJggg=="},"mummy":{"name":"マミー","width":20,"height":20,"boss":false,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAkElEQVR4nGNgoCd4ua3qPzqmyLC33/9jYLINRTYAhmFiZLtQzcQbjL+fK4ezyXYlTVxI1TBkQIpligzD5kVcfKIMw+ZFdAOJdjG67dgMgEUKsiVEuRDd++hyRLsS2VZc3semlqChhFyIHEwEDURWjKwBm4FEJyWYi7B5keKsh0+MaIAtzMjOz7gKVaoVtqQAAEzb6z1RPowiAAAAAElFTkSuQmCC"},"golem":{"name":"岩のゴーレム","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABUklEQVR4nO3WMQ7CMAwF0F4PcQEmNgQjKyNHgJmNYyBxIQ4BaqVKUWT7+ztpU6RGykJT8nDsmK5bxzr+eBx2269nNsO9nldz3i77Nsh+w35zCTXC++fjnB0pAVNMimuCtBDS54sBppDFAD/vswodnzUtFAmZ4hYBRLk4+/FqeaYVSg6c7DJPL2dvF5Fm8WUufenuuBmm1Tk0UB7d/O6kkPkvHGEIqOWjdPzaeoiUOsT9cRpg1h3nnehdChi5iGcDer4kunlRr/ZuwuC0QgkBEZIFsmsnAbJRt+5HiOscf+OZyGo5KO3jwkWBkSoNRRC1oVrAULvztCGUnxYuTwW63aUvatVXG0hVM6pOVCQIxxYTBOYbl/bhKkAtiqiyI5PCSVFkosegmgJRyqCcdQFrHUs04irOglqbWkC0PoRDcOZY2PVVgMyxFB1jLegU69dRc/wAIK+LD4HeRcgAAAAASUVORK5CYII="},"hydra":{"name":"ヒュドラ","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABX0lEQVR4nO3Xyw3CMAwA0KyDxAZcuxQTcOHGiU1Yo5sgFihKVUuRsRP/QnpoJEtVCO1LUrttSkfbQXu+bstoQ7VlYI7T+fITo21rm66PhYpdIDPgPd/XKHHQNxxYYjjgMCRcnNvibtusycoasFuyaLOSGkf9J6wcabcr9y2fWQR0lyNrVmYgNynrxNnVs2Qldy/C2JBy5MnKFjCsHFmyUrJ6oeVImpVSoHXiVaAkKzVAy8SrDYDUhT1AzcSbqxgNzH24HJmfNL2AYc/qAxgFlCA9Zcb1ptNClr9JxoStHgWsXcQDNOO0q9iagGb1qPs8BKkFcjguGd1I7+pJKoYYKtnmVl83HM7eHOWrPEbjPgoTAkyonsFx7Vujtd2hOAyEAGAJhWMNyo1LzL2CgWUMx+FtluKo84XjqGQAWKssuUESHAWUPB7/BuTGl0W46z2Xtm8TKqQnn7bXfM85juZpX3Y7H/dOOn2rAAAAAElFTkSuQmCC"},"lich":{"name":"カースキング","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABc0lEQVR4nO2WPQ7CMAyFc5deACFxh14AWBg5AzM7EitISIiFgTPAxMYhuAQrQ5GrpnJN4rohSatSS0+U4CYffvlTaohIcdnMsrYZ2ABACaSvnMahAbnOJTmtAh7mxwwk+RPRAaEdA9I8/H7Q+UwHwqKAnIIBYsjnfVuRBqTtUeEwJAWxKSoYRJKMs/VyJRbkgwZADQe67XeldBsV/T0KoDJUEL6/zu/yUz93xuJOAnbSYjy4yyIJDukDMBgkPQ1sttoU/DSRnK9N9H+AqpiD6WiR63E9lUonU6MqOcV7XuchHVDfVkAUEF8O6gBpv8EAdSU5QJwDag0QBHOLWtwqIJ2DEsDc6l4D4m2AA8SrmQP8WukWQPH2IwWUVtA7oE+LTVX2ajGGAJkstm3SXAVpv84WdxIQB+2ohMLyBOhksUJ3QCPcD6JnspPFMQA1pPMtxxXOdGnlAMVhq6BENrA6NaogTnQZrA7E1G8jQElIQDjAXsUHpnw3db+jDGwAAAAASUVORK5CYII="},"boss":{"name":"ドラゴン","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABuklEQVR4nO3YPU4DMRAFYJ+GloYLIEoaihwFRMTBaLgDp6BJAW3KRSNloqdhZvy8sZ2AsGTtTzbyl7e215tS/svP8nb3sJzbEJbH69vlooGC+9huLxOo6U0BtjYiuK+nzREox+N0ByDbiOKmAqUBtiFMT7ZTgdKo7EcN2vTOAtRqG0WcBcp2GBJHIwIRaXEecBhSgRkySs8ChyAZYJSe3R+C7AHUuhq5f39epHrnM6CHQ6DFWSiNVCAi9RiBFrk2vWgmqJbd68vxy7Kv570UmfRsajqgtOpnVZjtV1hPAdo0vbmzuiTzbkOGZIA2xQhIJ6f97ermnk4x638eUI+nAJn0IiCdIgIyIC4OFNkCtAsICpgNCq+eAiwwGKjbXBsQa4HRfIdtUy9RLal504C3OGCBdJG+9rlfFtxKRZT9UTpxZ8AuOJsE02kVqE+abILuBmSL3joE1rrFUGDUuAJZ5BCgnReLkyADLDP/k7E4FlgLoRuuFZgh8ZphwJY51IPRj7tfD1wzgll8V5y3RM9S865reSg04/R8BoyW8t1QFodvdB4Q3wKH/zFUDosHqdiwnsNr8HPvmj9fvgE3Zqdx7vF4yAAAAABJRU5ErkJggg=="},"evilEye":{"name":"バジリスク","width":40,"height":40,"boss":true,"url":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABYUlEQVR4nO3Xuw3CMBAG4IzDBAiJARgBIVHQUDIEHVmBBZiAggFQJmAASnqog86S0el0Pj9yfhRY+oWIg++LCbHpun9roM2W87G2wdkAdzvvRg7ZBNwCKVKCVwe60FWBz3tvgnFVgVDYBgMxrhoQip4uh6A0DyyOjMVZYHYkvueg6OexN4H38IpB+LjtW2xW+ZAwMBSAYEQsMBsSAzEyJsWA6+PWpBkgnT0OiPu5WaZ9qkgXECObBULer8FEOp4NSHHNATmkC2LXYogEzPLQ5n7FNBRo47q4rLPIQTmgdH4RJC5MgT5cUSQEA0Nx6kgJ6LsFiiJtNGDZvmoaV1HfOWrI0EIhEFWcC8XNoi/qQPjQdeh/SYVhHB1v8uxxA6ZA1YF0eYNtU+i9JPXTcZI2EL4tfuqjhBsjeZej8T9EyiRcbqTq/pBbMZrBYaS0vMUGjzcZJ2G5UAAXdVTsBVQFlG5fgtIPdUDQ07kAAAAASUVORK5CYII="}};</script><script>(() => {
   'use strict';
   const KEY='hitotsu-battle-sound-v1';
-  let enabled=false,context=null,epoch=0;
+  let enabled=true,context=null,epoch=0;
   const active=new Set(),buffers=new Map();
-  try{enabled=localStorage.getItem(KEY)==='on';}catch{}
+  try{enabled=localStorage.getItem(KEY)!=='off';}catch{}
   function stop(){epoch++;for(const source of active){try{source.stop();source.disconnect();}catch{}}active.clear();}
   function prepare(){
     if(!enabled||document.hidden)return null;
@@ -798,7 +820,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   };
   document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
   window.addEventListener('pagehide',stop);
-  window.addEventListener('storage',event=>{if(event.key===KEY||event.key===null){enabled=event.key===KEY&&event.newValue==='on';stop();render();}});
+  window.addEventListener('storage',event=>{if(event.key===KEY||event.key===null){enabled=event.newValue!=='off';stop();render();}});
   render();window.TodoAudio={prepare,play};
 })();
 </script><script>(() => {
@@ -890,6 +912,55 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   window.addEventListener('storage',e=>{if(e.key===key&&!window.TodoWorldPreview){enabled=e.newValue==='true';if(enabled)scene();updateMotion();}});
   function empty(state){const q=C.questInfo(state);return '<section class="quest-all-clear"><span class="clear-badge">ALL CLEAR</span><h2>ひとつずつ、全部できた。</h2><p>今あるタスクは、すべて完了。<br>剣をおいて、ひと息つこう。</p><div class="clear-parade" aria-label="騎士と解放したキャラクターたち">'+cast('hero')+q.kinds.map(cast).join('')+'</div><p class="clear-record">冒険 '+q.days+'日 · 討伐 '+Object.values(q.counts).reduce((a,b)=>a+b,0)+'体</p><div class="clear-links"><button data-action="add">＋ 次のタスクを追加</button><a href="./characters.html">キャラクター一覧を見る →</a></div></section>';}
   window.TodoWorld={render,empty};
+})();
+</script><script>(() => {
+ const KEY='hitotsu-tutorial-v1',TITLE='このアプリで、最初のタスクを完了する';
+ window.TodoTutorial={start(api){
+  let progress;try{progress=JSON.parse(localStorage.getItem(KEY)||'null');}catch{return;}
+  if(progress?.done||(!progress&&!api.fresh))return;
+  progress??={step:'welcome'};
+  const existing=api.get().tasks.find(t=>t.id===progress.taskId||t.id==='tutorial-first-task');
+  if(existing){progress.taskId=existing.id;progress.step=existing.status==='done'?'unlock':'complete';}
+  const panel=document.createElement('dialog');panel.className='tutorial';panel.setAttribute('aria-labelledby','tutorial-title');panel.addEventListener('cancel',e=>e.preventDefault());document.body.append(panel);
+  const coach=document.createElement('div');coach.className='tutorial-coach';coach.setAttribute('role','status');
+  let target=null,locked=[],busy=false;
+  function persist(){try{localStorage.setItem(KEY,JSON.stringify(progress));return true;}catch{return false;}}
+  function clean(){target?.classList.remove('tutorial-target');for(const [el,value]of locked)el.inert=value;locked=[];target=null;coach.remove();}
+  function position(){
+   if(!target?.isConnected)return;
+   const r=target.getBoundingClientRect(),cr=coach.getBoundingClientRect(),center=r.left+r.width/2,gap=30;
+   const below=r.bottom+gap+cr.height<=innerHeight-12;
+   const left=Math.max(12,Math.min(innerWidth-cr.width-12,center-(cr.width-28)));
+   coach.style.top=Math.max(8,below?r.bottom+gap:r.top-cr.height-gap)+'px';coach.style.left=left+'px';
+   coach.style.setProperty('--pointer-x',(center-left)+'px');coach.classList.toggle('above',!below);
+  }
+  function guide(selector,text){text=text.replace(/<br\s*\/?>/g,'').replace(/([。、])/g,'$1<br>').replace(/<br>$/,'');clean();if(panel.open)panel.close();target=document.querySelector(selector);if(!target)return;target.classList.add('tutorial-target');const editor=document.querySelector('#editor');(editor.open?editor:document.body).append(coach);coach.innerHTML='<span class="tutorial-arrow" aria-hidden="true">➜</span><div><strong>はじめての冒険</strong><p>'+text+'</p></div>';
+   for(let node=target;node&&node!==document.body;node=node.parentElement){for(const sibling of node.parentElement?.children||[]){if(sibling===node||sibling===coach||sibling.contains(coach)||['SCRIPT','STYLE'].includes(sibling.tagName))continue;locked.push([sibling,sibling.inert]);sibling.inert=true;}}
+   target.setAttribute('aria-describedby','tutorial-coach-text');coach.id='tutorial-coach-text';target.scrollIntoView({block:'center',behavior:'instant'});target.focus({preventScroll:true});position();requestAnimationFrame(position);
+  }
+  function unlock(){clean();busy=false;panel.innerHTML='<div class="tutorial-eyebrow">NEW ENCOUNTER · 冒険1日</div><h2 id="tutorial-title">岩のゴーレムが解放されました</h2><div class="tutorial-glow"><img class="tutorial-character" src="'+TodoCharacters.golem.url+'" alt=""></div><p>大きなタスクや、ステップに分けたタスクには<br>ボスが登場します。</p><p class="muted">ステップをすべて終えたら、親タスクを完了してボスを倒せます。</p><button class="primary tutorial-next">キャラクター一覧を見る →</button>';panel.querySelector('button').onclick=()=>{progress.step='gallery';if(persist())location.href=window.TodoTutorialGallery||'./characters.html?tutorial=1';};panel.showModal();}
+  function draw(){persist();switch(progress.step){
+   case 'welcome':guide('#add-button','まずは「タスクを追加」を押しましょう。<br>練習用のタスクを用意しています。');break;
+   case 'name':guide('#editor-next','タスク名は入力済みです。<br>「次へ」でタスクの優先順位を決めましょう。');break;
+   case 'handoff':guide('[data-answer="no"]','今回は自分の操作練習です。「いいえ」を選びましょう。');break;
+   case 'quick':guide('[data-answer="yes"]','この練習は10分以内に終わります。「はい」を選びましょう。優先度2になります。');break;
+   case 'save':guide('#editor-next','締切は空欄のままで大丈夫です。「保存する」を押して登録しましょう。');break;
+   case 'complete':guide('#focus [data-action="toggle"][data-id="'+progress.taskId+'"]','登録できました！ これが次に倒す敵です。完了ボタンを押してスライムを倒しましょう。');break;
+   default:unlock();
+  }}
+  document.addEventListener('click',e=>{if(panel.open)return;if(busy||!target?.contains(e.target)){e.preventDefault();e.stopImmediatePropagation();return;}const step=progress.step;setTimeout(()=>{
+   clean();if(step==='welcome'){progress.step='name';api.prepare('name',TITLE);}
+   else if(step==='name')progress.step='handoff';else if(step==='handoff')progress.step='quick';else if(step==='quick')progress.step='save';
+   else if(step==='save'){const t=api.get().tasks.find(t=>t.title===TITLE&&!t.parentId);if(!t){draw();return;}progress.taskId=t.id;progress.step='complete';}
+   else if(step==='complete'){if(api.get().tasks.find(t=>t.id===progress.taskId)?.status!=='done'){draw();return;}progress.step='unlock';persist();busy=true;setTimeout(unlock,1900);return;}
+   draw();
+  },0);},true);
+  document.addEventListener('keydown',e=>{if(panel.open)return;if(e.key==='Escape'||e.key==='Tab'||busy||(!['Enter',' ','Spacebar'].includes(e.key))){e.preventDefault();e.stopImmediatePropagation();if(!busy)target?.focus();}},true);
+  document.addEventListener('focusin',e=>{if(target&&!target.contains(e.target))target.focus({preventScroll:true});},true);
+  window.addEventListener('resize',position);document.addEventListener('scroll',position,true);
+  if(['name','handoff','quick','save'].includes(progress.step))api.prepare(progress.step,TITLE);
+  draw();
+ }};
 })();
 </script><script>(() => {
   'use strict';
@@ -1149,6 +1220,10 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   let applyingUpdate=false;
   $('#update-button').onclick=async()=>{if(storageBroken||conflict){toast('先にJSONを書き出し、データを保護してください。');return;}if($('#editor').open){toast('編集中のタスクを保存してから更新してください。');return;}if(registration?.waiting&&await ask('保存済みのタスクを維持して、アプリを更新します。','更新する')){applyingUpdate=true;registration.waiting.postMessage({type:'SKIP_WAITING'});}};
   load();render();setupOffline();
+  window.TodoTutorial?.start({fresh:!persisted&&!storageBroken,get:()=>state,
+    prepare:(step,title)=>{openEditor();draft.title=title;draft.step={name:0,handoff:1,quick:2,save:4}[step];draft.answers={handoff:step==='name'||step==='handoff'?null:false,quick:step==='save'?true:null,heavy:null};renderEditor();}
+
+  });
   window.HitotsuFirebase?.init({
     get:()=>JSON.parse(JSON.stringify(state)),
     editing:()=>$('#editor').open||$('#confirm-dialog').open,
