@@ -7,7 +7,7 @@
   const VERSION = 1;
   const RULE_VERSION = 1;
   const statuses = ['todo', 'doing', 'waiting', 'done'];
-  const unlocks=[[1,'slime'],[1,'golem'],[3,'bat'],[7,'mushroom'],[14,'zombie'],[30,'boss'],[60,'spider'],[90,'mimic'],[120,'ghost'],[150,'evilEye'],[180,'scorpion'],[210,'skeleton'],[240,'mummy'],[270,'hydra'],[300,'goblin'],[330,'imp'],[365,'lich']];
+  const unlocks=[[1,'slime'],[1,'golem'],[2,'bat'],[3,'mushroom'],[7,'zombie'],[14,'boss'],[21,'spider'],[28,'mimic'],[35,'ghost'],[42,'evilEye'],[49,'scorpion'],[56,'skeleton'],[63,'mummy'],[70,'hydra'],[80,'goblin'],[90,'imp'],[100,'lich']];
   const bossKinds=['golem','evilEye','hydra','lich','boss'];
   function questValid(value={}) {
     if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>50000)throw Error('冒険の記録が不正です。');
