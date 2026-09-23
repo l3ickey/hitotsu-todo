@@ -247,6 +247,14 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 @keyframes tutorial-point-up{0%,100%{translate:0 0}50%{translate:0 -5px}}
 @keyframes tutorial-point-down{0%,100%{translate:0 0}50%{translate:0 5px}}
 .effects-off .tutorial-coach .tutorial-arrow{animation:none}
+
+.category-sort-row{display:flex;align-items:center;gap:8px;border-radius:8px}.category-sort-row .category-option{flex:1;min-width:0}.category-sort-row .drag-handle{padding:8px 0}.category-move{display:flex;gap:3px}.category-move button{padding:5px 8px;min-height:36px;color:#64768e}.category-move button:disabled{opacity:.35;cursor:default}.category-sort-row.drag-over{background:#dce8ff;outline:2px solid #6a91e3}
+
+.child-row>.drag-handle{display:inline-flex;align-items:center;justify-content:center;min-width:28px;min-height:44px;touch-action:none;-webkit-user-select:none;-webkit-touch-callout:none;font-size:22px;color:#607998;border-radius:6px}
+.child-row>.drag-handle:active{cursor:grabbing;background:#e5edfa}
+.tree-branches .child-row.touch-dragging{outline:2px solid #8eaadb;opacity:.7}
+.tree-branches .child-row.drag-over{outline:2px solid #245bdd;background:#eaf1ff}
+@media(max-width:720px){.child-row{grid-template-columns:24px minmax(0,1fr) 44px}.child-row>.check{justify-self:center}.child-row>.drag-handle{display:flex;grid-column:1;grid-row:1;align-self:start;justify-self:center;margin-top:44px;width:44px;height:44px;transform:translateX(-2px)}.child-row>.child-move{grid-column:3;grid-row:1}}
 .with-world{padding-bottom:102px}.world-strip{position:fixed;bottom:0;left:228px;right:0;height:72px;z-index:5;background:#edf2e7;border-top:1px solid #d5decb;color:#50604b;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box}.world-meta{display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;font-size:11px;height:20px}.world-meta a{color:#50604b;text-decoration:none}.world-meta button{font:inherit;min-height:20px;padding:0 8px;line-height:20px;background:transparent;border:0;color:#50604b}.world-lane{position:relative;height:72px;overflow:hidden;background:linear-gradient(transparent 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-sprite{display:inline-flex;align-items:flex-end;justify-content:center;width:40px;height:40px;flex-shrink:0}.world-sprite img{width:40px;height:40px;image-rendering:pixelated;object-fit:contain}.world-boss,.world-boss img{width:56px;height:56px}.world-walker,.world-foe{position:absolute;bottom:10px;left:0;line-height:0}.world-walker{left:-40px;animation:world-walk 12s linear both}.world-walker .world-sprite{animation:world-step .6s steps(2,end) 12,world-step-resume .6s steps(2,end) 9.36s infinite}.world-foe{left:105%;opacity:0;animation:world-meet 12s linear both}.world-cut{position:absolute;left:calc(61% + 14px);bottom:5px;width:52px;height:52px;opacity:0;animation:world-slash 12s steps(1,end) both}.world-cut svg{width:52px;height:52px;image-rendering:pixelated}.world-paused *{animation-play-state:paused!important}
 @keyframes world-walk{0%{left:-40px}60%,65%,68%{left:calc(61% - 22px)}78%{left:calc(61% - 22px)}100%{left:105%}}@keyframes world-meet{0%,15%{left:105%;opacity:1}60%,65%,68%{left:calc(61% + 22px);opacity:1;filter:none;transform:none}69%{left:calc(61% + 22px);opacity:1;filter:brightness(3)}75%,100%{left:calc(61% + 38px);opacity:0;transform:translateY(-5px)}}@keyframes world-slash{0%,64%{opacity:0}65%,68%{opacity:1}72%,100%{opacity:0}}@keyframes world-step{50%{transform:translateY(-2px)}}
 .quest-all-clear{background:#edf3e9;border:1px solid #d6e2ce;border-radius:16px;padding:36px 24px;text-align:center;color:#304935}.clear-badge{font-size:11px;letter-spacing:.22em;color:#627c4e}.quest-all-clear h2{font-size:1.5rem;margin:16px 0 10px}.quest-all-clear p{color:#63735e;font-size:14px}.clear-parade{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:12px;padding:25px 10px 12px;border-bottom:3px solid #a8b88d;margin:20px auto;max-width:650px}.clear-parade>.world-sprite:first-child{margin-right:16px}.clear-record{font-size:12px!important}.clear-links{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.clear-links a{font-size:12px;color:#4d6845}
@@ -352,7 +360,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="category-current" class="side-action" aria-haspopup="dialog" aria-controls="categories-dialog"><span id="category-current-name">デフォルト</span><span aria-hidden="true"> ▾</span></button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.9.3</span></div>
+      <div class="sidebar-bottom"><button id="category-current" class="side-action" aria-haspopup="dialog" aria-controls="categories-dialog"><span id="category-current-name">デフォルト</span><span aria-hidden="true"> ▾</span></button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.9.4</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -362,7 +370,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><button id="data-button" type="button">データの持ち運び</button><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.9.3</span></div></footer>
+      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><button id="data-button" type="button">データの持ち運び</button><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.9.4</span></div></footer>
     </main>
   </div>
   <dialog id="categories-dialog" aria-labelledby="categories-title"><div class="dialog-head"><h2 id="categories-title">カテゴリ一覧</h2><button class="icon-button" data-close="categories-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><div id="category-options" class="category-options"></div><h3 class="category-section-title">カテゴリを追加</h3><form id="category-add-form" class="category-add-form"><input id="category-new-name" aria-label="新しいカテゴリ名" placeholder="例：仕事、プライベート" maxlength="60" required><button class="primary" type="submit">追加</button></form><p id="category-error" class="error" role="alert"></p></div><div class="dialog-foot"><button id="category-settings-open" type="button" aria-haspopup="dialog" aria-controls="category-settings-dialog">カテゴリ名の変更・削除</button></div></dialog>
@@ -531,7 +539,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   }
   function categoriesValid(value=[]) {
     if(!Array.isArray(value))throw Error('カテゴリの形式が不正です。');
-    const ids=new Set();return value.map(c=>{if(!c||typeof c.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(c.id)||ids.has(c.id)||typeof c.name!=='string'||!c.name.trim()||c.name.length>60)throw Error('カテゴリの形式が不正です。');ids.add(c.id);return {id:c.id,name:c.name.trim()};});
+    const ids=new Set();return value.map(c=>{if(!c||typeof c.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(c.id)||ids.has(c.id)||typeof c.name!=='string'||!c.name.trim()||c.name.length>60)throw Error('カテゴリの形式が不正です。');if(c.order!==undefined&&(!Number.isSafeInteger(c.order)||c.order<0))throw Error('カテゴリの順番が不正です。');ids.add(c.id);return {id:c.id,name:c.name.trim(),...(c.order!==undefined?{order:c.order}:{})};}).sort((a,b)=>(a.order??value.findIndex(c=>c.id===a.id))-(b.order??value.findIndex(c=>c.id===b.id))||a.id.localeCompare(b.id));
   }
   function ensureCategories(state){
     state.categories??=[];
@@ -539,6 +547,11 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     const unassigned=state.tasks.filter(t=>!t.parentId&&!ids.has(t.categoryId));
     if(!state.categories.length||unassigned.length){let fallback=state.categories.find(c=>c.id==='default');if(!fallback){fallback={id:'default',name:'デフォルト'};state.categories.unshift(fallback);}for(const t of unassigned)t.categoryId=fallback.id;}
     return state;
+  }
+  function moveCategory(state,id,targetId){
+    const list=state.categories||[],from=list.findIndex(c=>c.id===id),to=list.findIndex(c=>c.id===targetId);
+    if(from<0||to<0||from===to)return;
+    list.splice(to,0,list.splice(from,1)[0]);list.forEach((c,i)=>{c.order=i;});
   }
   function removeCategory(state,id,confirmation){
     const category=(state.categories||[]).find(c=>c.id===id);
@@ -587,7 +600,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     }
     return ids.size;
   }
-  return { bossLore, ensureCategories, removeCategory, categoriesValid, categoryOf, inCategory, VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, daysUntil, deadlineAlert, priority, empty, event, makeTask, children, compare, compareDeadline, setStatus, duplicate, moveChild, removeTask, validate, unlocks, bossKinds, questInfo, questValid, prepareQuest, taskEnemy, isBoss, reuseQuest, migrateEnemy };
+  return { moveCategory, bossLore, ensureCategories, removeCategory, categoriesValid, categoryOf, inCategory, VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, daysUntil, deadlineAlert, priority, empty, event, makeTask, children, compare, compareDeadline, setStatus, duplicate, moveChild, removeTask, validate, unlocks, bossKinds, questInfo, questValid, prepareQuest, taskEnemy, isBoss, reuseQuest, migrateEnemy };
 });
 </script><script>(function(root,factory){const api=factory(typeof module==='object'&&module.exports?require('./core.js'):root.TodoCore);if(typeof module==='object'&&module.exports)module.exports=api;else root.TodoSync=api;})(typeof globalThis!=='undefined'?globalThis:this,function(C){
   'use strict';
@@ -773,7 +786,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     finally{busy=false;update();if(token&&pending()&&!failures)schedule();}
   }
   function branchHTML(e,device){
-    if(e.key.startsWith('cat:'))return '<strong>'+ (e.value?'カテゴリ名：'+esc(e.value.category.name):'カテゴリを削除')+'</strong><p>'+esc(e.device===device?'この端末':'別の端末')+' · '+esc(new Date(e.at).toLocaleString('ja-JP'))+'</p>';
+    if(e.key.startsWith('cat:'))return '<strong>'+ (e.value?'カテゴリ名：'+esc(e.value.category.name)+(e.value.category.order!==undefined?' · 表示順 '+(e.value.category.order+1)+'番目':''):'カテゴリを削除')+'</strong><p>'+esc(e.device===device?'この端末':'別の端末')+' · '+esc(new Date(e.at).toLocaleString('ja-JP'))+'</p>';
     const states={todo:'未着手',doing:'作業中',waiting:'待ち',done:'完了済み'};
     return '<span class="sync-branch-origin">'+(e.device===device?'この端末':'別の端末 '+esc(e.device.slice(-4)))+' · '+esc(new Date(e.at).toLocaleString('ja-JP'))+'</span>'+(e.value?e.value.map(t=>'<div class="sync-task-preview"><strong>'+(t.parentId?'↳ ':'')+esc(t.title)+'</strong><p>'+esc(states[t.status])+' · '+esc(t.due||'締切なし')+(t.answers?' · 優先度'+C.priority(t.answers):'')+'</p><p class="sync-note">'+esc(t.note||'メモなし')+'</p></div>').join(''):'<strong class="sync-deleted">このタスクと子タスクを削除</strong>');
   }
@@ -1089,7 +1102,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     $('#category-current-name').textContent=current.name;
     $('#category-current').title='カテゴリ：'+current.name;
     $('#category-current').setAttribute('aria-label','現在のカテゴリ：'+current.name+'。カテゴリを切り替える');
-    $('#category-options').innerHTML=options.map(c=>'<button type="button" data-category="'+c.id+'" aria-pressed="'+(c.id===selectedCategory)+'" class="category-option '+(c.id===selectedCategory?'selected':'')+'"><span>'+esc(c.name)+'</span><span aria-hidden="true">'+(c.id===selectedCategory?'✓':'›')+'</span></button>').join('');
+    $('#category-options').innerHTML=options.map((c,i)=>'<div class="category-sort-row" data-category-row="'+c.id+'"><span class="drag-handle" draggable="true" data-category-drag="'+c.id+'" aria-hidden="true" title="ドラッグして並べ替え">⠿</span><button type="button" data-category="'+c.id+'" aria-pressed="'+(c.id===selectedCategory)+'" class="category-option '+(c.id===selectedCategory?'selected':'')+'"><span>'+esc(c.name)+'</span><span aria-hidden="true">'+(c.id===selectedCategory?'✓':'›')+'</span></button><div class="category-move"><button type="button" data-category-move="up" data-category-id="'+c.id+'" aria-label="'+esc(c.name)+'を上へ" '+(i===0?'disabled':'')+'>↑</button><button type="button" data-category-move="down" data-category-id="'+c.id+'" aria-label="'+esc(c.name)+'を下へ" '+(i===options.length-1?'disabled':'')+'>↓</button></div></div>').join('');
   }
   function chooseCategory(id){selectedCategory=id;try{localStorage.setItem('hitotsu-selected-category',id);}catch{}render();}
   function categoryRows(){
@@ -1099,8 +1112,15 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   $('#category-current').onclick=()=>{$('#category-error').textContent='';categoryRows();$('#categories-dialog').showModal();};
   $('#category-settings-open').onclick=()=>{$('#category-settings-error').textContent='';categoryRows();$('#categories-dialog').close();$('#category-settings-dialog').showModal();};
   $('#category-settings-back').onclick=()=>{$('#category-settings-dialog').close();$('#categories-dialog').showModal();};
-  $('#category-options').onclick=e=>{const b=e.target.closest('[data-category]');if(b){chooseCategory(b.dataset.category);$('#categories-dialog').close();}};
-  $('#category-add-form').onsubmit=e=>{e.preventDefault();try{const name=categoryName($('#category-new-name').value),id=C.uid();if(mutate(()=>{(state.categories??=[]).push({id,name});},'カテゴリを追加しました')){$('#category-new-name').value='';$('#category-error').textContent='';categoryRows();chooseCategory(id);$('#categories-dialog').close();}}catch(err){$('#category-error').textContent=err.message;}};
+  $('#category-options').onclick=e=>{const move=e.target.closest('[data-category-move]');if(move){const i=state.categories.findIndex(c=>c.id===move.dataset.categoryId),other=state.categories[i+(move.dataset.categoryMove==='up'?-1:1)];if(other&&mutate(()=>C.moveCategory(state,move.dataset.categoryId,other.id),'順番を変更しました')){categoryRows();$('#category-options [data-category-id="'+move.dataset.categoryId+'"][data-category-move="'+move.dataset.categoryMove+'"]')?.focus();}return;}const b=e.target.closest('[data-category]');if(b){chooseCategory(b.dataset.category);$('#categories-dialog').close();}};
+  let categoryDragId=null;
+  const clearCategoryDrag=()=>{categoryDragId=null;document.querySelectorAll('.category-sort-row.drag-over').forEach(el=>el.classList.remove('drag-over'));};
+  $('#category-options').addEventListener('dragstart',e=>{const h=e.target.closest('[data-category-drag]');if(!h){e.preventDefault();return;}categoryDragId=h.dataset.categoryDrag;e.dataTransfer.setData('text/plain',categoryDragId);e.dataTransfer.effectAllowed='move';});
+  $('#category-options').addEventListener('dragover',e=>{const row=e.target.closest('[data-category-row]');if(row&&categoryDragId){e.preventDefault();document.querySelectorAll('.category-sort-row.drag-over').forEach(el=>el.classList.remove('drag-over'));row.classList.add('drag-over');}});
+  $('#category-options').addEventListener('dragleave',e=>{const row=e.target.closest('[data-category-row]');if(row&&!row.contains(e.relatedTarget))row.classList.remove('drag-over');});
+  $('#category-options').addEventListener('drop',e=>{e.preventDefault();const row=e.target.closest('[data-category-row]');if(row&&categoryDragId&&row.dataset.categoryRow!==categoryDragId){if(mutate(()=>C.moveCategory(state,categoryDragId,row.dataset.categoryRow),'順番を変更しました'))categoryRows();}clearCategoryDrag();});
+  $('#category-options').addEventListener('dragend',clearCategoryDrag);
+  $('#category-add-form').onsubmit=e=>{e.preventDefault();try{const name=categoryName($('#category-new-name').value),id=C.uid();if(mutate(()=>{(state.categories??=[]).push({id,name,order:Math.max(-1,...state.categories.map((c,i)=>c.order??i))+1});},'カテゴリを追加しました')){$('#category-new-name').value='';$('#category-error').textContent='';categoryRows();chooseCategory(id);$('#categories-dialog').close();}}catch(err){$('#category-error').textContent=err.message;}};
   $('#category-rows').onsubmit=e=>{e.preventDefault();const row=e.target,id=row.dataset.categoryId;try{const name=categoryName(row.querySelector('input').value,id);if(mutate(()=>{state.categories.find(c=>c.id===id).name=name;},'カテゴリ名を変更しました')){$('#category-settings-error').textContent='';categoryRows();}}catch(err){$('#category-settings-error').textContent=err.message;}};
   let deletingCategory=null;
   $('#category-rows').onclick=e=>{const b=e.target.closest('[data-delete-category]');if(!b||b.disabled)return;const c=state.categories.find(c=>c.id===b.dataset.deleteCategory);if(!c)return;deletingCategory=c.id;const targets=state.tasks.filter(t=>C.categoryOf(state,t)===c.id);$('#category-delete-description').textContent='「'+c.name+'」と、以下のタスク'+targets.length+'件を削除します。子タスク・完了済みも含みます。この操作は元に戻せません。';$('#category-delete-tasks').innerHTML=targets.map(t=>'<li>'+esc(t.title)+(t.parentId?'（子タスク）':'')+(t.status==='done'?'（完了済み）':'')+'</li>').join('')||'<li>タスクはありません。</li>';$('#category-delete-name').textContent=c.name;$('#category-delete-input').value='';$('#category-delete-submit').disabled=true;$('#category-delete-error').textContent='';$('#category-delete-dialog').showModal();};
@@ -1305,7 +1325,35 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     if(!tree.matches?.('details.task-tree')||!tree.isConnected)return;
     if(tree.open)expandedParents.add(tree.dataset.parent);else expandedParents.delete(tree.dataset.parent);
   },true);
-  $('#task-list').addEventListener('dragstart',e=>{const h=e.target.closest('[data-drag]');if(!h){e.preventDefault();return;}dragId=h.dataset.drag;e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';});
+  // Touch/pen dragging uses pointer events; desktop keeps native drag and drop.
+  let touchChild=null,touchFrame=0,suppressChildClickUntil=0;
+  function finishTouchChild(commit){
+    const drag=touchChild;if(!drag)return;touchChild=null;cancelAnimationFrame(touchFrame);
+    document.querySelectorAll('.child-row.touch-dragging,.child-row.drag-over').forEach(row=>row.classList.remove('touch-dragging','drag-over'));
+    if(drag.handle.hasPointerCapture?.(drag.pointer))drag.handle.releasePointerCapture(drag.pointer);
+    if(drag.moved)suppressChildClickUntil=Date.now()+400;
+    if(commit&&drag.moved&&drag.target&&drag.target!==drag.id)mutate(()=>C.moveChild(state,drag.id,drag.target),'順番を変更しました');
+  }
+  function trackTouchChild(){
+    const drag=touchChild;if(!drag)return;if(!drag.handle.isConnected){finishTouchChild(false);return;}
+    if(drag.moved){
+      const edge=72,bottom=innerHeight-80;
+      if(drag.y<edge)window.scrollBy(0,-8);else if(drag.y>bottom)window.scrollBy(0,8);
+      const row=document.elementFromPoint(drag.x,drag.y)?.closest('[data-child]');
+      drag.target=row&&task(row.dataset.child)?.parentId===task(drag.id)?.parentId?row.dataset.child:null;
+      document.querySelectorAll('.child-row.drag-over').forEach(el=>el.classList.remove('drag-over'));
+      if(drag.target&&drag.target!==drag.id)row.classList.add('drag-over');
+    }
+    touchFrame=requestAnimationFrame(trackTouchChild);
+  }
+  $('#task-list').addEventListener('pointerdown',e=>{const handle=e.target.closest('[data-drag]');if(!handle||e.pointerType==='mouse'||!e.isPrimary)return;finishTouchChild(false);e.preventDefault();touchChild={id:handle.dataset.drag,handle,pointer:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,moved:false,target:null};handle.setPointerCapture(e.pointerId);trackTouchChild();});
+  $('#task-list').addEventListener('pointermove',e=>{const drag=touchChild;if(!drag||e.pointerId!==drag.pointer)return;e.preventDefault();drag.x=e.clientX;drag.y=e.clientY;if(Math.hypot(drag.x-drag.startX,drag.y-drag.startY)>6){drag.moved=true;drag.handle.closest('.child-row').classList.add('touch-dragging');}});
+  $('#task-list').addEventListener('pointerup',e=>{if(touchChild?.pointer===e.pointerId){e.preventDefault();finishTouchChild(true);}});
+  $('#task-list').addEventListener('pointercancel',()=>finishTouchChild(false));
+  $('#task-list').addEventListener('lostpointercapture',()=>finishTouchChild(false));
+  $('#task-list').addEventListener('click',e=>{if(Date.now()<suppressChildClickUntil){e.preventDefault();e.stopImmediatePropagation();}},true);
+  window.addEventListener('blur',()=>finishTouchChild(false));
+  $('#task-list').addEventListener('dragstart',e=>{const h=e.target.closest('[data-drag]');if(touchChild){e.preventDefault();return;}if(!h){e.preventDefault();return;}dragId=h.dataset.drag;e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';});
   $('#task-list').addEventListener('dragover',e=>{const row=e.target.closest('[data-child]');if(row&&task(dragId)?.parentId===task(row.dataset.child)?.parentId){e.preventDefault();row.classList.add('drag-over');}});
   $('#task-list').addEventListener('dragleave',e=>e.target.closest('[data-child]')?.classList.remove('drag-over'));
   $('#task-list').addEventListener('drop',e=>{e.preventDefault();const row=e.target.closest('[data-child]');if(row&&dragId)mutate(()=>C.moveChild(state,dragId,row.dataset.child),'順番を変更しました');dragId=null;});
