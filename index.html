@@ -233,6 +233,20 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 #category-delete-tasks{max-height:220px;overflow:auto;padding-left:22px;overflow-wrap:anywhere;line-height:1.8}#category-delete-name{overflow-wrap:anywhere}.category-row button:disabled{opacity:.45;cursor:not-allowed}
 
 .unlock-lore{font-size:14px;line-height:1.8;color:#53647a;margin:12px auto;max-width:29em;text-wrap:pretty}.quest-unlock .unlock-lore{padding:0 16px;color:#d0dfe8}
+
+.tutorial-coach[hidden]{display:none}
+
+/* Tutorial: short instruction, warm highlight, and a gentle directional cue. */
+.tutorial-coach,.tutorial-coach.above{padding:15px 18px;background:#142337;border:2px solid #efc66e;box-shadow:0 8px 30px #10213a45}
+.tutorial-kicker{display:block;font-size:10px;font-weight:600;letter-spacing:.08em;color:#e4c98f;margin-bottom:6px}
+.tutorial-coach .tutorial-instruction{display:block;font-size:18px;line-height:1.5;font-weight:800;color:#fff2c8}
+.tutorial-coach p{color:#d4dfeb;font-size:12px;line-height:1.7;margin:7px 0 0}
+.tutorial-target{outline:3px solid #f3c75e!important;outline-offset:4px;box-shadow:0 0 0 8px #f3c75e35,0 0 24px #f3c75e60!important}
+.tutorial-coach .tutorial-arrow{color:#ffd776;font-size:32px;filter:drop-shadow(1px 0 0 #563c11) drop-shadow(-1px 0 0 #563c11) drop-shadow(0 1px 0 #563c11) drop-shadow(0 -1px 0 #563c11);animation:tutorial-point-up 1.1s ease-in-out infinite}
+.tutorial-coach.above .tutorial-arrow{animation-name:tutorial-point-down}
+@keyframes tutorial-point-up{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes tutorial-point-down{0%,100%{translate:0 0}50%{translate:0 5px}}
+.effects-off .tutorial-coach .tutorial-arrow{animation:none}
 .with-world{padding-bottom:102px}.world-strip{position:fixed;bottom:0;left:228px;right:0;height:72px;z-index:5;background:#edf2e7;border-top:1px solid #d5decb;color:#50604b;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box}.world-meta{display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;font-size:11px;height:20px}.world-meta a{color:#50604b;text-decoration:none}.world-meta button{font:inherit;min-height:20px;padding:0 8px;line-height:20px;background:transparent;border:0;color:#50604b}.world-lane{position:relative;height:72px;overflow:hidden;background:linear-gradient(transparent 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-sprite{display:inline-flex;align-items:flex-end;justify-content:center;width:40px;height:40px;flex-shrink:0}.world-sprite img{width:40px;height:40px;image-rendering:pixelated;object-fit:contain}.world-boss,.world-boss img{width:56px;height:56px}.world-walker,.world-foe{position:absolute;bottom:10px;left:0;line-height:0}.world-walker{left:-40px;animation:world-walk 12s linear both}.world-walker .world-sprite{animation:world-step .6s steps(2,end) 12,world-step-resume .6s steps(2,end) 9.36s infinite}.world-foe{left:105%;opacity:0;animation:world-meet 12s linear both}.world-cut{position:absolute;left:calc(61% + 14px);bottom:5px;width:52px;height:52px;opacity:0;animation:world-slash 12s steps(1,end) both}.world-cut svg{width:52px;height:52px;image-rendering:pixelated}.world-paused *{animation-play-state:paused!important}
 @keyframes world-walk{0%{left:-40px}60%,65%,68%{left:calc(61% - 22px)}78%{left:calc(61% - 22px)}100%{left:105%}}@keyframes world-meet{0%,15%{left:105%;opacity:1}60%,65%,68%{left:calc(61% + 22px);opacity:1;filter:none;transform:none}69%{left:calc(61% + 22px);opacity:1;filter:brightness(3)}75%,100%{left:calc(61% + 38px);opacity:0;transform:translateY(-5px)}}@keyframes world-slash{0%,64%{opacity:0}65%,68%{opacity:1}72%,100%{opacity:0}}@keyframes world-step{50%{transform:translateY(-2px)}}
 .quest-all-clear{background:#edf3e9;border:1px solid #d6e2ce;border-radius:16px;padding:36px 24px;text-align:center;color:#304935}.clear-badge{font-size:11px;letter-spacing:.22em;color:#627c4e}.quest-all-clear h2{font-size:1.5rem;margin:16px 0 10px}.quest-all-clear p{color:#63735e;font-size:14px}.clear-parade{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:12px;padding:25px 10px 12px;border-bottom:3px solid #a8b88d;margin:20px auto;max-width:650px}.clear-parade>.world-sprite:first-child{margin-right:16px}.clear-record{font-size:12px!important}.clear-links{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.clear-links a{font-size:12px;color:#4d6845}
@@ -338,7 +352,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="category-current" class="side-action" aria-haspopup="dialog" aria-controls="categories-dialog"><span id="category-current-name">デフォルト</span><span aria-hidden="true"> ▾</span></button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.9.2</span></div>
+      <div class="sidebar-bottom"><button id="category-current" class="side-action" aria-haspopup="dialog" aria-controls="categories-dialog"><span id="category-current-name">デフォルト</span><span aria-hidden="true"> ▾</span></button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.9.3</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -348,7 +362,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><button id="data-button" type="button">データの持ち運び</button><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.9.2</span></div></footer>
+      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><button id="data-button" type="button">データの持ち運び</button><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.9.3</span></div></footer>
     </main>
   </div>
   <dialog id="categories-dialog" aria-labelledby="categories-title"><div class="dialog-head"><h2 id="categories-title">カテゴリ一覧</h2><button class="icon-button" data-close="categories-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><div id="category-options" class="category-options"></div><h3 class="category-section-title">カテゴリを追加</h3><form id="category-add-form" class="category-add-form"><input id="category-new-name" aria-label="新しいカテゴリ名" placeholder="例：仕事、プライベート" maxlength="60" required><button class="primary" type="submit">追加</button></form><p id="category-error" class="error" role="alert"></p></div><div class="dialog-foot"><button id="category-settings-open" type="button" aria-haspopup="dialog" aria-controls="category-settings-dialog">カテゴリ名の変更・削除</button></div></dialog>
@@ -983,9 +997,9 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   if(existing){progress.taskId=existing.id;progress.step=existing.status==='done'?'unlock':'complete';}
   const panel=document.createElement('dialog');panel.className='tutorial';panel.setAttribute('aria-labelledby','tutorial-title');panel.addEventListener('cancel',e=>e.preventDefault());document.body.append(panel);
   const coach=document.createElement('div');coach.className='tutorial-coach';coach.setAttribute('role','status');
-  let target=null,locked=[],busy=false,advancing=false;
+  let editable=[],target=null,locked=[],busy=false,advancing=false;
   function persist(){try{localStorage.setItem(KEY,JSON.stringify(progress));return true;}catch{return false;}}
-  function clean(){target?.classList.remove('tutorial-target');for(const [el,value]of locked)el.inert=value;locked=[];target=null;coach.remove();}
+  function clean(){target?.classList.remove('tutorial-target');for(const [el,value]of locked)el.inert=value;locked=[];editable=[];target=null;coach.remove();}
   function position(){
    if(!target?.isConnected)return;
    const r=target.getBoundingClientRect(),cr=coach.getBoundingClientRect(),center=r.left+r.width/2,gap=30;
@@ -994,30 +1008,38 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
    coach.style.top=Math.max(8,below?r.bottom+gap:r.top-cr.height-gap)+'px';coach.style.left=left+'px';
    coach.style.setProperty('--pointer-x',(center-left)+'px');coach.classList.toggle('above',!below);
   }
-  function guide(selector,text){text=text.replace(/<br\s*\/?>/g,'').replace(/([。、])/g,'$1<br>').replace(/<br>$/,'');clean();if(panel.open)panel.close();target=document.querySelector(selector);if(!target)return;target.classList.add('tutorial-target');const editor=document.querySelector('#editor');(editor.open?editor:document.body).append(coach);coach.innerHTML='<span class="tutorial-arrow" aria-hidden="true">➜</span><div><strong>はじめての冒険</strong><p>'+text+'</p></div>';
-   for(let node=target;node&&node!==document.body;node=node.parentElement){for(const sibling of node.parentElement?.children||[]){if(sibling===node||sibling===coach||sibling.contains(coach)||['SCRIPT','STYLE'].includes(sibling.tagName))continue;locked.push([sibling,sibling.inert]);sibling.inert=true;}}
+  function guide(selector,instruction,text){text=text.replace(/<br\s*\/?>/g,'').replace(/([。、])/g,'$1<br>').replace(/<br>$/,'');clean();if(panel.open)panel.close();target=document.querySelector(selector);if(!target)return;target.classList.add('tutorial-target');const editor=document.querySelector('#editor');(editor.open?editor:document.body).append(coach);coach.innerHTML='<span class="tutorial-arrow" aria-hidden="true">➜</span><div><span class="tutorial-kicker">はじめての冒険</span><strong class="tutorial-instruction">'+instruction+'</strong><p>'+text+'</p></div>';
+   editable=[...(progress.step==='name'?document.querySelectorAll('#todo-title-input,#task-note'):progress.step==='save'?document.querySelectorAll('#task-due'):[])];
+   const permitted=[target,coach,...editable];
+   function lockOutside(parent){for(const child of parent.children){if(['SCRIPT','STYLE'].includes(child.tagName)||permitted.includes(child))continue;if(permitted.some(el=>child.contains(el)))lockOutside(child);else{locked.push([child,child.inert]);child.inert=true;}}}
+   lockOutside(document.body);coach.hidden=false;
    target.setAttribute('aria-describedby','tutorial-coach-text');coach.id='tutorial-coach-text';target.scrollIntoView({block:'center',behavior:'instant'});target.focus({preventScroll:true});position();requestAnimationFrame(position);
   }
   function unlock(){clean();busy=false;panel.innerHTML='<div class="tutorial-eyebrow">NEW ENCOUNTER · 冒険1日</div><h2 id="tutorial-title"><span class="tutorial-line">岩のゴーレムが</span><span class="tutorial-line">解放されました</span></h2><div class="tutorial-glow"><img class="tutorial-character" src="'+TodoCharacters.golem.url+'" alt=""></div><p class="unlock-lore">'+TodoCore.bossLore.golem.description+'</p><p class="tutorial-unlock-description"><span class="tutorial-line">大きなタスクや、</span><span class="tutorial-line">ステップに分けたタスクには</span><span class="tutorial-line">ボスが登場します。</span></p><p class="muted"><span class="tutorial-line">ステップをすべて終えたら、</span><span class="tutorial-line">親タスクを完了してボスを倒せます。</span></p><button class="primary tutorial-next">キャラクター一覧を見る →</button>';panel.querySelector('button').onclick=()=>{progress.step='gallery';if(persist())location.href=window.TodoTutorialGallery||'./characters.html?tutorial=1';};panel.showModal();}
   function draw(){persist();switch(progress.step){
-   case 'welcome':guide('#add-button','まずは「タスクを追加」を押しましょう。<br>練習用のタスクを用意しています。');break;
-   case 'name':guide('#editor-next','タスク名は入力済みです。<br>「次へ」でタスクの優先順位を決めましょう。');break;
-   case 'handoff':guide('[data-answer="no"]','今回は自分の操作練習です。「いいえ」を選びましょう。');break;
-   case 'quick':guide('[data-answer="yes"]','この練習は10分以内に終わります。「はい」を選びましょう。優先度2になります。');break;
-   case 'save':guide('#editor-next','締切は空欄のままで大丈夫です。「保存する」を押して登録しましょう。');break;
-   case 'complete':guide('#focus [data-action="toggle"][data-id="'+progress.taskId+'"]','登録できました！ これが次に倒す敵です。完了ボタンを押してスライムを倒しましょう。');break;
+   case 'welcome':guide('#add-button','「タスクを追加」を押そう','練習用のタスクを用意しています。');break;
+   case 'name':guide('#editor-next','「次へ」を押そう','タスク名とメモは変更できます。');break;
+   case 'handoff':guide('[data-answer="no"]','「いいえ」を選ぼう','今回は自分の操作練習です。');break;
+   case 'quick':guide('[data-answer="yes"]','「はい」を選ぼう','この練習は10分以内。優先度2になります。');break;
+   case 'save':guide('#editor-next','「保存する」を押そう','締切は入力しても、空欄でも大丈夫です。');break;
+   case 'complete':guide('#focus [data-action="toggle"][data-id="'+progress.taskId+'"]','「完了する」を押そう','登録できました！ 次の敵はスライムです。');break;
    default:unlock();
   }}
-  document.addEventListener('click',e=>{if(panel.open)return;if(busy||advancing||!target?.contains(e.target)){e.preventDefault();e.stopImmediatePropagation();return;}advancing=true;const step=progress.step;setTimeout(()=>{
+  function advance(){if(busy||advancing)return;advancing=true;const step=progress.step,ids=new Set(api.get().tasks.map(t=>t.id));setTimeout(()=>{
    advancing=false;
+   if(step==='name'&&api.editorStep()!==1){position();return;}
+   if(step==='save'){const t=api.get().tasks.find(t=>!ids.has(t.id)&&!t.parentId);if(!t){position();return;}progress.taskId=t.id;}
    clean();if(step==='welcome'){progress.step='name';api.prepare('name',TITLE);}
    else if(step==='name')progress.step='handoff';else if(step==='handoff')progress.step='quick';else if(step==='quick')progress.step='save';
-   else if(step==='save'){const t=api.get().tasks.find(t=>t.title===TITLE&&!t.parentId);if(!t){draw();return;}progress.taskId=t.id;progress.step='complete';}
+   else if(step==='save')progress.step='complete';
    else if(step==='complete'){if(api.get().tasks.find(t=>t.id===progress.taskId)?.status!=='done'){draw();return;}progress.step='unlock';persist();busy=true;setTimeout(unlock,1900);return;}
    draw();
-  },0);},true);
-  document.addEventListener('keydown',e=>{if(panel.open)return;if(e.key==='Escape'||e.key==='Tab'||busy||(!['Enter',' ','Spacebar'].includes(e.key))){e.preventDefault();e.stopImmediatePropagation();if(!busy)target?.focus();}},true);
-  document.addEventListener('focusin',e=>{if(target&&!target.contains(e.target))target.focus({preventScroll:true});},true);
+  },0);}
+  const isEditable=el=>editable.some(input=>input===el||input.contains(el));
+  document.addEventListener('click',e=>{if(panel.open)return;if(!busy&&!advancing&&isEditable(e.target))return;if(busy||advancing||!target?.contains(e.target)){e.preventDefault();e.stopImmediatePropagation();return;}if(!['name','save'].includes(progress.step))advance();},true);
+  document.addEventListener('submit',e=>{if(!panel.open&&e.target.id==='editor-form'&&['name','save'].includes(progress.step))advance();},true);
+  document.addEventListener('keydown',e=>{if(panel.open)return;if(busy||e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();return;}if(isEditable(e.target)||e.key==='Tab')return;if(!['Enter',' ','Spacebar'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();}},true);
+  document.addEventListener('focusin',e=>{if(isEditable(e.target)){coach.hidden=true;return;}coach.hidden=false;if(target&&!target.contains(e.target))target.focus({preventScroll:true});position();},true);
   // Rendering replaces the focus button on visibility changes and minute ticks.
   // Rebind only outside user transitions so completion still gets its battle animation.
   const observer=new MutationObserver(()=>{
@@ -1319,7 +1341,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   let applyingUpdate=false;
   $('#update-button').onclick=async()=>{if(storageBroken||conflict){toast('先にJSONを書き出し、データを保護してください。');return;}if($('#editor').open){toast('編集中のタスクを保存してから更新してください。');return;}if(registration?.waiting&&await ask('保存済みのタスクを維持して、アプリを更新します。','更新する')){applyingUpdate=true;registration.waiting.postMessage({type:'SKIP_WAITING'});}};
   load();render();setupOffline();
-  window.TodoTutorial?.start({fresh:!persisted&&!storageBroken,get:()=>state,
+  window.TodoTutorial?.start({fresh:!persisted&&!storageBroken,get:()=>state,editorStep:()=>draft?.step,
     prepare:(step,title)=>{openEditor();draft.title=title;draft.step={name:0,handoff:1,quick:2,save:4}[step];draft.answers={handoff:step==='name'||step==='handoff'?null:false,quick:step==='save'?true:null,heavy:null};renderEditor();}
 
   });
