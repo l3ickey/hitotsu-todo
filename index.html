@@ -220,6 +220,17 @@ button.detail-note{display:block;width:100%;white-space:pre-wrap;overflow-wrap:a
 .tutorial h2{font-size:clamp(20px,5.8vw,23px);line-height:1.5}
 .tutorial .tutorial-unlock-description{font-size:clamp(14px,4vw,16px)}
 .tutorial .tutorial-eyebrow + h2{margin-top:20px}
+
+.task-category-label{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:4px;background:#e6eeec;color:#244b45;padding:1px 6px}
+
+#category-current{display:flex;align-items:center;gap:8px;max-width:100%;border:1px solid #526984;border-radius:8px;padding:10px 12px;background:#233b56;color:#fff}
+#category-current-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.main-footer #data-button{background:none;border:0;padding:4px 0;color:inherit;font:inherit;text-decoration:underline}
+.category-options{display:grid;gap:8px;margin-bottom:24px}.category-option{display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;padding:12px 14px}.category-option span:first-child{overflow-wrap:anywhere;min-width:0}.category-option.selected{background:#eaf0ff;border-color:var(--blue);color:var(--blue)}
+.category-section-title{font-size:.9rem}.category-add-form,.category-row{display:flex;gap:8px;align-items:center}.category-add-form input,.category-row input{min-width:0;flex:1;padding:10px;border:1px solid #cbd7d0;border-radius:8px;font:inherit}.category-row{padding:12px 0;border-bottom:1px solid #e0e7e2}.category-row button,.category-add-form button{flex-shrink:0}.category-row button{font-size:12px}.category-settings{margin-top:24px}.category-settings summary{cursor:pointer;font-size:.85rem;color:var(--muted)}#categories-dialog{max-width:580px}.category-assignment{overflow-wrap:anywhere}
+@media(max-width:720px){.sidebar-bottom #category-current{display:flex;max-width:calc(100vw - 175px);font-size:.8rem;padding:7px 10px;min-height:38px}.category-row{flex-wrap:wrap}.category-row input{flex-basis:100%}}
+
+#category-delete-tasks{max-height:220px;overflow:auto;padding-left:22px;overflow-wrap:anywhere;line-height:1.8}#category-delete-name{overflow-wrap:anywhere}.category-row button:disabled{opacity:.45;cursor:not-allowed}
 .with-world{padding-bottom:102px}.world-strip{position:fixed;bottom:0;left:228px;right:0;height:72px;z-index:5;background:#edf2e7;border-top:1px solid #d5decb;color:#50604b;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box}.world-meta{display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative;z-index:1;font-size:11px;height:20px}.world-meta a{color:#50604b;text-decoration:none}.world-meta button{font:inherit;min-height:20px;padding:0 8px;line-height:20px;background:transparent;border:0;color:#50604b}.world-lane{position:relative;height:72px;overflow:hidden;background:linear-gradient(transparent 61px,#9aaa78 61px,#9aaa78 64px,#d7ddbc 64px)}.world-sprite{display:inline-flex;align-items:flex-end;justify-content:center;width:40px;height:40px;flex-shrink:0}.world-sprite img{width:40px;height:40px;image-rendering:pixelated;object-fit:contain}.world-boss,.world-boss img{width:56px;height:56px}.world-walker,.world-foe{position:absolute;bottom:10px;left:0;line-height:0}.world-walker{left:-40px;animation:world-walk 12s linear both}.world-walker .world-sprite{animation:world-step .6s steps(2,end) 12,world-step-resume .6s steps(2,end) 9.36s infinite}.world-foe{left:105%;opacity:0;animation:world-meet 12s linear both}.world-cut{position:absolute;left:calc(61% + 14px);bottom:5px;width:52px;height:52px;opacity:0;animation:world-slash 12s steps(1,end) both}.world-cut svg{width:52px;height:52px;image-rendering:pixelated}.world-paused *{animation-play-state:paused!important}
 @keyframes world-walk{0%{left:-40px}60%,65%,68%{left:calc(61% - 22px)}78%{left:calc(61% - 22px)}100%{left:105%}}@keyframes world-meet{0%,15%{left:105%;opacity:1}60%,65%,68%{left:calc(61% + 22px);opacity:1;filter:none;transform:none}69%{left:calc(61% + 22px);opacity:1;filter:brightness(3)}75%,100%{left:calc(61% + 38px);opacity:0;transform:translateY(-5px)}}@keyframes world-slash{0%,64%{opacity:0}65%,68%{opacity:1}72%,100%{opacity:0}}@keyframes world-step{50%{transform:translateY(-2px)}}
 .quest-all-clear{background:#edf3e9;border:1px solid #d6e2ce;border-radius:16px;padding:36px 24px;text-align:center;color:#304935}.clear-badge{font-size:11px;letter-spacing:.22em;color:#627c4e}.quest-all-clear h2{font-size:1.5rem;margin:16px 0 10px}.quest-all-clear p{color:#63735e;font-size:14px}.clear-parade{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:12px;padding:25px 10px 12px;border-bottom:3px solid #a8b88d;margin:20px auto;max-width:650px}.clear-parade>.world-sprite:first-child{margin-right:16px}.clear-record{font-size:12px!important}.clear-links{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}.clear-links a{font-size:12px;color:#4d6845}
@@ -325,7 +336,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
         <button class="nav-button" data-view="waiting">待ち <span id="waiting-count">0</span></button>
         <button class="nav-button" data-view="done">完了済み <span id="done-count">0</span></button>
       </nav>
-      <div class="sidebar-bottom"><button id="data-button" class="side-action">↗ データの持ち運び</button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.8.4</span></div>
+      <div class="sidebar-bottom"><button id="category-current" class="side-action" aria-haspopup="dialog" aria-controls="categories-dialog"><span id="category-current-name">デフォルト</span><span aria-hidden="true"> ▾</span></button><button id="help-button" class="side-action">? 使い方と優先順位</button><p id="offline-status">端末内にデータを保存</p><span class="version">VERSION 1.9.0</span></div>
     </aside>
     <main>
       <header class="page-head"><div><p id="today-label" class="eyebrow"></p><h1 id="view-title">次のひとつに、集中。</h1></div><button class="primary" id="add-button">＋ タスクを追加</button></header>
@@ -335,9 +346,11 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
       <section id="urgent" aria-label="締切が迫っているタスク"></section>
       <div class="list-toolbar"><h2 id="list-title">優先順位</h2><label class="search"><span>⌕</span><input id="search" type="search" autocomplete="off" placeholder="タスク・メモを検索" aria-label="タスク・メモを検索"></label></div>
       <div id="task-list"></div>
-      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.8.4</span></div></footer>
+      <footer class="main-footer"><div class="footer-controls"><button type="button" id="sound-toggle" aria-pressed="false">効果音：オフ</button><button type="button" id="effects-toggle" aria-pressed="true">演出：オン</button><button type="button" id="adventure-toggle" aria-pressed="true">冒険：オン</button><span id="save-status">保存を確認中…</span></div><div class="footer-links"><button id="data-button" type="button">データの持ち運び</button><a href="./about.html" target="_blank" rel="noopener">アプリについて</a><a href="./privacy.html" target="_blank" rel="noopener">プライバシー</a><a href="./characters.html" target="_blank" rel="noopener">キャラクター一覧</a><span class="app-version" aria-label="アプリのバージョン">v1.9.0</span></div></footer>
     </main>
   </div>
+  <dialog id="categories-dialog" aria-labelledby="categories-title"><div class="dialog-head"><h2 id="categories-title">カテゴリ一覧</h2><button class="icon-button" data-close="categories-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><div id="category-options" class="category-options"></div><h3 class="category-section-title">カテゴリを追加</h3><form id="category-add-form" class="category-add-form"><input id="category-new-name" aria-label="新しいカテゴリ名" placeholder="例：仕事、プライベート" maxlength="60" required><button class="primary" type="submit">追加</button></form><p id="category-error" class="error" role="alert"></p><details class="category-settings"><summary>カテゴリ名の変更・削除</summary><div id="category-rows"></div></details><p class="muted">カテゴリを削除すると、子タスク・完了済みを含むタスクも削除されます。最後の1カテゴリは削除できません。</p></div></dialog>
+  <dialog id="category-delete-dialog" aria-labelledby="category-delete-title"><form id="category-delete-form"><div class="dialog-head"><h2 id="category-delete-title">カテゴリとタスクを削除</h2><button type="button" class="icon-button" data-close="category-delete-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p id="category-delete-description"></p><ul id="category-delete-tasks"></ul><label class="field">確認のため「<span id="category-delete-name"></span>」を入力してください<input id="category-delete-input" autocomplete="off" spellcheck="false"></label><p id="category-delete-error" class="error"></p></div><div class="dialog-foot"><button type="button" data-close="category-delete-dialog">キャンセル</button><button id="category-delete-submit" type="submit" class="danger-action" disabled>カテゴリとタスクを削除</button></div></form></dialog>
   <dialog id="editor" aria-labelledby="editor-title"><form id="editor-form" autocomplete="off"><div class="dialog-head"><span id="editor-monster" aria-hidden="true" hidden></span><h2 id="editor-title">タスクを追加</h2><button type="button" class="icon-button" data-close="editor" aria-label="閉じる">×</button></div><div id="editor-body"></div><p id="editor-error" class="error" role="alert"></p><div class="dialog-foot"><button type="button" id="editor-back">戻る</button><button type="submit" class="primary" id="editor-next">次へ</button></div></form></dialog>
   <dialog id="data-dialog" aria-labelledby="data-title"><div class="dialog-head"><h2 id="data-title">データの持ち運び</h2><button class="icon-button" data-close="data-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><p>未完了・待ち・完了済み、子タスクをまとめて保存します。別の端末でも、このファイルを読み込めます。</p><div class="data-option"><h3>書き出す</h3><p>移動前やバックアップ時に、最新のデータを保存してください。</p><button class="primary" id="export-button">JSONを書き出す</button><p id="export-status" class="muted"></p></div><div class="data-option"><h3>読み込む</h3><p>内容を確認してから、現在の一覧を置き換えます。端末間での自動統合は行いません。</p><label class="file-label">JSONファイルを選択<input id="import-file" type="file" accept=".json,application/json"></label><div id="import-preview"></div></div><p class="muted">ブラウザのデータ消去では、タスクも消えることがあります。書き出したファイルは、アプリとは別の場所に保管してください。</p></div></dialog>
   <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-head"><h2 id="help-title">使い方と優先順位</h2><button class="icon-button" data-close="help-dialog" aria-label="閉じる">×</button></div><div class="dialog-body"><ol class="help-rules"><li><strong>相手につなぐ</strong>あなたが渡すまで、相手の作業が進まない。</li><li><strong>10分で片づける</strong>10分以内に終わる。</li><li><strong>分けて進める</strong>3日以上かかる。子タスクに分解して進める。</li><li><strong>締切から進める</strong>上のどれにも当てはまらない。</li></ol><p>最初にYesと答えた条件で優先度が決まります。同じ優先度では締切が近い順、登録が古い順に並びます。締切なしは各優先度の最後です。</p><p>タスク名やメモの冒頭をタップすると編集できます。変更は自動保存されます。同じ画面で状態変更・子タスク追加・複製もできます。</p><p>「今やる」に1件固定できます。「待ち」は自分が作業できる一覧から分かれます。期限超過・今日締切と、優先順位3で残り3日未満のタスクは別枠にも表示します。残り日数は土日・祝日を含め、明日が締切なら残り1日と数えます。別枠のタスク名を選ぶと一覧の該当タスクへ移動します。</p><p>子タスクはどの優先度でも追加できます。上下ボタン、またはドラッグで並べ替えてください。親の締切・状態は子にも影響するため、親が「待ち」の間は子も「待ち」一覧に表示します。</p><p>子がすべて完了すると親を完了できます。子を再開すると、完了した親も再開します。出戻りは「再開」、繰り返し作業は「複製」を使います。複製では締切と完了状態をリセットします。</p><p>iPhoneではHTTPSのサイトをSafariで開き、共有メニューから「ホーム画面に追加」。ホーム画面から起動して「オフライン利用の準備完了」を確認してください。PCでファイルを直接開く版は、そのままネット接続なしで動きます。</p></div></dialog>
@@ -436,7 +449,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     if (!input.title?.trim()) throw new Error('タスク名を入力してください。');
     if (input.title.trim().length > 200) throw new Error('タスク名は200文字以内です。');
     if (!validDate(input.due || null)) throw new Error('締切日を確認してください。');
-    return { id: uid(), enemyVersion:1, parentId, title: input.title.trim(), note: input.note || '', due: input.due || null, answers, ruleVersion: RULE_VERSION, status: 'todo', order: input.order || 0, createdAt: at, updatedAt: at, completedAt: null };
+    return { ...( !parentId&&input.categoryId?{categoryId:input.categoryId}:{}), id: uid(), enemyVersion:1, parentId, title: input.title.trim(), note: input.note || '', due: input.due || null, answers, ruleVersion: RULE_VERSION, status: 'todo', order: input.order || 0, createdAt: at, updatedAt: at, completedAt: null };
   }
   function children(state, id) { return state.tasks.filter(t=>t.parentId === id).sort((a,b)=>a.order-b.order || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id)); }
   function compare(a,b) { return (priority(a.answers) || 5) - (priority(b.answers) || 5) || (a.due || '9999-12-31').localeCompare(b.due || '9999-12-31') || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id); }
@@ -492,6 +505,29 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     list.splice(to,0,list.splice(from,1)[0]); list.forEach((t,i)=>{t.order=i;});
     event(task,'reordered','子タスクの順番を変更');
   }
+  function categoriesValid(value=[]) {
+    if(!Array.isArray(value))throw Error('カテゴリの形式が不正です。');
+    const ids=new Set();return value.map(c=>{if(!c||typeof c.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(c.id)||ids.has(c.id)||typeof c.name!=='string'||!c.name.trim()||c.name.length>60)throw Error('カテゴリの形式が不正です。');ids.add(c.id);return {id:c.id,name:c.name.trim()};});
+  }
+  function ensureCategories(state){
+    state.categories??=[];
+    const ids=new Set(state.categories.map(c=>c.id));
+    const unassigned=state.tasks.filter(t=>!t.parentId&&!ids.has(t.categoryId));
+    if(!state.categories.length||unassigned.length){let fallback=state.categories.find(c=>c.id==='default');if(!fallback){fallback={id:'default',name:'デフォルト'};state.categories.unshift(fallback);}for(const t of unassigned)t.categoryId=fallback.id;}
+    return state;
+  }
+  function removeCategory(state,id,confirmation){
+    const category=(state.categories||[]).find(c=>c.id===id);
+    if(!category)throw Error('カテゴリが見つかりません。');
+    if(state.categories.length<=1)throw Error('最後の1カテゴリは削除できません。');
+    if(confirmation!==category.name)throw Error('カテゴリ名が一致していません。');
+    const roots=new Set(state.tasks.filter(t=>!t.parentId&&categoryOf(state,t)===id).map(t=>t.id));
+    state.tasks=state.tasks.filter(t=>!roots.has(t.id)&&!roots.has(t.parentId));
+    if(!state.tasks.some(t=>t.id===state.pinnedId))state.pinnedId=null;
+    state.categories=state.categories.filter(c=>c.id!==id);
+  }
+  function categoryOf(state,t){const root=t.parentId?state.tasks.find(p=>p.id===t.parentId):t;return (state.categories||[]).some(c=>c.id===root?.categoryId)?root.categoryId:null;}
+  function inCategory(state,t,id='all'){return id==='all'||categoryOf(state,t)===(id==='none'?null:id);}
   function validate(raw) {
     function fail() { throw new Error('対応するTODOデータではないか、内容が壊れています。現在のデータは変更していません。'); }
     if(!raw || raw.app!=='hitotsu-todo' || raw.version!==VERSION || raw.ruleVersion!==RULE_VERSION || !Array.isArray(raw.tasks) || raw.tasks.length>20000) fail();
@@ -500,18 +536,19 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     const stamp=v=>str(v,40) && /^\d{4}-\d{2}-\d{2}T/.test(v) && Number.isFinite(Date.parse(v));
     const tasks=raw.tasks.map(t=>{
       if(!t || !str(t.id,100) || !/^[a-zA-Z0-9_-]+$/.test(t.id) || ids.has(t.id) || !str(t.title,200) || !t.title.trim() || !str(t.note,20000) || !validDate(t.due) || !statuses.includes(t.status) || !Number.isSafeInteger(t.order) || t.order<0 || !stamp(t.createdAt) || !stamp(t.updatedAt) || !(t.completedAt===null || stamp(t.completedAt)) || (t.status==='done') !== (t.completedAt!==null) || t.ruleVersion!==RULE_VERSION) fail();
+      if(t.categoryId!==undefined&&t.categoryId!==null&&(typeof t.categoryId!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(t.categoryId)))fail();
       ids.add(t.id);
       if(!(t.parentId===null || str(t.parentId,100))) fail();
       if(t.parentId===null && (!t.answers || rules.some(r=>![true,false,null].includes(t.answers[r.key])) || !priority(t.answers))) fail();
       if(t.parentId!==null && t.answers!==null) fail();
       if(t.enemyVersion!==undefined&&t.enemyVersion!==1)fail();
       for(const key of ['mobEnemy','bossEnemy'])if(t[key]!==undefined&&(!unlocks.some(u=>u[1]===t[key])||bossKinds.includes(t[key])!==(key==='bossEnemy')))fail();
-      return migrateEnemy({enemyVersion:t.enemyVersion,id:t.id,parentId:t.parentId,title:t.title,note:t.note,due:t.due,status:t.status,order:t.order,createdAt:t.createdAt,updatedAt:t.updatedAt,completedAt:t.completedAt,ruleVersion:t.ruleVersion,answers:t.parentId?null:Object.fromEntries(rules.map(r=>[r.key,t.answers[r.key]])),...(t.mobEnemy?{mobEnemy:t.mobEnemy}:{}),...(t.bossEnemy?{bossEnemy:t.bossEnemy}:{})});
+      return migrateEnemy({...(!t.parentId&&t.categoryId?{categoryId:t.categoryId}:{}),enemyVersion:t.enemyVersion,id:t.id,parentId:t.parentId,title:t.title,note:t.note,due:t.due,status:t.status,order:t.order,createdAt:t.createdAt,updatedAt:t.updatedAt,completedAt:t.completedAt,ruleVersion:t.ruleVersion,answers:t.parentId?null:Object.fromEntries(rules.map(r=>[r.key,t.answers[r.key]])),...(t.mobEnemy?{mobEnemy:t.mobEnemy}:{}),...(t.bossEnemy?{bossEnemy:t.bossEnemy}:{})});
     });
     const byId=new Map(tasks.map(t=>[t.id,t]));
     for(const t of tasks) if(t.parentId!==null) {const p=byId.get(t.parentId); if(!p || p.parentId!==null || (p.status==='done' && t.status!=='done')) fail();}
     if(raw.pinnedId!==null && (!byId.has(raw.pinnedId) || ['done','waiting'].includes(byId.get(raw.pinnedId).status) || ['done','waiting'].includes(byId.get(byId.get(raw.pinnedId).parentId)?.status))) fail();
-    return {app:raw.app,version:VERSION,ruleVersion:RULE_VERSION,revision:uid(),tasks,pinnedId:raw.pinnedId,...(raw.quest?{quest:questValid(raw.quest)}:{})};
+    return {app:raw.app,version:VERSION,ruleVersion:RULE_VERSION,revision:uid(),tasks,pinnedId:raw.pinnedId,...(raw.categories?{categories:categoriesValid(raw.categories)}:{}),...(raw.quest?{quest:questValid(raw.quest)}:{})};
   }
   function removeTask(state,id) {
     const target=state.tasks.find(t=>t.id===id);
@@ -526,7 +563,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     }
     return ids.size;
   }
-  return { VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, daysUntil, deadlineAlert, priority, empty, event, makeTask, children, compare, compareDeadline, setStatus, duplicate, moveChild, removeTask, validate, unlocks, bossKinds, questInfo, questValid, prepareQuest, taskEnemy, isBoss, reuseQuest, migrateEnemy };
+  return { ensureCategories, removeCategory, categoriesValid, categoryOf, inCategory, VERSION, RULE_VERSION, rules, statuses, uid, now, today, validDate, daysUntil, deadlineAlert, priority, empty, event, makeTask, children, compare, compareDeadline, setStatus, duplicate, moveChild, removeTask, validate, unlocks, bossKinds, questInfo, questValid, prepareQuest, taskEnemy, isBoss, reuseQuest, migrateEnemy };
 });
 </script><script>(function(root,factory){const api=factory(typeof module==='object'&&module.exports?require('./core.js'):root.TodoCore);if(typeof module==='object'&&module.exports)module.exports=api;else root.TodoSync=api;})(typeof globalThis!=='undefined'?globalThis:this,function(C){
   'use strict';
@@ -537,14 +574,15 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   // existing event payloads: acknowledged IDs must remain immutable for retries.
   const taskValue=value=>value===null?null:Array.isArray(value)?value.map(({history,...task})=>C.migrateEnemy(task)):value;
   const equalValue=(a,b)=>equal(taskValue(a),taskValue(b));
-  function groups(state){const out=Object.create(null);for(const t of state.tasks.filter(t=>!t.parentId))out[t.id]=taskValue([t,...C.children(state,t.id)]);for(const [id,value] of Object.entries(state.quest||{}))out['quest:'+id]={quest:value};return out;}
+  function groups(state){const out=Object.create(null);for(const t of state.tasks.filter(t=>!t.parentId))out[t.id]=taskValue([t,...C.children(state,t.id)]);for(const c of state.categories||[])out['cat:'+c.id]={category:c};for(const [id,value] of Object.entries(state.quest||{}))out['quest:'+id]={quest:value};return out;}
   function validateEvents(events){
     if(!Array.isArray(events)||events.length>50000)throw Error('同期記録の容量上限を超えています。JSONを退避してください。');
     const ids=new Map();
     for(const e of events){
       if(!e||typeof e.id!=='string'||e.id.length>100||typeof e.key!=='string'||e.key.length>106||typeof e.device!=='string'||e.device.length>100||!Array.isArray(e.parents)||e.parents.length>1000||e.parents.some(p=>typeof p!=='string')||!Number.isFinite(Date.parse(e.at)))throw Error('同期記録の形式が正しくありません。');
       if(ids.has(e.id)){if(!equal(ids.get(e.id),e))throw Error('同期記録のIDが重複しています。');continue;}
-      if(e.key.startsWith('quest:')){if(!/^[a-zA-Z0-9_-]{1,100}$/.test(e.key.slice(6)))throw Error('冒険の同期記録が不正です。');if(e.value!==null){if(!e.value||!Array.isArray(e.value.quest))throw Error('冒険の同期記録が不正です。');C.questValid({[e.key.slice(6)]:e.value.quest});}}
+      if(e.key.startsWith('cat:')){if(!/^[a-zA-Z0-9_-]{1,100}$/.test(e.key.slice(4)))throw Error('カテゴリの同期記録が不正です。');if(e.value!==null){const [c]=C.categoriesValid([e.value.category]);if(c.id!==e.key.slice(4))throw Error('カテゴリのIDが不正です。');}}
+      else if(e.key.startsWith('quest:')){if(!/^[a-zA-Z0-9_-]{1,100}$/.test(e.key.slice(6)))throw Error('冒険の同期記録が不正です。');if(e.value!==null){if(!e.value||!Array.isArray(e.value.quest))throw Error('冒険の同期記録が不正です。');C.questValid({[e.key.slice(6)]:e.value.quest});}}
       else if(e.value!==null){const state=C.validate({...C.empty(),tasks:e.value});if(state.tasks.filter(t=>!t.parentId).length!==1||state.tasks.find(t=>!t.parentId).id!==e.key)throw Error('同期記録の親子関係が不正です。');}
       ids.set(e.id,clone(e));
     }
@@ -587,14 +625,14 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     return combine([...records.values()]);
   }
   function materialize(events,current){
-    const byKey=heads(events),existing=groups(current),tasks=[],quest={};
+    const byKey=heads(events),existing=groups(current),tasks=[],quest={},categories=[];
     for(const [key,list] of Object.entries(byKey)){
       if(key.startsWith('quest:')){const values=list.filter(e=>e.value!==null).map(e=>e.value.quest).sort((a,b)=>a[0].localeCompare(b[0])||a[1].localeCompare(b[1]));if(values.length)Object.defineProperty(quest,key.slice(6),{value:values[0],enumerable:true});continue;}
       const disputed=list.some(e=>!equalValue(e.value,list[0].value));
       const value=disputed?(existing[key]||null):list[0].value;
-      if(value)tasks.push(...clone(value));
+      if(value){if(key.startsWith('cat:'))categories.push(clone(value.category));else tasks.push(...clone(value));}
     }
-    const state={...clone(current),tasks,...(current.quest||Object.keys(quest).length?{quest}:{} )};
+    const state={...clone(current),tasks,...(current.categories||categories.length?{categories}:{}),...(current.quest||Object.keys(quest).length?{quest}:{} )};
     const pinned=tasks.find(t=>t.id===state.pinnedId),parent=pinned?.parentId?tasks.find(t=>t.id===pinned.parentId):null;
     if(!pinned||['done','waiting'].includes(pinned.status)||parent&&['done','waiting'].includes(parent.status))state.pinnedId=null;
     return C.validate(state);
@@ -711,6 +749,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     finally{busy=false;update();if(token&&pending()&&!failures)schedule();}
   }
   function branchHTML(e,device){
+    if(e.key.startsWith('cat:'))return '<strong>'+ (e.value?'カテゴリ名：'+esc(e.value.category.name):'カテゴリを削除')+'</strong><p>'+esc(e.device===device?'この端末':'別の端末')+' · '+esc(new Date(e.at).toLocaleString('ja-JP'))+'</p>';
     const states={todo:'未着手',doing:'作業中',waiting:'待ち',done:'完了済み'};
     return '<span class="sync-branch-origin">'+(e.device===device?'この端末':'別の端末 '+esc(e.device.slice(-4)))+' · '+esc(new Date(e.at).toLocaleString('ja-JP'))+'</span>'+(e.value?e.value.map(t=>'<div class="sync-task-preview"><strong>'+(t.parentId?'↳ ':'')+esc(t.title)+'</strong><p>'+esc(states[t.status])+' · '+esc(t.due||'締切なし')+(t.answers?' · 優先度'+C.priority(t.answers):'')+'</p><p class="sync-note">'+esc(t.note||'メモなし')+'</p></div>').join(''):'<strong class="sync-deleted">このタスクと子タスクを削除</strong>');
   }
@@ -920,7 +959,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   document.addEventListener('visibilitychange',updateMotion);
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches){enabled=false;updateMotion();}});
   window.addEventListener('storage',e=>{if(e.key===key&&!window.TodoWorldPreview){enabled=e.newValue==='true';if(enabled)scene();updateMotion();}});
-  function empty(state){const q=C.questInfo(state);return '<section class="quest-all-clear"><span class="clear-badge">ALL CLEAR</span><h2>ひとつずつ、全部できた。</h2><p>今あるタスクは、すべて完了。<br>剣をおいて、ひと息つこう。</p><div class="clear-parade" aria-label="騎士と解放したキャラクターたち">'+cast('hero')+q.kinds.map(cast).join('')+'</div><p class="clear-record">冒険 '+q.days+'日 · 討伐 '+Object.values(q.counts).reduce((a,b)=>a+b,0)+'体</p><div class="clear-links"><button data-action="add">＋ 次のタスクを追加</button><a href="./characters.html">キャラクター一覧を見る →</a></div></section>';}
+  function empty(state,scoped=false){const q=C.questInfo(state);return '<section class="quest-all-clear"><span class="clear-badge">ALL CLEAR</span><h2>ひとつずつ、全部できた。</h2><p>'+(scoped?'このカテゴリのタスクは、すべて完了。':'今あるタスクは、すべて完了。')+'<br>剣をおいて、ひと息つこう。</p><div class="clear-parade" aria-label="騎士と解放したキャラクターたち">'+cast('hero')+q.kinds.map(cast).join('')+'</div><p class="clear-record">冒険 '+q.days+'日 · 討伐 '+Object.values(q.counts).reduce((a,b)=>a+b,0)+'体</p><div class="clear-links"><button data-action="add">＋ 次のタスクを追加</button><a href="./characters.html">キャラクター一覧を見る →</a></div></section>';}
   window.TodoWorld={render,empty};
 })();
 </script><script>(() => {
@@ -1007,15 +1046,40 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   const expandedParents=new Set();
   let applyingSync=false;
   let state=C.empty(),view='active',query='',persisted=null,storageBroken=false,conflict=false,draft=null,importState=null,registration=null,toastTimer;
+  let selectedCategory='default';try{selectedCategory=localStorage.getItem('hitotsu-selected-category')||'default';}catch{}
+  const matchesCategory=t=>C.inCategory(state,t,selectedCategory);
+  function categoryField(){if(!draft.editing){const id=draft.parentId?C.categoryOf(state,task(draft.parentId)):draft.categoryId;return '<p class="muted category-assignment">登録先：'+esc((state.categories||[]).find(c=>c.id===id)?.name||'デフォルト')+'</p>';}return draft.parentId?'<p class="muted">カテゴリは親タスクから引き継ぎます。</p>':'<label class="field">カテゴリ<select id="task-category">'+(state.categories||[]).map(c=>'<option value="'+c.id+'" '+(draft.categoryId===c.id?'selected':'')+'>'+esc(c.name)+'</option>').join('')+'</select></label>';}
+  function renderCategories(){
+    C.ensureCategories(state);const cats=state.categories;if(!cats.some(c=>c.id===selectedCategory))selectedCategory=cats[0].id;
+    const options=cats;
+    const current=options.find(c=>c.id===selectedCategory);
+    $('#category-current-name').textContent=current.name;
+    $('#category-current').title='カテゴリ：'+current.name;
+    $('#category-current').setAttribute('aria-label','現在のカテゴリ：'+current.name+'。カテゴリを切り替える');
+    $('#category-options').innerHTML=options.map(c=>'<button type="button" data-category="'+c.id+'" aria-pressed="'+(c.id===selectedCategory)+'" class="category-option '+(c.id===selectedCategory?'selected':'')+'"><span>'+esc(c.name)+'</span><span aria-hidden="true">'+(c.id===selectedCategory?'✓':'›')+'</span></button>').join('');
+  }
+  function chooseCategory(id){selectedCategory=id;try{localStorage.setItem('hitotsu-selected-category',id);}catch{}render();}
+  function categoryRows(){
+    $('#category-rows').innerHTML=(state.categories||[]).map(c=>'<form class="category-row" data-category-id="'+c.id+'"><input aria-label="カテゴリ名" value="'+esc(c.name)+'" maxlength="60" required><button type="submit">名前を保存</button><button type="button" class="danger-action" data-delete-category="'+c.id+'" '+(state.categories.length===1?'disabled title="最後の1カテゴリは削除できません"':'')+'>削除</button></form>').join('')||'<p class="muted">カテゴリはまだありません。</p>';
+  }
+  function categoryName(value,except){const name=value.trim();if(!name||name.length>60)throw Error('カテゴリ名を1〜60文字で入力してください。');if((state.categories||[]).some(c=>c.id!==except&&c.name===name))throw Error('同じ名前のカテゴリがあります。');return name;}
+  $('#category-current').onclick=()=>{$('#category-error').textContent='';categoryRows();$('#categories-dialog').showModal();};
+  $('#category-options').onclick=e=>{const b=e.target.closest('[data-category]');if(b){chooseCategory(b.dataset.category);$('#categories-dialog').close();}};
+  $('#category-add-form').onsubmit=e=>{e.preventDefault();try{const name=categoryName($('#category-new-name').value),id=C.uid();if(mutate(()=>{(state.categories??=[]).push({id,name});},'カテゴリを追加しました')){$('#category-new-name').value='';$('#category-error').textContent='';categoryRows();chooseCategory(id);$('#categories-dialog').close();}}catch(err){$('#category-error').textContent=err.message;}};
+  $('#category-rows').onsubmit=e=>{e.preventDefault();const row=e.target,id=row.dataset.categoryId;try{const name=categoryName(row.querySelector('input').value,id);if(mutate(()=>{state.categories.find(c=>c.id===id).name=name;},'カテゴリ名を変更しました')){$('#category-error').textContent='';categoryRows();}}catch(err){$('#category-error').textContent=err.message;}};
+  let deletingCategory=null;
+  $('#category-rows').onclick=e=>{const b=e.target.closest('[data-delete-category]');if(!b||b.disabled)return;const c=state.categories.find(c=>c.id===b.dataset.deleteCategory);if(!c)return;deletingCategory=c.id;const targets=state.tasks.filter(t=>C.categoryOf(state,t)===c.id);$('#category-delete-description').textContent='「'+c.name+'」と、以下のタスク'+targets.length+'件を削除します。子タスク・完了済みも含みます。この操作は元に戻せません。';$('#category-delete-tasks').innerHTML=targets.map(t=>'<li>'+esc(t.title)+(t.parentId?'（子タスク）':'')+(t.status==='done'?'（完了済み）':'')+'</li>').join('')||'<li>タスクはありません。</li>';$('#category-delete-name').textContent=c.name;$('#category-delete-input').value='';$('#category-delete-submit').disabled=true;$('#category-delete-error').textContent='';$('#category-delete-dialog').showModal();};
+  $('#category-delete-input').oninput=()=>{const c=state.categories.find(c=>c.id===deletingCategory);$('#category-delete-submit').disabled=!c||state.categories.length<=1||$('#category-delete-input').value!==c.name;};
+  $('#category-delete-form').onsubmit=e=>{e.preventDefault();if($('#category-delete-submit').disabled)return;if(mutate(()=>C.removeCategory(state,deletingCategory,$('#category-delete-input').value),'カテゴリとタスクを削除しました')){$('#category-delete-dialog').close();categoryRows();}};
   function toast(message) { $('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),4500); }
   function warning(message) {$('#storage-warning').textContent=message;$('#storage-warning').hidden=false;}
   function load() {
     try {
       persisted=localStorage.getItem(KEY);
       if(persisted) {
-        const raw=JSON.parse(persisted);state=C.validate(raw);
+        const raw=JSON.parse(persisted);state=C.validate(raw);const beforeCategories=JSON.stringify(state);C.ensureCategories(state);
         // Migrate the current local snapshot without changing task IDs or timestamps.
-        if(raw.tasks.some(t=>Object.hasOwn(t,'history')||t.enemyVersion!==1)){
+        if(beforeCategories!==JSON.stringify(state)||raw.tasks.some(t=>Object.hasOwn(t,'history')||t.enemyVersion!==1)){
           const compact=JSON.stringify(state);localStorage.setItem(KEY,compact);persisted=compact;
         }
       }
@@ -1027,7 +1091,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     }
   }
   function save() {
-    state.revision=C.uid();
+    C.ensureCategories(state);state.revision=C.uid();
     if(storageBroken){$('#save-status').textContent='未保存の変更あり — JSONを書き出してください';return;}
     try {
       const current=localStorage.getItem(KEY);
@@ -1055,7 +1119,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   function dueText(d){if(!d)return '締切なし';const date=new Date(d+'T12:00:00');return date.toLocaleDateString('ja-JP',{year:date.getFullYear()!==new Date().getFullYear()?'numeric':undefined,month:'numeric',day:'numeric'})+' 締切';}
   function badge(t){return '<span class="pill '+(t.status==='doing'?'doing':'')+'">'+stateNames[t.status]+'</span>';}
   function check(t){return '<button class="check '+(t.status==='done'?'checked':'')+'" data-action="toggle" data-id="'+t.id+'" aria-label="'+esc(t.title)+(t.status==='done'?'を再開':'を完了')+'">'+(t.status==='done'?'✓':'')+'</button>';}
-  function meta(t){const alert=C.deadlineAlert(t),note=(t.note||'').replace(/\s+/g,' ').trim();return '<div class="task-meta">'+(note?'<button class="meta-action note-preview" data-action="edit-note" data-id="'+t.id+'" aria-label="メモを編集">'+esc(note)+'</button>':'')+'<span class="'+(alert?'deadline-'+alert.kind:'')+'">'+dueText(t.due)+'</span><button class="meta-action" data-action="edit" data-id="'+t.id+'" aria-label="状態・詳細を開く">'+badge(t)+'</button></div>';}
+  function meta(t){const category=!t.parentId&&selectedCategory==='all'?(state.categories||[]).find(c=>c.id===t.categoryId):null;const alert=C.deadlineAlert(t),note=(t.note||'').replace(/\s+/g,' ').trim();return '<div class="task-meta">'+(category?'<span class="task-category-label" title="'+esc(category.name)+'">'+esc(category.name)+'</span>':'')+(note?'<button class="meta-action note-preview" data-action="edit-note" data-id="'+t.id+'" aria-label="メモを編集">'+esc(note)+'</button>':'')+'<span class="'+(alert?'deadline-'+alert.kind:'')+'">'+dueText(t.due)+'</span><button class="meta-action" data-action="edit" data-id="'+t.id+'" aria-label="状態・詳細を開く">'+badge(t)+'</button></div>';}
   function renderChild(t,list,index){return '<div class="child-row" data-child="'+t.id+'" data-task-id="'+t.id+'" tabindex="-1"><span class="drag-handle" draggable="true" data-drag="'+t.id+'" aria-hidden="true" title="ドラッグして並べ替え">⠿</span>'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="edit" data-id="'+t.id+'">'+window.TodoAdventure.marker(t,state.tasks)+esc(t.title)+'</button>'+meta(t)+'</div><div class="child-move"><button data-action="up" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を上へ" '+(index===0?'disabled':'')+'>↑</button><button data-action="down" data-id="'+t.id+'" aria-label="'+esc(t.title)+'を下へ" '+(index===list.length-1?'disabled':'')+'>↓</button></div></div>';}
   function renderCard(t){
     const kids=C.children(state,t.id),complete=kids.filter(k=>k.status==='done').length;
@@ -1067,28 +1131,28 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     return '<article class="task-card" data-task-id="'+t.id+'" tabindex="-1"><div class="task-row'+(available(t)?' has-pin':'')+'">'+check(t)+'<div class="task-content"><button class="task-title '+(t.status==='done'?'done-title':'')+'" data-action="edit" data-id="'+t.id+'">'+window.TodoAdventure.marker(t,state.tasks)+esc(t.title)+'</button>'+meta(t)+(kids.length?window.TodoAdventure.journey(t,kids):'')+'</div>'+(available(t)?'<button class="pin '+(state.pinnedId===t.id?'is-pinned':'')+'" data-action="pin" data-id="'+t.id+'">'+(state.pinnedId===t.id?'固定中':'今やる')+'</button>':'')+'</div>'+subtree+'</article>';
   }
   function render(){
-    C.prepareQuest(state);window.TodoWorld?.render(state);
+    renderCategories();C.prepareQuest(state);window.TodoWorld?.render(state);
     if(draft?.editing)renderEditorMonster(task(draft.id));
-    const roots=state.tasks.filter(t=>!t.parentId), active=roots.filter(available).sort(C.compare), waits=roots.filter(t=>waiting(t)&&t.status!=='done'),done=roots.filter(t=>t.status==='done');
-    $('#active-count').textContent=active.length;$('#waiting-count').textContent=state.tasks.filter(t=>t.status==='waiting').length;$('#done-count').textContent=done.length;
+    const roots=state.tasks.filter(t=>!t.parentId&&matchesCategory(t)), active=roots.filter(available).sort(C.compare), waits=roots.filter(t=>waiting(t)&&t.status!=='done'),done=roots.filter(t=>t.status==='done');
+    $('#active-count').textContent=active.length;$('#waiting-count').textContent=state.tasks.filter(t=>t.status==='waiting'&&matchesCategory(t)).length;$('#done-count').textContent=done.length;
     $('#today-label').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
     $('#view-title').textContent={active:'次のひとつに、集中。',waiting:'返事を待つあいだに。',done:'積み重ねた、ひとつずつ。'}[view];
     $('#list-title').textContent={active:'優先順位',waiting:'待っているタスク',done:'完了の記録'}[view];
     document.querySelectorAll('[data-view]').forEach(b=>{b.classList.toggle('selected',b.dataset.view===view);b.setAttribute('aria-current',b.dataset.view===view?'page':'false');});
     renderFocus(active);renderUrgent();
     let visible=(view==='active'?active:view==='waiting'?roots.filter(t=>t.status!=='done' && (waiting(t)||C.children(state,t.id).some(k=>k.status==='waiting'))).sort(C.compare):done.sort((a,b)=>b.completedAt.localeCompare(a.completedAt))).filter(t=>matches(t)||C.children(state,t.id).some(matches));
-    if(!query&&view==='active'&&state.tasks.length&&state.tasks.every(t=>t.status==='done')){$('#focus').hidden=true;$('#task-list').innerHTML=window.TodoWorld?.empty(state)||'';return;}
+    if(!query&&view==='active'&&roots.length&&roots.every(t=>t.status==='done')){$('#focus').hidden=true;$('#task-list').innerHTML=window.TodoWorld?.empty(state,selectedCategory!=='all')||'';return;}
     if(!visible.length){$('#task-list').innerHTML='<div class="empty-state"><div class="empty-icon">'+(view==='done'?'✓':'≡')+'</div><h2>'+ (query?'一致するタスクはありません':view==='active'?'頭の中のタスクを、ひとつ外へ。':view==='waiting'?'待っているタスクはありません':'完了したタスクがここに残ります')+'</h2><p>'+(query?'別の言葉で検索してみてください。':view==='active'?'質問に答えると、取りかかる順番が決まります。':view==='done'?'出戻りには再開、同じ作業には複製が使えます。':'相手に渡した後は、状態を「待ち」にできます。')+'</p>'+(view==='active'&&!query?'<button class="primary" data-action="add">＋ 最初のタスクを追加</button>':'')+'</div>';return;}
     $('#task-list').innerHTML=view==='active'?[1,2,3,4].map(p=>{const group=visible.filter(t=>C.priority(t.answers)===p);return group.length?'<section class="group"><h3 class="group-head"><span class="priority-number">'+p+'</span>'+names[p]+'<span class="group-count">'+group.length+' 件</span></h3>'+group.map(renderCard).join('')+'</section>':'';}).join(''):visible.map(renderCard).join('');
   }
   function renderFocus(active){
     $('#focus').hidden=view!=='active';if(view!=='active')return;
     let selected=state.pinnedId?task(state.pinnedId):null;
-    if(selected&&!available(selected))selected=null;
+    if(selected&&(!available(selected)||!matchesCategory(selected)))selected=null;
     const pinned=!!selected;
     const actionable=p=>{const kids=C.children(state,p.id);return !kids.length||kids.every(k=>k.status==='done')||kids.some(available);};
     const today=C.today(),deadlineOrder=(a,b)=>C.compareDeadline(a,b,state.tasks);
-    if(!selected)selected=state.tasks.filter(t=>available(t)&&C.deadlineAlert(t,today)&&actionable(t)).sort(deadlineOrder)[0];
+    if(!selected)selected=state.tasks.filter(t=>matchesCategory(t)&&available(t)&&C.deadlineAlert(t,today)&&actionable(t)).sort(deadlineOrder)[0];
     if(!selected)selected=active.find(actionable);
     if(!selected){$('#focus').innerHTML='<div class="focus-empty"><strong>今やることを、ここにひとつ。</strong>優先順位が一番高いタスクを表示します。別のタスクを固定することもできます。</div>';return;}
     const kids=C.children(state,selected.id);const next=kids.filter(k=>available(k)&&C.deadlineAlert(k,today)).sort(deadlineOrder)[0]||kids.find(available);const work=next||selected;
@@ -1110,14 +1174,14 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   }
   function renderUrgent(){
     $('#urgent').hidden=view==='done';
-    const today=C.today(),urgent=state.tasks.map(t=>({task:t,alert:C.deadlineAlert(t,today)})).filter(item=>item.alert).sort((a,b)=>C.compareDeadline(a.task,b.task,state.tasks));
+    const today=C.today(),urgent=state.tasks.filter(matchesCategory).map(t=>({task:t,alert:C.deadlineAlert(t,today)})).filter(item=>item.alert).sort((a,b)=>C.compareDeadline(a.task,b.task,state.tasks));
     $('#urgent').innerHTML=urgent.length?'<div class="urgent-box"><h2>締切チェック <span>('+urgent.length+')</span></h2>'+urgent.map(({task:t,alert})=>'<div class="urgent-item"><button data-action="jump" data-id="'+t.id+'">'+esc(t.title)+(waiting(t)?'〈待ち〉':'')+'</button><span class="urgent-deadline deadline-'+alert.kind+'">'+(alert.kind==='soon'?'残り'+alert.days+'日':alert.kind==='today'?'今日':'超過（'+Number(t.due.slice(5,7))+'/'+Number(t.due.slice(8,10))+'）')+'</span></div>').join('')+'</div>':'';
   }
   function renderEditorMonster(t){const node=$('#editor-monster');node.hidden=!t;node.innerHTML=t?window.TodoAdventure.marker(t,state.tasks,true):'';}
   function openEditor(id=null,parentId=null){
     const syncBlock=window.HitotsuFirebase?.blocked();if(syncBlock){toast(syncBlock);return;}
     const t=id?task(id):null;
-    draft={id,parentId:t?t.parentId:parentId,step:0,title:t?.title||'',note:t?.note||'',due:t?.due||'',answers:t?.answers?{...t.answers}:{handoff:null,quick:null,heavy:null},editing:!!t,status:t?.status||'todo'};
+    draft={id,categoryId:t?C.categoryOf(state,t):selectedCategory,parentId:t?t.parentId:parentId,step:0,title:t?.title||'',note:t?.note||'',due:t?.due||'',answers:t?.answers?{...t.answers}:{handoff:null,quick:null,heavy:null},editing:!!t,status:t?.status||'todo'};
     $('#editor-title').textContent=t?'タスクを編集':parentId?'子タスクを追加':'タスクを追加';renderEditorMonster(t);$('#editor-error').textContent='';renderEditor();if(!$('#editor').open)$('#editor').showModal();
   }
   function editorExtras(){
@@ -1125,12 +1189,12 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     return '<label class="field">状態<select id="edit-status">'+C.statuses.map(value=>'<option value="'+value+'" '+(draft.status===value?'selected':'')+' '+(value==='done'&&blocked?'disabled':'')+'>'+stateNames[value]+'</option>').join('')+'</select></label>'+(blocked?'<p class="muted">親を完了にするには、先に子タスクをすべて完了してください。</p>':'')+'<label class="field">締切日<input id="edit-due" type="date" min="0001-01-01" max="9999-12-31" value="'+esc(draft.due)+'"></label>'+(!draft.parentId?'<div class="editor-priority"><p class="muted">現在の優先度：'+C.priority(draft.answers)+' · '+names[C.priority(draft.answers)]+'</p><button type="button" data-reassess>優先度の質問に答え直す</button></div>':'')+'<div class="editor-actions">'+(!t.parentId?'<button type="button" data-action="add-child" data-id="'+t.id+'">＋ 子タスクを追加</button>':'')+'<button type="button" data-action="duplicate" data-id="'+t.id+'">複製して新規作成</button></div><div class="editor-save-row"><div class="editor-save-info"><p class="muted editor-autosave">変更は自動保存されます。</p><p class="detail-dates">登録：'+esc(new Date(t.createdAt).toLocaleString('ja-JP'))+'</p></div><button type="button" class="danger-action" data-action="delete" data-id="'+t.id+'">削除</button></div>';
   }
   function captureEdit(){
-    draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;draft.due=$('#edit-due').value||null;draft.status=$('#edit-status').value;
+    draft.categoryId=$('#task-category')?.value||null;draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;draft.due=$('#edit-due').value||null;draft.status=$('#edit-status').value;
   }
   function renderEditor(){
     const step=draft.step;$('#editor-body').className=draft.editing&&step===0?'editing-layout':'';$('#editor-form .dialog-foot').hidden=draft.editing&&step===0;$('#editor-back').hidden=step===0;$('#editor-next').hidden=draft.editing||step>=1&&step<=3;$('#editor-next').textContent=step===4||draft.editing?'変更を保存':'次へ';if(!draft.editing&&step===4)$('#editor-next').textContent='保存する';
     const bar='<div class="steps" aria-label="登録ステップ '+(step+1)+'"><span class="filled"></span><span class="'+(step>0?'filled':'')+'"></span><span class="'+(step===4?'filled':'')+'"></span></div>';
-    if(step===0){$('#editor-body').innerHTML=(draft.editing?'':bar)+(draft.parentId?'<p class="muted">親タスク：'+esc(task(draft.parentId)?.title)+'</p>':'')+'<label class="field">タスク名<input id="todo-title-input" name="todo-title" type="text" required maxlength="200" placeholder="例：確認用の資料を仕上げる" value="'+esc(draft.title)+'" autocomplete="off"></label><label class="field">メモ <small>任意。作業の内容や、次にすることなど。</small><textarea id="task-note" name="todo-note" autocomplete="off" maxlength="20000" placeholder="補足を書いておく">'+esc(draft.note)+'</textarea></label>';if(draft.editing)$('#editor-body').innerHTML+=editorExtras();setTimeout(()=>$('#todo-title-input')?.focus(),0);}
+    if(step===0){$('#editor-body').innerHTML=(draft.editing?'':bar)+(draft.parentId?'<p class="muted">親タスク：'+esc(task(draft.parentId)?.title)+'</p>':'')+'<label class="field">タスク名<input id="todo-title-input" name="todo-title" type="text" required maxlength="200" placeholder="例：確認用の資料を仕上げる" value="'+esc(draft.title)+'" autocomplete="off"></label><label class="field">メモ <small>任意。作業の内容や、次にすることなど。</small><textarea id="task-note" name="todo-note" autocomplete="off" maxlength="20000" placeholder="補足を書いておく">'+esc(draft.note)+'</textarea></label>';$('#editor-body').innerHTML+=categoryField();if(draft.editing)$('#editor-body').innerHTML+=editorExtras();setTimeout(()=>$('#todo-title-input')?.focus(),0);}
     else if(step<=3){const r=C.rules[step-1];$('#editor-body').innerHTML=bar+'<p class="question-label">質問 '+step+' / 3</p><h3 class="question-title">'+r.title+'</h3><p class="muted">'+r.help+'</p><div class="answer-buttons"><button type="button" data-answer="yes">Yes · はい</button><button type="button" data-answer="no">No · いいえ</button></div>';setTimeout(()=>document.querySelector('[data-answer]')?.focus(),0);}
     else {
       const p=draft.parentId?null:C.priority(draft.answers);
@@ -1146,9 +1210,9 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
     if(!draft.title.trim()||draft.title.length>200||draft.note.length>20000){$('#editor-error').textContent='タスク名とメモの文字数を確認してください。';return;}
     if(!C.validDate(draft.due||null)){ $('#editor-error').textContent='締切日を確認してください。';return; }
     $('#editor-error').textContent='';
-    if(draft.id){const t=task(draft.id);if(t.title===draft.title&&t.note===draft.note&&t.due===(draft.due||null)&&(!draft.status||t.status===draft.status)&&(t.parentId||JSON.stringify(t.answers)===JSON.stringify(draft.answers))){if(close)$('#editor').close();return true;}}
+    if(draft.id){const t=task(draft.id);if((t.categoryId||null)===(draft.categoryId||null)&&t.title===draft.title&&t.note===draft.note&&t.due===(draft.due||null)&&(!draft.status||t.status===draft.status)&&(t.parentId||JSON.stringify(t.answers)===JSON.stringify(draft.answers))){if(close)$('#editor').close();return true;}}
     const ok=mutate(()=>{
-      if(draft.id){const t=task(draft.id);const changed=!t.parentId&&JSON.stringify(t.answers)!==JSON.stringify(draft.answers);t.title=draft.title;t.note=draft.note;t.due=draft.due||null;if(!t.parentId)t.answers={...draft.answers};if(draft.status&&draft.status!==t.status)C.setStatus(state,t.id,draft.status);C.event(t,'edited',changed?'内容・優先度を更新':'タスク名・メモ・締切を更新');}
+      if(draft.id){const t=task(draft.id);const changed=!t.parentId&&JSON.stringify(t.answers)!==JSON.stringify(draft.answers);t.title=draft.title;t.note=draft.note;t.due=draft.due||null;if(!t.parentId){t.answers={...draft.answers};if(draft.categoryId)t.categoryId=draft.categoryId;else delete t.categoryId;}if(draft.status&&draft.status!==t.status)C.setStatus(state,t.id,draft.status);C.event(t,'edited',changed?'内容・優先度を更新':'タスク名・メモ・締切を更新');}
       else {const parent=draft.parentId?task(draft.parentId):null;if(parent?.status==='done')C.setStatus(state,parent.id,'todo');state.tasks.push(C.makeTask({...draft,order:parent?C.children(state,parent.id).length:0},draft.parentId));}
     },draft.editing?(close?'タスクを更新しました':null):'タスクを登録しました',true);if(ok&&close)$('#editor').close();return ok;
   }
@@ -1167,7 +1231,7 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   $('#editor-body').addEventListener('change',()=>{if(draft?.editing&&draft.step===0)flushEdit();});
   $('#editor').addEventListener('cancel',e=>{if(!flushEdit())e.preventDefault();});
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&$('#editor').open)flushEdit();});
-  $('#editor-form').addEventListener('submit',e=>{e.preventDefault();if(draft.step===0){draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}if(draft.editing){captureEdit();saveDraft(false);return;}draft.step=draft.parentId?4:1;renderEditor();}else if(draft.step===4){draft.due=$('#task-due').value||null;saveDraft();}
+  $('#editor-form').addEventListener('submit',e=>{e.preventDefault();if(draft.step===0){if(draft.editing)draft.categoryId=$('#task-category')?.value||null;draft.title=$('#todo-title-input').value.trim();draft.note=$('#task-note').value;if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}if(draft.editing){captureEdit();saveDraft(false);return;}draft.step=draft.parentId?4:1;renderEditor();}else if(draft.step===4){draft.due=$('#task-due').value||null;saveDraft();}
   });
   $('#editor-back').addEventListener('click',()=>{if(draft.step===4){draft.due=$('#task-due').value;draft.step=draft.parentId?0:Math.min(C.priority(draft.answers),3);}else draft.step--;renderEditor();});
   $('#editor-body').addEventListener('click',e=>{if(e.target.closest('[data-reassess]')){captureEdit();if(!draft.title){$('#editor-error').textContent='タスク名を入力してください。';return;}if(!flushEdit())return;draft.step=1;renderEditor();return;}const b=e.target.closest('[data-answer]');if(!b)return;const i=draft.step-1;draft.answers[C.rules[i].key]=b.dataset.answer==='yes';for(let n=i+1;n<3;n++)draft.answers[C.rules[n].key]=null;draft.step=b.dataset.answer==='yes'||i===2?4:draft.step+1;if(draft.editing&&draft.step===4){if(saveDraft(false))draft.step=0;}renderEditor();});
@@ -1248,12 +1312,12 @@ html.effects-off .cave-drop,html.effects-off .cave-splash,html.effects-off .thro
   });
   window.HitotsuFirebase?.init({
     get:()=>JSON.parse(JSON.stringify(state)),
-    editing:()=>$('#editor').open||$('#confirm-dialog').open,
+    editing:()=>$('#editor').open||$('#confirm-dialog').open||$('#categories-dialog').open,
     blocked:()=>storageBroken||conflict,
     apply:next=>{
       if(storageBroken||conflict)throw Error('端末内に保存できないため、同期の反映を停止しています。');
       C.reuseQuest(next,state);
-      if(TodoSync.equal(state.tasks,next.tasks)&&state.pinnedId===next.pinnedId&&state.quest===next.quest)return;
+      if(TodoSync.equal(state.tasks,next.tasks)&&TodoSync.equal(state.categories||[],next.categories||[])&&state.pinnedId===next.pinnedId&&state.quest===next.quest)return;
       const old=state;applyingSync=true;
       try{state=next;save();if(storageBroken||conflict){state=old;throw Error('同期結果を端末内に保存できませんでした。');}render();}finally{applyingSync=false;}
     }
